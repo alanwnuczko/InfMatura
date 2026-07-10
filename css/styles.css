@@ -206,7 +206,7 @@ button, input {
 
 .search-wrapper {
   position: relative;
-  flex: 0 0 280px;
+  flex: 0 0 auto;
   width: 280px;
 }
 
@@ -774,6 +774,7 @@ button, input {
   .search-wrapper {
     width: 100%;
     max-width: 100%;
+    flex: 0 0 auto;
   }
 
   .filters-group {
@@ -783,9 +784,14 @@ button, input {
   .custom-select,
   #formula-filter,
   #level-filter,
-  #year-filter {
+  #year-filter,
+  .clear-btn {
     width: 100%;
     flex: 1 1 100%;
+  }
+
+  .clear-btn {
+    justify-content: center;
   }
 }
 

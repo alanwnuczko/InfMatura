@@ -22,7 +22,7 @@ window.EXAMS_JSON = [
       "Arkusz"
     ],
     "hasData": true,
-    "hasSolution": true,
+    "hasSolution": false, // brak rozwiązania
     "hasZasady": true
   },
   {
@@ -65,47 +65,47 @@ window.EXAMS_JSON = [
     "hasSolution": true,
     "hasZasady": true
   },
-  {
-    "id": "2023-05_PR_F2023",
-    "year": 2023,
-    "month": "05",
-    "type": "PR",
-    "formula": "F2023",
-    "parts": [
-      "Arkusz"
-    ],
-    "hasData": true,
-    "hasSolution": true,
-    "hasZasady": true
-  },
-  {
-    "id": "2022-05_PR_F2015",
-    "year": 2022,
-    "month": "05",
-    "type": "PR",
-    "formula": "F2015",
-    "parts": [
-      "Arkusz_cz1",
-      "Arkusz_cz2"
-    ],
-    "hasData": true,
-    "hasSolution": true,
-    "hasZasady": true
-  },
-  {
-    "id": "2021-05_PR_F2015",
-    "year": 2021,
-    "month": "05",
-    "type": "PR",
-    "formula": "F2015",
-    "parts": [
-      "Arkusz_cz1",
-      "Arkusz_cz2"
-    ],
-    "hasData": true,
-    "hasSolution": true,
-    "hasZasady": true
-  },
+  // {
+  //   "id": "2023-05_PR_F2023",
+  //   "year": 2023,
+  //   "month": "05",
+  //   "type": "PR",
+  //   "formula": "F2023",
+  //   "parts": [
+  //     "Arkusz"
+  //   ],
+  //   "hasData": true,
+  //   "hasSolution": true,
+  //   "hasZasady": true
+  // },
+  // {
+  //   "id": "2022-05_PR_F2015",
+  //   "year": 2022,
+  //   "month": "05",
+  //   "type": "PR",
+  //   "formula": "F2015",
+  //   "parts": [
+  //     "Arkusz_cz1",
+  //     "Arkusz_cz2"
+  //   ],
+  //   "hasData": true,
+  //   "hasSolution": true,
+  //   "hasZasady": true
+  // },
+  // {
+  //   "id": "2021-05_PR_F2015",
+  //   "year": 2021,
+  //   "month": "05",
+  //   "type": "PR",
+  //   "formula": "F2015",
+  //   "parts": [
+  //     "Arkusz_cz1",
+  //     "Arkusz_cz2"
+  //   ],
+  //   "hasData": true,
+  //   "hasSolution": true,
+  //   "hasZasady": true
+  // },
   {
     "id": "2020-06_PP_F2007",
     "year": 2020,
