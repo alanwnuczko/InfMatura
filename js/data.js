@@ -1,0 +1,84 @@
+const REPO_BASE = "https://github.com/alanwnuczko/matura-informatyka-rozszerzona";
+
+const MONTHS = {
+  "05": "Maj",
+  "06": "Czerwiec",
+  "12": "Grudzie\u0144"
+};
+
+const FORMULAS = {
+  F2007: { label: "Formu\u0142a 2007", tag: "stara" },
+  F2014: { label: "Formu\u0142a 2014", tag: "stara" },
+  F2015: { label: "Formu\u0142a 2015", tag: "stara" },
+  F2023: { label: "Formu\u0142a 2023", tag: "nowa" }
+};
+
+const EXAM_TYPES = {
+  PP: "Poziom podstawowy",
+  PR: "Poziom rozszerzony"
+};
+
+let examData = [];
+
+async function loadExamData() {
+  if (typeof window.EXAMS_JSON !== "undefined" && Array.isArray(window.EXAMS_JSON)) {
+    examData = window.EXAMS_JSON;
+    return examData;
+  }
+  try {
+    var response = await fetch("data/exams.json");
+    if (!response.ok) {
+      throw new Error("HTTP error " + response.status);
+    }
+    var fetched = await response.json();
+    if (Array.isArray(fetched)) {
+      examData = fetched;
+    }
+    return examData;
+  } catch (error) {
+    examData = [];
+    return examData;
+  }
+}
+
+function getArkuszLinks(exam) {
+  var parts = exam.parts || exam.arkpieces || [];
+  return parts.map(function (part) {
+    var label = part === "Arkusz" ? "Arkusz" : part.replace("_cz", " cz. ").replace("_", " ");
+    return {
+      label: label,
+      url: REPO_BASE + "/blob/main/Arkusze/" + exam.id + "/" + part + ".pdf"
+    };
+  });
+}
+
+function getDaneLink(exam) {
+  if (!exam.hasData) return null;
+  return REPO_BASE + "/raw/main/Arkusze/" + exam.id + "/Dane.zip";
+}
+
+function getSolutionLink(exam) {
+  if (!exam.hasSolution) return null;
+  return REPO_BASE + "/tree/main/Arkusze/" + exam.id + "/Rozwiazanie";
+}
+
+function getZasadyLink(exam) {
+  if (!exam.hasZasady) return null;
+  return REPO_BASE + "/blob/main/Arkusze/" + exam.id + "/Zasady.pdf";
+}
+
+function getDisplayTitle(exam) {
+  return MONTHS[exam.month] + " " + exam.year;
+}
+
+function getFormulaLabel(exam) {
+  return FORMULAS[exam.formula].label;
+}
+
+function getFormulaTag(exam) {
+  return FORMULAS[exam.formula].tag;
+}
+
+function getTypeLabel(exam) {
+  return EXAM_TYPES[exam.type];
+}
