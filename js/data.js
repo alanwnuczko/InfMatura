@@ -1,4 +1,5 @@
 const REPO_BASE = "https://github.com/alanwnuczko/matura-informatyka-rozszerzona";
+const PDF_CDN_BASE = "https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze";
 
 const MONTHS = {
   "05": "Maj",
@@ -47,7 +48,7 @@ function getArkuszLinks(exam) {
     var label = part === "Arkusz" ? "Arkusz" : part.replace("_cz", " cz. ").replace("_", " ");
     return {
       label: label,
-      url: REPO_BASE + "/blob/main/Arkusze/" + exam.id + "/" + part + ".pdf"
+      url: PDF_CDN_BASE + "/" + exam.id + "/" + part + ".pdf"
     };
   });
 }
@@ -64,7 +65,7 @@ function getSolutionLink(exam) {
 
 function getZasadyLink(exam) {
   if (!exam.hasZasady) return null;
-  return REPO_BASE + "/blob/main/Arkusze/" + exam.id + "/Zasady.pdf";
+  return PDF_CDN_BASE + "/" + exam.id + "/Zasady.pdf";
 }
 
 function getDisplayTitle(exam) {
