@@ -725,11 +725,16 @@ button, input {
 }
 
 @media (max-width: 920px) {
+  .exam-grid.view-list {
+    gap: 10px;
+  }
+
   .exam-grid.view-list .exam-card {
     flex-direction: column;
     align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 14px;
+    padding: 14px 16px;
+    gap: 10px;
+    border-radius: 12px;
   }
 
   .exam-grid.view-list .card-info {
@@ -737,11 +742,39 @@ button, input {
     min-width: 100%;
   }
 
+  .exam-grid.view-list .card-meta {
+    margin-bottom: 4px;
+  }
+
+  .exam-grid.view-list .card-title {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
   .exam-grid.view-list .card-links {
     width: 100%;
     max-width: 100%;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 2px;
+  }
+
+  .exam-grid.view-list .card-link {
+    display: inline-flex;
+    width: auto;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    background-color: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    gap: 5px;
   }
 }
 

@@ -134,6 +134,18 @@
         state.searchQuery = e.target.value.trim().toLowerCase();
         render();
       });
+
+      elements.searchInput.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (elements.searchInput.value !== "") {
+            elements.searchInput.value = "";
+            state.searchQuery = "";
+            render();
+          } else {
+            elements.searchInput.blur();
+          }
+        }
+      });
     }
 
     if (elements.clearBtn) {
@@ -155,6 +167,12 @@
         e.preventDefault();
         if (elements.searchInput) {
           elements.searchInput.focus();
+        }
+      } else if (e.key === "Escape") {
+        if (state.searchQuery !== "") {
+          state.searchQuery = "";
+          if (elements.searchInput) elements.searchInput.value = "";
+          render();
         }
       }
     });
