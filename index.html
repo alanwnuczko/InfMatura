@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InfMatura — Arkusze i rozwiązania maturalne z informatyki</title>
-  <meta name="description" content="Arkusze maturalne z informatyki rozszerzonej. Rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.">
-  <meta name="theme-color" content="#121215">
+  <meta name="description" content="Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.">
+  <meta name="theme-color" content="#09090B">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="alanwnuczko">
 
   <link rel="canonical" href="https://infmatura.dev/">
-  <meta property="og:title" content="InfMatura — Arkusze i rozwiązania maturalne">
-  <meta property="og:description" content="Baza arkuszy maturalnych z informatyki rozszerzonej. Rozwiązania w Pythonie, pliki z danymi oraz zasady oceniania CKE.">
+  <meta property="og:site_name" content="InfMatura">
+  <meta property="og:title" content="InfMatura — Arkusze i rozwiązania maturalne z informatyki">
+  <meta property="og:description" content="Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie, pliki z danymi oraz zasady oceniania CKE.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://infmatura.dev/">
   <meta property="og:locale" content="pl_PL">
@@ -20,13 +23,15 @@
   <meta property="og:image:alt" content="Podgląd strony InfMatura z bazą arkuszy maturalnych">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="InfMatura — Arkusze i rozwiązania maturalne">
-  <meta name="twitter:description" content="Baza arkuszy maturalnych z informatyki rozszerzonej. Rozwiązania w Pythonie oraz pliki z danymi.">
+  <meta name="twitter:title" content="InfMatura — Arkusze i rozwiązania maturalne z informatyki">
+  <meta name="twitter:description" content="Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie oraz pliki z danymi.">
   <meta name="twitter:image" content="https://infmatura.dev/assets/preview.png">
+
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,7 +39,7 @@
     "@id": "https://infmatura.dev/#website",
     "url": "https://infmatura.dev/",
     "name": "InfMatura",
-    "description": "Baza arkuszy maturalnych z informatyki rozszerzonej – rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.",
+    "description": "Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy) – rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.",
     "inLanguage": "pl",
     "publisher": {
       "@type": "Person",
@@ -45,121 +50,163 @@
   </script>
 </head>
 <body>
-
-  <noscript>
-    <div style="position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#09090B;color:#F9FAFB;font-family:system-ui,sans-serif;text-align:center;padding:32px;gap:12px">
-      <strong style="font-size:1.25rem">JavaScript jest wymagany</strong>
-      <p style="color:#9CA3AF;max-width:360px;line-height:1.6">Ta strona wymaga JavaScript do wyświetlenia bazy arkuszy. Włącz JavaScript w ustawieniach przeglądarki i odśwież stronę.</p>
-    </div>
-  </noscript>
+  <a class="skip-link" href="#main-content">Przejdź do treści</a>
 
   <header class="site-header" id="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="brand">
+      <a href="/" class="brand" aria-label="InfMatura — strona główna">
         <span class="brand-name">InfMatura</span>
       </a>
       <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona" target="_blank" rel="noopener noreferrer" class="header-link">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         <span>GitHub</span>
-        <svg class="header-arrow" viewBox="0 0 16 16" fill="none" width="12" height="12"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="header-arrow" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1 class="hero-title">Arkusze i&nbsp;rozwiązania maturalne z&nbsp;informatyki.</h1>
-        <p class="hero-description">
-          Baza arkuszy maturalnych z&nbsp;informatyki rozszerzonej. Rozwiązania w&nbsp;Pythonie, pliki z&nbsp;danymi oraz zasady oceniania CKE.
-        </p>
-        <div class="hero-cta-group">
-          <a href="#baza-arkuszy" class="btn-cta">Przejdź do bazy arkuszy ↓</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="archive-section" id="baza-arkuszy">
-    <div class="container">
-      <div class="toolbar">
-        <div class="search-wrapper">
-          <label for="search-input" class="sr-only">Szukaj arkuszy maturalnych</label>
-          <svg class="search-icon" viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <input
-            type="text"
-            id="search-input"
-            class="search-input"
-            placeholder="Szukaj sesji, roku lub formuły..."
-            aria-label="Szukaj arkuszy maturalnych"
-            autocomplete="off"
-            spellcheck="false"
-          >
-        </div>
-
-        <div class="filters-group">
-          <div class="custom-select" id="formula-filter">
-            <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="formula-listbox" aria-label="Filtruj według formuły">
-              <span class="custom-select-value">Wszystkie formuły</span>
-              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="custom-select-dropdown" role="listbox" id="formula-listbox" aria-label="Formuła egzaminu">
-              <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true">Wszystkie formuły</div>
-              <div class="custom-select-option" data-value="2023" role="option" aria-selected="false">Formuła 2023</div>
-              <div class="custom-select-option" data-value="2015" role="option" aria-selected="false">Formuła 2015</div>
-              <div class="custom-select-option" data-value="inne" role="option" aria-selected="false">Inne formuły</div>
-            </div>
-          </div>
-
-          <div class="custom-select" id="level-filter">
-            <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="level-listbox" aria-label="Filtruj według poziomu">
-              <span class="custom-select-value">Wszystkie poziomy</span>
-              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="custom-select-dropdown" role="listbox" id="level-listbox" aria-label="Poziom egzaminu">
-              <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true">Wszystkie poziomy</div>
-              <div class="custom-select-option" data-value="PR" role="option" aria-selected="false">Poziom rozszerzony</div>
-              <div class="custom-select-option" data-value="PP" role="option" aria-selected="false">Poziom podstawowy</div>
-            </div>
-          </div>
-
-          <div class="custom-select" id="year-filter">
-            <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="year-listbox" aria-label="Filtruj według roku">
-              <span class="custom-select-value">Wszystkie lata</span>
-              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="custom-select-dropdown" role="listbox" id="year-listbox" aria-label="Rok egzaminu">
-              <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true">Wszystkie lata</div>
-            </div>
-          </div>
-
-          <button class="clear-btn" id="clear-filters" type="button">
-            Wyczyść filtry
-          </button>
-        </div>
-
-        <div class="toolbar-right">
-          <span id="result-count" class="result-count"></span>
-          <div class="view-switcher" id="view-switcher">
-            <button class="view-btn active" data-view="grid" type="button" aria-label="Widok kart" title="Widok kart">
-              <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M2 2H6.5V6.5H2V2ZM9.5 2H14V6.5H9.5V2ZM2 9.5H6.5V14H2V9.5ZM9.5 9.5H14V14H9.5V9.5Z" fill="currentColor"/></svg>
-            </button>
-            <button class="view-btn" data-view="list" type="button" aria-label="Widok listy" title="Widok listy">
-              <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M2.5 3.5H13.5M2.5 8H13.5M2.5 12.5H13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </button>
+  <main id="main-content" class="site-main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content">
+          <h1 id="hero-title" class="hero-title">Arkusze i&nbsp;rozwiązania maturalne z&nbsp;informatyki.</h1>
+          <p class="hero-description">
+            Baza arkuszy maturalnych z&nbsp;informatyki na poziomie rozszerzonym i&nbsp;podstawowym. Rozwiązania w&nbsp;Pythonie, pliki z&nbsp;danymi oraz zasady oceniania CKE.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#baza-arkuszy" class="btn-cta">Przejdź do bazy arkuszy ↓</a>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="exam-grid" id="exam-grid"></div>
+    <section class="archive-section" id="baza-arkuszy" aria-labelledby="archive-heading">
+      <div class="container">
+        <h2 id="archive-heading" class="section-heading">Baza arkuszy</h2>
 
-      <div class="no-results" id="no-results">
-        <p class="no-results-title">Brak wyników</p>
-        <p class="no-results-text">Nie odnaleziono arkuszy dla podanych kryteriów wyszukiwania.</p>
+        <div class="toolbar" role="search" aria-label="Filtrowanie arkuszy">
+          <div class="search-wrapper">
+            <label for="search-input" class="sr-only">Szukaj arkuszy maturalnych</label>
+            <svg class="search-icon" viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input
+              type="search"
+              id="search-input"
+              class="search-input"
+              placeholder="Szukaj sesji, roku lub formuły..."
+              aria-label="Szukaj arkuszy maturalnych"
+              autocomplete="off"
+              spellcheck="false"
+              enterkeyhint="search"
+            >
+          </div>
+
+          <div class="filters-group">
+            <div class="custom-select" id="formula-filter">
+              <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="formula-listbox" aria-label="Filtruj według formuły">
+                <span class="custom-select-value">Wszystkie formuły</span>
+                <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="custom-select-dropdown" role="listbox" id="formula-listbox" aria-label="Formuła egzaminu" tabindex="-1">
+                <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true" id="formula-opt-all">Wszystkie formuły</div>
+                <div class="custom-select-option" data-value="2023" role="option" aria-selected="false" id="formula-opt-2023">Formuła 2023</div>
+                <div class="custom-select-option" data-value="2015" role="option" aria-selected="false" id="formula-opt-2015">Formuła 2015</div>
+                <div class="custom-select-option" data-value="inne" role="option" aria-selected="false" id="formula-opt-inne">Inne formuły</div>
+              </div>
+            </div>
+
+            <div class="custom-select" id="level-filter">
+              <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="level-listbox" aria-label="Filtruj według poziomu">
+                <span class="custom-select-value">Wszystkie poziomy</span>
+                <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="custom-select-dropdown" role="listbox" id="level-listbox" aria-label="Poziom egzaminu" tabindex="-1">
+                <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true" id="level-opt-all">Wszystkie poziomy</div>
+                <div class="custom-select-option" data-value="PR" role="option" aria-selected="false" id="level-opt-pr">Poziom rozszerzony</div>
+                <div class="custom-select-option" data-value="PP" role="option" aria-selected="false" id="level-opt-pp">Poziom podstawowy</div>
+              </div>
+            </div>
+
+            <div class="custom-select" id="year-filter">
+              <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="year-listbox" aria-label="Filtruj według roku">
+                <span class="custom-select-value">Wszystkie lata</span>
+                <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="custom-select-dropdown" role="listbox" id="year-listbox" aria-label="Rok egzaminu" tabindex="-1">
+                <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true" id="year-opt-all">Wszystkie lata</div>
+              </div>
+            </div>
+
+            <button class="clear-btn" id="clear-filters" type="button">
+              Wyczyść filtry
+            </button>
+          </div>
+
+          <div class="toolbar-right">
+            <span id="result-count" class="result-count" aria-live="polite"></span>
+            <div class="view-switcher" id="view-switcher" role="group" aria-label="Sposób wyświetlania">
+              <button class="view-btn active" data-view="grid" type="button" aria-label="Widok kart" aria-pressed="true" title="Widok kart">
+                <svg viewBox="0 0 16 16" fill="none" width="14" height="14" aria-hidden="true"><path d="M2 2H6.5V6.5H2V2ZM9.5 2H14V6.5H9.5V2ZM2 9.5H6.5V14H2V9.5ZM9.5 9.5H14V14H9.5V9.5Z" fill="currentColor"/></svg>
+              </button>
+              <button class="view-btn" data-view="list" type="button" aria-label="Widok listy" aria-pressed="false" title="Widok listy">
+                <svg viewBox="0 0 16 16" fill="none" width="14" height="14" aria-hidden="true"><path d="M2.5 3.5H13.5M2.5 8H13.5M2.5 12.5H13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-grid" id="exam-grid" aria-live="polite"></div>
+
+        <div class="no-results" id="no-results" role="status">
+          <p class="no-results-title">Brak wyników</p>
+          <p class="no-results-text">Nie odnaleziono arkuszy dla podanych kryteriów wyszukiwania.</p>
+        </div>
+
+        <noscript>
+          <div class="static-archive" style="display:block">
+            <p class="hero-description" style="margin-bottom:16px;font-size:1rem">JavaScript jest wyłączony. Poniżej pełna lista arkuszy z linkami do materiałów.</p>
+            <ul class="static-archive-list">
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2026-05_PR_F2023/Arkusz.pdf">Maj 2026 — Poziom rozszerzony (Formuła 2023)</a>
+                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2025-06_PR_F2023/Arkusz.pdf">Czerwiec 2025 — Poziom rozszerzony (Formuła 2023)</a>
+                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2025-05_PR_F2023/Arkusz.pdf">Maj 2025 — Poziom rozszerzony (Formuła 2023)</a>
+                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2024-12_PR_F2023/Arkusz.pdf">Grudzień 2024 — Poziom rozszerzony (Formuła 2023)</a>
+                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2024-05_PR_F2015/Arkusz_cz1.pdf">Maj 2024 — Poziom rozszerzony (Formuła 2015)</a>
+                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2020-06_PP_F2007/Arkusz_cz1.pdf">Czerwiec 2020 — Poziom podstawowy (Formuła 2007)</a>
+                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2019-05_PR_F2015/Arkusz_cz1.pdf">Maj 2019 — Poziom rozszerzony (Formuła 2015)</a>
+                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2019-05_PP_F2007/Arkusz_cz1.pdf">Maj 2019 — Poziom podstawowy (Formuła 2007)</a>
+                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+              <li class="static-archive-item">
+                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2018-05_PP_F2007/Arkusz_cz1.pdf">Maj 2018 — Poziom podstawowy (Formuła 2007)</a>
+                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
+              </li>
+            </ul>
+          </div>
+        </noscript>
       </div>
-
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -167,16 +214,17 @@
         <a href="https://github.com/alanwnuczko" target="_blank" rel="noopener noreferrer" class="footer-copy-link">&copy; <span id="current-year"></span> alanwnuczko</a>
       </div>
       <div class="footer-right">
-        <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona/issues" target="_blank" rel="noopener noreferrer" class="footer-issues-link">
+        <a href="/polityka-prywatnosci.html" class="footer-link">Polityka prywatności</a>
+        <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona/issues" target="_blank" rel="noopener noreferrer" class="footer-link">
           <span>Zgłoszenia</span>
-          <svg class="issues-arrow" viewBox="0 0 16 16" fill="none" width="12" height="12"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="issues-arrow" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
     </div>
   </footer>
 
-  <script src="data/exams.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <script src="data/exams.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
