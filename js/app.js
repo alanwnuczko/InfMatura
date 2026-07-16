@@ -9,15 +9,17 @@
   };
 
   var elements = {};
+  var activeSelect = null;
 
   async function init() {
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
-    if (window.location.hash) {
-      history.replaceState("", document.title, window.location.pathname + window.location.search);
+
+    var pendingHash = window.location.hash;
+    if (!pendingHash) {
+      window.scrollTo(0, 0);
     }
-    window.scrollTo(0, 0);
 
     document.documentElement.setAttribute("data-theme", "dark");
     cacheElements();
@@ -32,8 +34,13 @@
     }
 
     populateYearFilter();
+    readUrlState();
     render();
     injectExamsSchema();
+
+    if (pendingHash) {
+      scrollToExam(pendingHash.slice(1));
+    }
   }
 
   function cacheElements() {
@@ -50,53 +57,150 @@
     elements.viewSwitcher = document.getElementById("view-switcher");
   }
 
+  function closeAllSelects(except) {
+    document.querySelectorAll(".custom-select").forEach(function (select) {
+      if (except && select === except) return;
+      select.classList.remove("open");
+      var trigger = select.querySelector(".custom-select-trigger");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+      clearActiveOption(select);
+    });
+    if (!except) activeSelect = null;
+  }
+
+  function getOptions(select) {
+    return Array.prototype.slice.call(select.querySelectorAll(".custom-select-option"));
+  }
+
+  function clearActiveOption(select) {
+    getOptions(select).forEach(function (opt) {
+      opt.classList.remove("is-active");
+    });
+  }
+
+  function setActiveOption(select, option) {
+    clearActiveOption(select);
+    if (!option) return;
+    option.classList.add("is-active");
+    var trigger = select.querySelector(".custom-select-trigger");
+    if (trigger && option.id) {
+      trigger.setAttribute("aria-activedescendant", option.id);
+    }
+    if (option.scrollIntoView) {
+      option.scrollIntoView({ block: "nearest" });
+    }
+  }
+
+  function openSelect(select) {
+    closeAllSelects(select);
+    select.classList.add("open");
+    activeSelect = select;
+    var trigger = select.querySelector(".custom-select-trigger");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
+    var selected = select.querySelector(".custom-select-option.selected") || getOptions(select)[0];
+    setActiveOption(select, selected);
+  }
+
+  function closeSelect(select, restoreFocus) {
+    select.classList.remove("open");
+    var trigger = select.querySelector(".custom-select-trigger");
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.removeAttribute("aria-activedescendant");
+      if (restoreFocus) trigger.focus();
+    }
+    clearActiveOption(select);
+    if (activeSelect === select) activeSelect = null;
+  }
+
   function initCustomSelects() {
     var allSelects = document.querySelectorAll(".custom-select");
+
     allSelects.forEach(function (select) {
       var trigger = select.querySelector(".custom-select-trigger");
-      var dropdown = select.querySelector(".custom-select-dropdown");
-      var options = select.querySelectorAll(".custom-select-option");
-
       if (!trigger) return;
 
       trigger.addEventListener("click", function (e) {
         e.stopPropagation();
-        allSelects.forEach(function (other) {
-          if (other !== select) {
-            other.classList.remove("open");
-            var otherTrigger = other.querySelector(".custom-select-trigger");
-            if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
-          }
-        });
-        var isOpen = select.classList.toggle("open");
-        trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        if (select.classList.contains("open")) {
+          closeSelect(select, false);
+        } else {
+          openSelect(select);
+        }
       });
 
-      options.forEach(function (option) {
-        option.addEventListener("click", function (e) {
-          e.stopPropagation();
-          selectOption(select, option);
-        });
+      trigger.addEventListener("keydown", function (e) {
+        handleSelectKeydown(select, e);
+      });
+
+      select.addEventListener("click", function (e) {
+        var option = e.target.closest(".custom-select-option");
+        if (!option || !select.contains(option)) return;
+        e.stopPropagation();
+        selectOption(select, option);
       });
     });
 
     document.addEventListener("click", function () {
-      allSelects.forEach(function (s) {
-        s.classList.remove("open");
-        var t = s.querySelector(".custom-select-trigger");
-        if (t) t.setAttribute("aria-expanded", "false");
-      });
+      closeAllSelects();
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        allSelects.forEach(function (s) {
-          s.classList.remove("open");
-          var t = s.querySelector(".custom-select-trigger");
-          if (t) t.setAttribute("aria-expanded", "false");
-        });
+      if (e.key === "Escape" && activeSelect) {
+        closeSelect(activeSelect, true);
       }
     });
+  }
+
+  function handleSelectKeydown(select, e) {
+    var options = getOptions(select);
+    if (!options.length) return;
+
+    var isOpen = select.classList.contains("open");
+    var active = select.querySelector(".custom-select-option.is-active");
+    var index = active ? options.indexOf(active) : options.findIndex(function (o) {
+      return o.classList.contains("selected");
+    });
+    if (index < 0) index = 0;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (!isOpen) {
+        openSelect(select);
+        return;
+      }
+      index = Math.min(options.length - 1, index + 1);
+      setActiveOption(select, options[index]);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!isOpen) {
+        openSelect(select);
+        return;
+      }
+      index = Math.max(0, index - 1);
+      setActiveOption(select, options[index]);
+    } else if (e.key === "Home") {
+      if (!isOpen) return;
+      e.preventDefault();
+      setActiveOption(select, options[0]);
+    } else if (e.key === "End") {
+      if (!isOpen) return;
+      e.preventDefault();
+      setActiveOption(select, options[options.length - 1]);
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!isOpen) {
+        openSelect(select);
+        return;
+      }
+      var current = select.querySelector(".custom-select-option.is-active") || options[index];
+      if (current) selectOption(select, current);
+    } else if (e.key === "Escape") {
+      if (isOpen) {
+        e.preventDefault();
+        closeSelect(select, true);
+      }
+    }
   }
 
   function selectOption(selectEl, optionEl) {
@@ -115,8 +219,7 @@
       valueDisplay.textContent = optionEl.textContent;
     }
 
-    selectEl.classList.remove("open");
-    if (trigger) trigger.setAttribute("aria-expanded", "false");
+    closeSelect(selectEl, true);
 
     var value = optionEl.getAttribute("data-value");
     if (selectEl.id === "formula-filter") {
@@ -130,24 +233,23 @@
     render();
   }
 
-  function getSelectValue(selectEl) {
-    var selected = selectEl.querySelector(".custom-select-option.selected");
-    return selected ? selected.getAttribute("data-value") : "all";
-  }
-
   function setSelectValue(selectEl, value) {
+    if (!selectEl) return;
     var options = selectEl.querySelectorAll(".custom-select-option");
     var valueDisplay = selectEl.querySelector(".custom-select-value");
+    var matched = false;
     options.forEach(function (o) {
-      if (o.getAttribute("data-value") === value) {
+      if (String(o.getAttribute("data-value")) === String(value)) {
         o.classList.add("selected");
         o.setAttribute("aria-selected", "true");
-        valueDisplay.textContent = o.textContent;
+        if (valueDisplay) valueDisplay.textContent = o.textContent;
+        matched = true;
       } else {
         o.classList.remove("selected");
         o.setAttribute("aria-selected", "false");
       }
     });
+    return matched;
   }
 
   function bindEvents() {
@@ -177,39 +279,39 @@
         state.levelFilter = "all";
         state.yearFilter = "all";
         if (elements.searchInput) elements.searchInput.value = "";
-        if (elements.formulaFilter) setSelectValue(elements.formulaFilter, "all");
-        if (elements.levelFilter) setSelectValue(elements.levelFilter, "all");
-        if (elements.yearFilter) setSelectValue(elements.yearFilter, "all");
+        setSelectValue(elements.formulaFilter, "all");
+        setSelectValue(elements.levelFilter, "all");
+        setSelectValue(elements.yearFilter, "all");
         render();
       });
     }
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "/" && document.activeElement !== elements.searchInput && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+      if (
+        e.key === "/" &&
+        document.activeElement !== elements.searchInput &&
+        !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName) &&
+        !document.activeElement.isContentEditable
+      ) {
         e.preventDefault();
-        if (elements.searchInput) {
-          elements.searchInput.focus();
-        }
-      } else if (e.key === "Escape") {
-        if (state.searchQuery !== "") {
-          state.searchQuery = "";
-          if (elements.searchInput) elements.searchInput.value = "";
-          render();
-        }
+        if (elements.searchInput) elements.searchInput.focus();
       }
     });
 
-    var smoothLinks = document.querySelectorAll('a[href^="#"]');
-    smoothLinks.forEach(function (link) {
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       link.addEventListener("click", function (e) {
         var targetId = link.getAttribute("href");
-        if (targetId === "#") return;
+        if (!targetId || targetId === "#") return;
         var target = document.querySelector(targetId);
-        if (target) {
-          e.preventDefault();
-          var headerHeight = elements.header ? elements.header.offsetHeight : 0;
-          var targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24;
-          window.scrollTo({ top: targetTop, behavior: "smooth" });
+        if (!target) return;
+        e.preventDefault();
+        var headerHeight = elements.header ? elements.header.offsetHeight : 0;
+        var targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24;
+        window.scrollTo({ top: targetTop, behavior: "smooth" });
+        if (history.replaceState) {
+          var cleanUrl = window.location.pathname + window.location.search;
+          if (targetId !== "#baza-arkuszy") cleanUrl += targetId;
+          history.replaceState(null, "", cleanUrl);
         }
       });
     });
@@ -219,32 +321,75 @@
     if (!elements.yearFilter) return;
     var years = [];
     examData.forEach(function (exam) {
-      if (years.indexOf(exam.year) === -1) {
-        years.push(exam.year);
-      }
+      if (years.indexOf(exam.year) === -1) years.push(exam.year);
     });
     years.sort(function (a, b) { return b - a; });
 
     var dropdown = elements.yearFilter.querySelector(".custom-select-dropdown");
     if (!dropdown) return;
+
     years.forEach(function (year) {
       var opt = document.createElement("div");
       opt.className = "custom-select-option";
       opt.setAttribute("data-value", year);
       opt.setAttribute("role", "option");
       opt.setAttribute("aria-selected", "false");
+      opt.id = "year-opt-" + year;
       opt.textContent = year;
-      opt.addEventListener("click", function (e) {
-        e.stopPropagation();
-        selectOption(elements.yearFilter, opt);
-      });
       dropdown.appendChild(opt);
     });
   }
 
+  function readUrlState() {
+    var params = new URLSearchParams(window.location.search);
+
+    if (params.has("q")) {
+      var q = params.get("q") || "";
+      state.searchQuery = q.trim().toLowerCase();
+      if (elements.searchInput) elements.searchInput.value = q;
+    }
+
+    if (params.has("formula")) {
+      var formula = params.get("formula");
+      if (setSelectValue(elements.formulaFilter, formula)) {
+        state.formulaFilter = formula;
+      }
+    }
+
+    if (params.has("level")) {
+      var level = params.get("level");
+      if (setSelectValue(elements.levelFilter, level)) {
+        state.levelFilter = level;
+      }
+    }
+
+    if (params.has("year")) {
+      var year = params.get("year");
+      if (setSelectValue(elements.yearFilter, year)) {
+        state.yearFilter = year;
+      }
+    }
+  }
+
+  function syncUrl() {
+    var params = new URLSearchParams();
+    if (state.searchQuery) params.set("q", state.searchQuery);
+    if (state.formulaFilter !== "all") params.set("formula", state.formulaFilter);
+    if (state.levelFilter !== "all") params.set("level", state.levelFilter);
+    if (state.yearFilter !== "all") params.set("year", state.yearFilter);
+
+    var qs = params.toString();
+    var hash = window.location.hash || "";
+    var next = window.location.pathname + (qs ? "?" + qs : "") + hash;
+    var current = window.location.pathname + window.location.search + window.location.hash;
+    if (next !== current) {
+      history.replaceState(null, "", next);
+    }
+  }
+
   function setCurrentYear() {
     if (elements.currentYear) {
-      elements.currentYear.textContent = new Date().getFullYear();
+      elements.currentYear.textContent = String(new Date().getFullYear());
     }
   }
 
@@ -260,12 +405,12 @@
         }
       }
 
-      if (state.levelFilter !== "all") {
-        if (exam.type !== state.levelFilter) return false;
+      if (state.levelFilter !== "all" && exam.type !== state.levelFilter) {
+        return false;
       }
 
-      if (state.yearFilter !== "all") {
-        if (exam.year !== parseInt(state.yearFilter)) return false;
+      if (state.yearFilter !== "all" && exam.year !== parseInt(state.yearFilter, 10)) {
+        return false;
       }
 
       if (state.searchQuery) {
@@ -291,6 +436,7 @@
   function render() {
     if (!elements.grid) return;
     var filtered = getFilteredData();
+    syncUrl();
 
     var hasActiveFilters =
       state.searchQuery !== "" ||
@@ -301,10 +447,10 @@
     if (elements.resultCount) {
       if (hasActiveFilters) {
         elements.resultCount.classList.add("result-count--filtered");
-        elements.resultCount.innerHTML = 'Znaleziono: <strong>' + filtered.length + '</strong> z ' + examData.length;
+        elements.resultCount.innerHTML = "Znaleziono: <strong>" + filtered.length + "</strong> z " + examData.length;
       } else {
         elements.resultCount.classList.remove("result-count--filtered");
-        elements.resultCount.innerHTML = 'Arkusze: <strong>' + filtered.length + '</strong> z ' + examData.length;
+        elements.resultCount.innerHTML = "Arkusze: <strong>" + filtered.length + "</strong> z " + examData.length;
       }
     }
 
@@ -325,16 +471,15 @@
     if (elements.noResults) elements.noResults.style.display = "none";
     elements.grid.innerHTML = "";
 
-    filtered.forEach(function (exam, index) {
-      var card = buildCard(exam, index);
-      elements.grid.appendChild(card);
+    filtered.forEach(function (exam) {
+      elements.grid.appendChild(buildCard(exam));
     });
   }
 
-
-  function buildCard(exam, index) {
+  function buildCard(exam) {
     var card = document.createElement("article");
     card.className = "exam-card";
+    card.id = exam.id;
 
     var formulaLabel = getFormulaLabel(exam);
     var typeLabel = getTypeLabel(exam);
@@ -347,13 +492,12 @@
       formulaClass = "pill-badge--f2015";
     }
 
-    var typeClass = "pill-badge--pr";
-    if (exam.type === "PP" || typeLabel.indexOf("podstawowy") !== -1) {
-      typeClass = "pill-badge--pp";
-    }
+    var typeClass = exam.type === "PP" || typeLabel.indexOf("podstawowy") !== -1
+      ? "pill-badge--pp"
+      : "pill-badge--pr";
 
-    var arrowUpSVG = '<svg class="link-arrow-svg" viewBox="0 0 16 16" fill="none" width="12" height="12"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    var arrowDownSVG = '<svg class="link-arrow-svg" viewBox="0 0 16 16" fill="none" width="12" height="12"><path d="M8 3.5V12.5M8 12.5L4.5 9M8 12.5L11.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var arrowUpSVG = '<svg class="link-arrow-svg" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var arrowDownSVG = '<svg class="link-arrow-svg" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M8 3.5V12.5M8 12.5L4.5 9M8 12.5L11.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
     var headerHTML =
       '<div class="card-info">' +
@@ -361,13 +505,12 @@
           '<span class="pill-badge ' + typeClass + '">' + typeLabel + '</span>' +
           '<span class="pill-badge ' + formulaClass + '">' + formulaLabel + '</span>' +
         '</div>' +
-        '<h2 class="card-title">' + displayTitle + '</h2>' +
+        '<h3 class="card-title">' + displayTitle + '</h3>' +
       '</div>';
 
     var linksHTML = '<div class="card-links">';
 
-    var arkLinks = getArkuszLinks(exam);
-    arkLinks.forEach(function (link) {
+    getArkuszLinks(exam).forEach(function (link) {
       var pdfTitle = link.label === "Arkusz" ? "Arkusz PDF" : link.label;
       linksHTML +=
         '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
@@ -397,20 +540,40 @@
     }
 
     linksHTML += '</div>';
-
     card.innerHTML = headerHTML + linksHTML;
     return card;
   }
 
+  function scrollToExam(examId) {
+    if (!examId) return;
+    requestAnimationFrame(function () {
+      var el = document.getElementById(examId);
+      if (!el) return;
+      var headerHeight = elements.header ? elements.header.offsetHeight : 0;
+      var top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24;
+      window.scrollTo({ top: top, behavior: "smooth" });
+      el.classList.add("is-highlighted");
+      window.setTimeout(function () {
+        el.classList.remove("is-highlighted");
+      }, 2200);
+    });
+  }
+
   function initScrollHeader() {
     if (!elements.header) return;
+    var ticking = false;
+
     window.addEventListener("scroll", function () {
-      var current = window.pageYOffset;
-      if (current > 48) {
-        elements.header.classList.add("header--scrolled");
-      } else {
-        elements.header.classList.remove("header--scrolled");
-      }
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        if (window.pageYOffset > 48) {
+          elements.header.classList.add("header--scrolled");
+        } else {
+          elements.header.classList.remove("header--scrolled");
+        }
+        ticking = false;
+      });
     }, { passive: true });
   }
 
@@ -418,7 +581,13 @@
     if (!elements.viewSwitcher || !elements.grid) return;
 
     var btns = elements.viewSwitcher.querySelectorAll(".view-btn");
-    var currentView = localStorage.getItem("archive_view_mode") || "grid";
+    var currentView = "grid";
+
+    try {
+      currentView = localStorage.getItem("archive_view_mode") || "grid";
+    } catch (err) {
+      currentView = "grid";
+    }
 
     function setView(viewMode) {
       currentView = viewMode;
@@ -427,21 +596,22 @@
       } else {
         elements.grid.classList.remove("view-list");
       }
+
       btns.forEach(function (btn) {
-        if (btn.getAttribute("data-view") === viewMode) {
-          btn.classList.add("active");
-        } else {
-          btn.classList.remove("active");
-        }
+        var isActive = btn.getAttribute("data-view") === viewMode;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
-      localStorage.setItem("archive_view_mode", viewMode);
+
+      try {
+        localStorage.setItem("archive_view_mode", viewMode);
+      } catch (err) {}
     }
 
-    setView(currentView);
+    setView(currentView === "list" ? "list" : "grid");
 
     elements.viewSwitcher.addEventListener("click", function () {
-      var nextView = currentView === "grid" ? "list" : "grid";
-      setView(nextView);
+      setView(currentView === "grid" ? "list" : "grid");
     });
   }
 
@@ -450,7 +620,11 @@
     if (existing) existing.remove();
 
     var items = examData.map(function (exam, i) {
-      var title = "Matura z Informatyki \u2013 " + MONTHS[exam.month] + " " + exam.year + ", " + EXAM_TYPES[exam.type] + " (" + FORMULAS[exam.formula].label + ")";
+      var title =
+        "Matura z Informatyki \u2013 " +
+        MONTHS[exam.month] + " " + exam.year + ", " +
+        EXAM_TYPES[exam.type] + " (" + FORMULAS[exam.formula].label + ")";
+
       return {
         "@type": "ListItem",
         "position": i + 1,
@@ -460,7 +634,7 @@
           "name": title,
           "url": "https://infmatura.dev/#" + exam.id,
           "inLanguage": "pl",
-          "datePublished": exam.year + "-" + exam.month,
+          "datePublished": exam.year + "-" + exam.month + "-01",
           "learningResourceType": "Exam paper",
           "educationalLevel": "Upper Secondary Education",
           "assesses": "Informatyka",
