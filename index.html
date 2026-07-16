@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfMatura</title>
+  <title>InfMatura — Arkusze i rozwiązania maturalne z informatyki</title>
   <meta name="description" content="Arkusze maturalne z informatyki rozszerzonej. Rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.">
   <meta name="theme-color" content="#121215">
 
@@ -23,12 +23,35 @@
   <meta name="twitter:title" content="InfMatura — Arkusze i rozwiązania maturalne">
   <meta name="twitter:description" content="Baza arkuszy maturalnych z informatyki rozszerzonej. Rozwiązania w Pythonie oraz pliki z danymi.">
   <meta name="twitter:image" content="https://infmatura.dev/assets/preview.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://infmatura.dev/#website",
+    "url": "https://infmatura.dev/",
+    "name": "InfMatura",
+    "description": "Baza arkuszy maturalnych z informatyki rozszerzonej – rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.",
+    "inLanguage": "pl",
+    "publisher": {
+      "@type": "Person",
+      "name": "alanwnuczko",
+      "url": "https://github.com/alanwnuczko"
+    }
+  }
+  </script>
 </head>
 <body>
+
+  <noscript>
+    <div style="position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#09090B;color:#F9FAFB;font-family:system-ui,sans-serif;text-align:center;padding:32px;gap:12px">
+      <strong style="font-size:1.25rem">JavaScript jest wymagany</strong>
+      <p style="color:#9CA3AF;max-width:360px;line-height:1.6">Ta strona wymaga JavaScript do wyświetlenia bazy arkuszy. Włącz JavaScript w ustawieniach przeglądarki i odśwież stronę.</p>
+    </div>
+  </noscript>
 
   <header class="site-header" id="site-header">
     <div class="container header-inner">
@@ -61,12 +84,14 @@
     <div class="container">
       <div class="toolbar">
         <div class="search-wrapper">
-          <svg class="search-icon" viewBox="0 0 20 20" fill="none" width="16" height="16"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <label for="search-input" class="sr-only">Szukaj arkuszy maturalnych</label>
+          <svg class="search-icon" viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           <input
             type="text"
             id="search-input"
             class="search-input"
             placeholder="Szukaj sesji, roku lub formuły..."
+            aria-label="Szukaj arkuszy maturalnych"
             autocomplete="off"
             spellcheck="false"
           >
@@ -74,37 +99,37 @@
 
         <div class="filters-group">
           <div class="custom-select" id="formula-filter">
-            <button class="custom-select-trigger" type="button">
+            <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="formula-listbox" aria-label="Filtruj według formuły">
               <span class="custom-select-value">Wszystkie formuły</span>
-              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <div class="custom-select-dropdown">
-              <div class="custom-select-option selected" data-value="all">Wszystkie formuły</div>
-              <div class="custom-select-option" data-value="2023">Formuła 2023</div>
-              <div class="custom-select-option" data-value="2015">Formuła 2015</div>
-              <div class="custom-select-option" data-value="inne">Inne formuły</div>
+            <div class="custom-select-dropdown" role="listbox" id="formula-listbox" aria-label="Formuła egzaminu">
+              <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true">Wszystkie formuły</div>
+              <div class="custom-select-option" data-value="2023" role="option" aria-selected="false">Formuła 2023</div>
+              <div class="custom-select-option" data-value="2015" role="option" aria-selected="false">Formuła 2015</div>
+              <div class="custom-select-option" data-value="inne" role="option" aria-selected="false">Inne formuły</div>
             </div>
           </div>
 
           <div class="custom-select" id="level-filter">
-            <button class="custom-select-trigger" type="button">
+            <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="level-listbox" aria-label="Filtruj według poziomu">
               <span class="custom-select-value">Wszystkie poziomy</span>
-              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <div class="custom-select-dropdown">
-              <div class="custom-select-option selected" data-value="all">Wszystkie poziomy</div>
-              <div class="custom-select-option" data-value="PR">Poziom rozszerzony</div>
-              <div class="custom-select-option" data-value="PP">Poziom podstawowy</div>
+            <div class="custom-select-dropdown" role="listbox" id="level-listbox" aria-label="Poziom egzaminu">
+              <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true">Wszystkie poziomy</div>
+              <div class="custom-select-option" data-value="PR" role="option" aria-selected="false">Poziom rozszerzony</div>
+              <div class="custom-select-option" data-value="PP" role="option" aria-selected="false">Poziom podstawowy</div>
             </div>
           </div>
 
           <div class="custom-select" id="year-filter">
-            <button class="custom-select-trigger" type="button">
+            <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="year-listbox" aria-label="Filtruj według roku">
               <span class="custom-select-value">Wszystkie lata</span>
-              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="custom-select-arrow" viewBox="0 0 12 12" fill="none" width="12" height="12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <div class="custom-select-dropdown">
-              <div class="custom-select-option selected" data-value="all">Wszystkie lata</div>
+            <div class="custom-select-dropdown" role="listbox" id="year-listbox" aria-label="Rok egzaminu">
+              <div class="custom-select-option selected" data-value="all" role="option" aria-selected="true">Wszystkie lata</div>
             </div>
           </div>
 

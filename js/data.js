@@ -9,7 +9,6 @@ const MONTHS = {
 
 const FORMULAS = {
   F2007: { label: "Formu\u0142a 2007", tag: "stara" },
-  F2014: { label: "Formu\u0142a 2014", tag: "stara" },
   F2015: { label: "Formu\u0142a 2015", tag: "stara" },
   F2023: { label: "Formu\u0142a 2023", tag: "nowa" }
 };
