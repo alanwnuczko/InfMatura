@@ -33,6 +33,7 @@
 
     populateYearFilter();
     render();
+    injectExamsSchema();
   }
 
   function cacheElements() {
@@ -61,9 +62,14 @@
       trigger.addEventListener("click", function (e) {
         e.stopPropagation();
         allSelects.forEach(function (other) {
-          if (other !== select) other.classList.remove("open");
+          if (other !== select) {
+            other.classList.remove("open");
+            var otherTrigger = other.querySelector(".custom-select-trigger");
+            if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+          }
         });
-        select.classList.toggle("open");
+        var isOpen = select.classList.toggle("open");
+        trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
       });
 
       options.forEach(function (option) {
@@ -75,12 +81,20 @@
     });
 
     document.addEventListener("click", function () {
-      allSelects.forEach(function (s) { s.classList.remove("open"); });
+      allSelects.forEach(function (s) {
+        s.classList.remove("open");
+        var t = s.querySelector(".custom-select-trigger");
+        if (t) t.setAttribute("aria-expanded", "false");
+      });
     });
 
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") {
-        allSelects.forEach(function (s) { s.classList.remove("open"); });
+        allSelects.forEach(function (s) {
+          s.classList.remove("open");
+          var t = s.querySelector(".custom-select-trigger");
+          if (t) t.setAttribute("aria-expanded", "false");
+        });
       }
     });
   }
@@ -88,15 +102,21 @@
   function selectOption(selectEl, optionEl) {
     var valueDisplay = selectEl.querySelector(".custom-select-value");
     var allOptions = selectEl.querySelectorAll(".custom-select-option");
+    var trigger = selectEl.querySelector(".custom-select-trigger");
 
-    allOptions.forEach(function (o) { o.classList.remove("selected"); });
+    allOptions.forEach(function (o) {
+      o.classList.remove("selected");
+      o.setAttribute("aria-selected", "false");
+    });
     optionEl.classList.add("selected");
+    optionEl.setAttribute("aria-selected", "true");
 
     if (valueDisplay) {
       valueDisplay.textContent = optionEl.textContent;
     }
 
     selectEl.classList.remove("open");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
 
     var value = optionEl.getAttribute("data-value");
     if (selectEl.id === "formula-filter") {
@@ -121,9 +141,11 @@
     options.forEach(function (o) {
       if (o.getAttribute("data-value") === value) {
         o.classList.add("selected");
+        o.setAttribute("aria-selected", "true");
         valueDisplay.textContent = o.textContent;
       } else {
         o.classList.remove("selected");
+        o.setAttribute("aria-selected", "false");
       }
     });
   }
@@ -185,7 +207,9 @@
         var target = document.querySelector(targetId);
         if (target) {
           e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth" });
+          var headerHeight = elements.header ? elements.header.offsetHeight : 0;
+          var targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24;
+          window.scrollTo({ top: targetTop, behavior: "smooth" });
         }
       });
     });
@@ -207,6 +231,8 @@
       var opt = document.createElement("div");
       opt.className = "custom-select-option";
       opt.setAttribute("data-value", year);
+      opt.setAttribute("role", "option");
+      opt.setAttribute("aria-selected", "false");
       opt.textContent = year;
       opt.addEventListener("click", function (e) {
         e.stopPropagation();
@@ -417,6 +443,63 @@
       var nextView = currentView === "grid" ? "list" : "grid";
       setView(nextView);
     });
+  }
+
+  function injectExamsSchema() {
+    var existing = document.getElementById("schema-ld-exams");
+    if (existing) existing.remove();
+
+    var items = examData.map(function (exam, i) {
+      var title = "Matura z Informatyki \u2013 " + MONTHS[exam.month] + " " + exam.year + ", " + EXAM_TYPES[exam.type] + " (" + FORMULAS[exam.formula].label + ")";
+      return {
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": ["LearningResource", "DigitalDocument"],
+          "@id": "https://infmatura.dev/#" + exam.id,
+          "name": title,
+          "url": "https://infmatura.dev/#" + exam.id,
+          "inLanguage": "pl",
+          "datePublished": exam.year + "-" + exam.month,
+          "learningResourceType": "Exam paper",
+          "educationalLevel": "Upper Secondary Education",
+          "assesses": "Informatyka",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Centralna Komisja Egzaminacyjna",
+            "url": "https://cke.gov.pl"
+          }
+        }
+      };
+    });
+
+    var schema = {
+      "@context": "https://schema.org",
+      "@type": ["CollectionPage", "WebPage"],
+      "@id": "https://infmatura.dev/#archive",
+      "name": "Baza arkuszy maturalnych z informatyki \u2013 InfMatura",
+      "description": "Archiwum arkuszy CKE z informatyki rozszerzonej i podstawowej. Zawiera arkusze PDF, rozwiązania w Pythonie oraz zasady oceniania.",
+      "url": "https://infmatura.dev/",
+      "inLanguage": "pl",
+      "isPartOf": { "@id": "https://infmatura.dev/#website" },
+      "about": {
+        "@type": "Thing",
+        "name": "Egzamin maturalny z informatyki",
+        "sameAs": "https://www.gov.pl/web/edukacja/egzamin-maturalny"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Arkusze maturalne z informatyki",
+        "numberOfItems": examData.length,
+        "itemListElement": items
+      }
+    };
+
+    var script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = "schema-ld-exams";
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
   }
 
   if (document.readyState === "loading") {

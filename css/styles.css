@@ -31,6 +31,23 @@
   padding: 0;
 }
 
+::selection {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -79,6 +96,14 @@ button, input {
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 0.2s ease, border-color 0.2s ease, backdrop-filter 0.2s ease;
+}
+
+.header--scrolled {
+  background-color: rgba(9, 9, 11, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .header-inner {
@@ -355,11 +380,15 @@ button, input {
   border: 1px solid var(--border-line);
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+  opacity: 0;
+  transform: scale(0.94);
 }
 
 .clear-btn.is-visible {
   display: inline-flex;
+  opacity: 1;
+  transform: scale(1);
 }
 
 .clear-btn:hover {
@@ -496,9 +525,9 @@ button, input {
 }
 
 .pill-badge--fother {
-  background-color: rgba(12, 48, 89, 0.55);
-  border-color: rgba(12, 48, 89, 0.9);
-  color: #8cc2ff;
+  background-color: rgba(20, 88, 80, 0.25);
+  border-color: rgba(32, 140, 128, 0.45);
+  color: #5ecdc0;
 }
 
 .card-title {
