@@ -160,18 +160,40 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-left">
-        <a href="https://github.com/alanwnuczko" target="_blank" rel="noopener noreferrer" class="footer-copy-link">&copy; <span id="current-year"></span> alanwnuczko</a>
+      <div class="footer-bar">
+        <div class="footer-left">
+          <a href="https://github.com/alanwnuczko" target="_blank" rel="noopener noreferrer" class="footer-copy-link">&copy; <span id="current-year"></span> alanwnuczko</a>
+        </div>
+        <div class="footer-right">
+          <a href="/polityka-prywatnosci.html" class="footer-link" aria-current="page">Polityka prywatności</a>
+          <a href="/" class="footer-link">Strona główna</a>
+        </div>
       </div>
-      <div class="footer-right">
-        <a href="/polityka-prywatnosci.html" class="footer-link" aria-current="page">Polityka prywatności</a>
-        <a href="/" class="footer-link">Strona główna</a>
-      </div>
+      <p class="footer-disclaimer">
+        Arkusze i&nbsp;zasady oceniania pochodzą z&nbsp;CKE. Rozwiązania w&nbsp;Pythonie są nieoficjalne i&nbsp;nie stanowią materiałów Centralnej Komisji Egzaminacyjnej.
+      </p>
     </div>
   </footer>
 
   <script>
     document.getElementById("current-year").textContent = String(new Date().getFullYear());
+
+    const header = document.getElementById("site-header");
+    if (header) {
+      let ticking = false;
+      window.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          if (window.pageYOffset > 48) {
+            header.classList.add("header--scrolled");
+          } else {
+            header.classList.remove("header--scrolled");
+          }
+          ticking = false;
+        });
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>
