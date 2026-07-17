@@ -51,10 +51,23 @@
     elements.yearFilter = document.getElementById("year-filter");
     elements.resultCount = document.getElementById("result-count");
     elements.clearBtn = document.getElementById("clear-filters");
+    elements.noResultsClear = document.getElementById("no-results-clear");
     elements.header = document.getElementById("site-header");
     elements.currentYear = document.getElementById("current-year");
     elements.noResults = document.getElementById("no-results");
     elements.viewSwitcher = document.getElementById("view-switcher");
+  }
+
+  function clearFilters() {
+    state.searchQuery = "";
+    state.formulaFilter = "all";
+    state.levelFilter = "all";
+    state.yearFilter = "all";
+    if (elements.searchInput) elements.searchInput.value = "";
+    setSelectValue(elements.formulaFilter, "all");
+    setSelectValue(elements.levelFilter, "all");
+    setSelectValue(elements.yearFilter, "all");
+    render();
   }
 
   function closeAllSelects(except) {
@@ -273,17 +286,11 @@
     }
 
     if (elements.clearBtn) {
-      elements.clearBtn.addEventListener("click", function () {
-        state.searchQuery = "";
-        state.formulaFilter = "all";
-        state.levelFilter = "all";
-        state.yearFilter = "all";
-        if (elements.searchInput) elements.searchInput.value = "";
-        setSelectValue(elements.formulaFilter, "all");
-        setSelectValue(elements.levelFilter, "all");
-        setSelectValue(elements.yearFilter, "all");
-        render();
-      });
+      elements.clearBtn.addEventListener("click", clearFilters);
+    }
+
+    if (elements.noResultsClear) {
+      elements.noResultsClear.addEventListener("click", clearFilters);
     }
 
     document.addEventListener("keydown", function (e) {

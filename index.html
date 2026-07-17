@@ -159,50 +159,15 @@
         <div class="no-results" id="no-results" role="status">
           <p class="no-results-title">Brak wyników</p>
           <p class="no-results-text">Nie odnaleziono arkuszy dla podanych kryteriów wyszukiwania.</p>
+          <button class="no-results-clear" id="no-results-clear" type="button">
+            Wyczyść filtry
+          </button>
         </div>
 
         <noscript>
-          <div class="static-archive" style="display:block">
-            <p class="hero-description" style="margin-bottom:16px;font-size:1rem">JavaScript jest wyłączony. Poniżej pełna lista arkuszy z linkami do materiałów.</p>
-            <ul class="static-archive-list">
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2026-05_PR_F2023/Arkusz.pdf">Maj 2026 — Poziom rozszerzony (Formuła 2023)</a>
-                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2025-06_PR_F2023/Arkusz.pdf">Czerwiec 2025 — Poziom rozszerzony (Formuła 2023)</a>
-                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2025-05_PR_F2023/Arkusz.pdf">Maj 2025 — Poziom rozszerzony (Formuła 2023)</a>
-                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2024-12_PR_F2023/Arkusz.pdf">Grudzień 2024 — Poziom rozszerzony (Formuła 2023)</a>
-                <span class="static-archive-meta">Arkusz PDF · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2024-05_PR_F2015/Arkusz_cz1.pdf">Maj 2024 — Poziom rozszerzony (Formuła 2015)</a>
-                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2020-06_PP_F2007/Arkusz_cz1.pdf">Czerwiec 2020 — Poziom podstawowy (Formuła 2007)</a>
-                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2019-05_PR_F2015/Arkusz_cz1.pdf">Maj 2019 — Poziom rozszerzony (Formuła 2015)</a>
-                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2019-05_PP_F2007/Arkusz_cz1.pdf">Maj 2019 — Poziom podstawowy (Formuła 2007)</a>
-                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-              <li class="static-archive-item">
-                <a href="https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze/2018-05_PP_F2007/Arkusz_cz1.pdf">Maj 2018 — Poziom podstawowy (Formuła 2007)</a>
-                <span class="static-archive-meta">Arkusz cz. 1 i 2 · Dane · Zasady oceniania · Rozwiązanie Python</span>
-              </li>
-            </ul>
-          </div>
+          <p class="no-results-text" style="display:block;padding:24px 0">
+            JavaScript jest wyłączony. Włącz go w przeglądarce, aby korzystać z bazy arkuszy.
+          </p>
         </noscript>
       </div>
     </section>
@@ -210,16 +175,21 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-left">
-        <a href="https://github.com/alanwnuczko" target="_blank" rel="noopener noreferrer" class="footer-copy-link">&copy; <span id="current-year"></span> alanwnuczko</a>
+      <div class="footer-bar">
+        <div class="footer-left">
+          <a href="https://github.com/alanwnuczko" target="_blank" rel="noopener noreferrer" class="footer-copy-link">&copy; <span id="current-year"></span> alanwnuczko</a>
+        </div>
+        <div class="footer-right">
+          <a href="/polityka-prywatnosci.html" class="footer-link">Polityka prywatności</a>
+          <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona/issues" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <span>Zgłoszenia</span>
+            <svg class="issues-arrow" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="footer-right">
-        <a href="/polityka-prywatnosci.html" class="footer-link">Polityka prywatności</a>
-        <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona/issues" target="_blank" rel="noopener noreferrer" class="footer-link">
-          <span>Zgłoszenia</span>
-          <svg class="issues-arrow" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
+      <p class="footer-disclaimer">
+        Arkusze i&nbsp;zasady oceniania pochodzą z&nbsp;CKE. Rozwiązania w&nbsp;Pythonie są nieoficjalne i&nbsp;nie stanowią materiałów Centralnej Komisji Egzaminacyjnej.
+      </p>
     </div>
   </footer>
 
