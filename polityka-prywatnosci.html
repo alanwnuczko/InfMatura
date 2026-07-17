@@ -172,6 +172,23 @@
 
   <script>
     document.getElementById("current-year").textContent = String(new Date().getFullYear());
+
+    const header = document.getElementById("site-header");
+    if (header) {
+      let ticking = false;
+      window.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          if (window.pageYOffset > 48) {
+            header.classList.add("header--scrolled");
+          } else {
+            header.classList.remove("header--scrolled");
+          }
+          ticking = false;
+        });
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>
