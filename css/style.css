@@ -71,6 +71,7 @@ html {
   background-color: var(--bg-main);
   color: var(--text-primary);
   color-scheme: dark;
+  scrollbar-gutter: stable;
 }
 
 body {
