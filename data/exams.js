@@ -65,6 +65,19 @@ window.EXAMS_JSON = [
     "hasSolution": true,
     "hasZasady": true
   },
+    {
+    "id": "2022-12_PR_F2023",
+    "year": 2022,
+    "month": "12",
+    "type": "PR",
+    "formula": "F2023",
+    "parts": [
+      "Arkusz"
+    ],
+    "hasData": true,
+    "hasSolution": true,
+    "hasZasady": true
+  },
   // {
   //   "id": "2023-05_PR_F2023",
   //   "year": 2023,
