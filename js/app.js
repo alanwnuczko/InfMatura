@@ -26,6 +26,7 @@
     initCustomSelects();
     bindEvents();
     initScrollHeader();
+    initBackToTop();
     initViewSwitcher();
     setCurrentYear();
 
@@ -37,6 +38,7 @@
     readUrlState();
     render();
     injectExamsSchema();
+    updateBackToTop();
 
     if (pendingHash) {
       scrollToExam(pendingHash.slice(1));
@@ -56,6 +58,7 @@
     elements.currentYear = document.getElementById("current-year");
     elements.noResults = document.getElementById("no-results");
     elements.viewSwitcher = document.getElementById("view-switcher");
+    elements.backToTop = document.getElementById("back-to-top");
   }
 
   function clearFilters() {
@@ -472,6 +475,7 @@
     if (filtered.length === 0) {
       elements.grid.innerHTML = "";
       if (elements.noResults) elements.noResults.style.display = "block";
+      updateBackToTop();
       return;
     }
 
@@ -481,6 +485,7 @@
     filtered.forEach(function (exam) {
       elements.grid.appendChild(buildCard(exam));
     });
+    updateBackToTop();
   }
 
   function buildCard(exam) {
@@ -579,9 +584,39 @@
         } else {
           elements.header.classList.remove("header--scrolled");
         }
+        updateBackToTop();
         ticking = false;
       });
     }, { passive: true });
+  }
+
+  function updateBackToTop() {
+    if (!elements.backToTop) return;
+    var docHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+    var midDoc = docHeight / 2;
+    var midView = window.pageYOffset + window.innerHeight / 2;
+    var show = midView >= midDoc;
+
+    elements.backToTop.hidden = false;
+    elements.backToTop.classList.toggle("is-visible", show);
+    elements.backToTop.setAttribute("aria-hidden", show ? "false" : "true");
+  }
+
+  function initBackToTop() {
+    if (!elements.backToTop) return;
+
+    elements.backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    window.addEventListener("resize", function () {
+      updateBackToTop();
+    }, { passive: true });
+
+    updateBackToTop();
   }
 
   function initViewSwitcher() {

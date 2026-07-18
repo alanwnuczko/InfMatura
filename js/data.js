@@ -20,25 +20,13 @@ const EXAM_TYPES = {
 
 let examData = [];
 
-async function loadExamData() {
+function loadExamData() {
   if (typeof window.EXAMS_JSON !== "undefined" && Array.isArray(window.EXAMS_JSON)) {
     examData = window.EXAMS_JSON;
-    return examData;
-  }
-  try {
-    var response = await fetch("data/exams.json");
-    if (!response.ok) {
-      throw new Error("HTTP error " + response.status);
-    }
-    var fetched = await response.json();
-    if (Array.isArray(fetched)) {
-      examData = fetched;
-    }
-    return examData;
-  } catch (error) {
+  } else {
     examData = [];
-    return examData;
   }
+  return examData;
 }
 
 function getArkuszLinks(exam) {
