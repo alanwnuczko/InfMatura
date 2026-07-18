@@ -65,7 +65,7 @@ window.EXAMS_JSON = [
     "hasSolution": true,
     "hasZasady": true
   },
-    {
+  {
     "id": "2022-12_PR_F2023",
     "year": 2022,
     "month": "12",
@@ -164,6 +164,34 @@ window.EXAMS_JSON = [
   {
     "id": "2018-05_PP_F2007",
     "year": 2018,
+    "month": "05",
+    "type": "PP",
+    "formula": "F2007",
+    "parts": [
+      "Arkusz_cz1",
+      "Arkusz_cz2"
+    ],
+    "hasData": true,
+    "hasSolution": true,
+    "hasZasady": true
+  },
+  {
+    "id": "2017-05_PP_F2007",
+    "year": 2017,
+    "month": "05",
+    "type": "PP",
+    "formula": "F2007",
+    "parts": [
+      "Arkusz_cz1",
+      "Arkusz_cz2"
+    ],
+    "hasData": true,
+    "hasSolution": true,
+    "hasZasady": true
+  },
+  {
+    "id": "2016-05_PP_F2007",
+    "year": 2016,
     "month": "05",
     "type": "PP",
     "formula": "F2007",
