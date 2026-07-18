@@ -628,7 +628,7 @@
 
     var items = examData.map(function (exam, i) {
       var title =
-        "Matura z Informatyki \u2013 " +
+        "Matura z Informatyki - " +
         MONTHS[exam.month] + " " + exam.year + ", " +
         EXAM_TYPES[exam.type] + " (" + FORMULAS[exam.formula].label + ")";
 
@@ -658,7 +658,7 @@
       "@context": "https://schema.org",
       "@type": ["CollectionPage", "WebPage"],
       "@id": "https://infmatura.dev/#archive",
-      "name": "Baza arkuszy maturalnych z informatyki \u2013 InfMatura",
+      "name": "Baza arkuszy maturalnych z informatyki - InfMatura",
       "description": "Archiwum arkuszy CKE z informatyki rozszerzonej i podstawowej. Zawiera arkusze PDF, rozwiązania w Pythonie oraz zasady oceniania.",
       "url": "https://infmatura.dev/",
       "inLanguage": "pl",
