@@ -562,7 +562,7 @@
         body.innerHTML = injectFillBlanks(question.html || "", question);
       }
 
-      var feedback = document.createElement("p");
+      var feedback = document.createElement("div");
       feedback.className = "question-feedback";
       feedback.hidden = true;
 
@@ -580,11 +580,103 @@
     });
   }
 
+  function formatExpectedDisplay(value) {
+    return String(value == null ? "" : value).trim();
+  }
+
+  function clearFillReveals(card) {
+    card.querySelectorAll(".answer-reveal").forEach(function (el) {
+      el.remove();
+    });
+
+    card.querySelectorAll("[data-user-value]").forEach(function (input) {
+      input.value = input.getAttribute("data-user-value") || "";
+      input.removeAttribute("data-user-value");
+      input.removeAttribute("readonly");
+      if (input.hasAttribute("data-prev-aria")) {
+        var prevAria = input.getAttribute("data-prev-aria");
+        if (prevAria) {
+          input.setAttribute("aria-label", prevAria);
+        } else {
+          input.removeAttribute("aria-label");
+        }
+        input.removeAttribute("data-prev-aria");
+      }
+    });
+  }
+
+  function revealFillAnswer(input, expectedRaw) {
+    var display = formatExpectedDisplay(expectedRaw);
+    if (!display) return;
+
+    var isDigit = input.classList.contains("math-input--digit");
+    var inAdditionGrid = !!(input.closest && input.closest(".addition-grid"));
+
+    if (isDigit || inAdditionGrid) {
+      if (!input.hasAttribute("data-user-value")) {
+        input.setAttribute("data-user-value", input.value);
+      }
+      if (!input.hasAttribute("data-prev-aria")) {
+        input.setAttribute(
+          "data-prev-aria",
+          input.getAttribute("aria-label") || ""
+        );
+      }
+      input.value = display;
+      input.setAttribute("readonly", "readonly");
+      input.classList.add("is-revealed");
+      input.setAttribute("aria-label", "Poprawna odpowiedź: " + display);
+      return;
+    }
+
+    var reveal = document.createElement("span");
+    reveal.className = "answer-reveal";
+    reveal.textContent = display;
+    reveal.setAttribute("title", "Poprawna odpowiedź");
+    reveal.setAttribute("aria-label", "Poprawna odpowiedź: " + display);
+    input.insertAdjacentElement("afterend", reveal);
+  }
+
+  function markCorrectPfChoice(row, expected) {
+    if (!row || !expected) return;
+    var correctInput = row.querySelector(
+      'input.pf-radio[value="' + expected + '"]'
+    );
+    if (!correctInput) return;
+    var label = correctInput.closest(".pf-choice");
+    if (label) {
+      label.classList.add("is-correct", "is-answer-key");
+    }
+  }
+
+  function markCorrectChoiceOption(card, expected) {
+    if (!expected) return;
+    var correctInput = card.querySelector(
+      'input.choice-radio[value="' + expected + '"]'
+    );
+    if (!correctInput) return;
+    var label = correctInput.closest(".choice-option");
+    if (label) {
+      label.classList.add("is-correct", "is-answer-key");
+    }
+  }
+
   function clearCheckMarks(card) {
     card.classList.remove("is-correct", "is-incorrect", "is-partial", "is-checked");
-    card.querySelectorAll(".is-correct, .is-incorrect, .is-missed").forEach(function (el) {
-      el.classList.remove("is-correct", "is-incorrect", "is-missed");
-    });
+    card
+      .querySelectorAll(
+        ".is-correct, .is-incorrect, .is-missed, .is-revealed, .is-answer-key"
+      )
+      .forEach(function (el) {
+        el.classList.remove(
+          "is-correct",
+          "is-incorrect",
+          "is-missed",
+          "is-revealed",
+          "is-answer-key"
+        );
+      });
+    clearFillReveals(card);
     var feedback = card.querySelector(".question-feedback");
     if (feedback) {
       feedback.hidden = true;
@@ -601,15 +693,26 @@
     var correctParts = 0;
     var totalParts = expected.length || inputs.length;
     var allAnswered = true;
+    var revealedAnswers = [];
 
     inputs.forEach(function (input, i) {
       var user = normalizeFillAnswer(input.value);
-      var exp = normalizeFillAnswer(expected[i]);
-      input.classList.remove("is-correct", "is-incorrect", "is-missed");
+      var rawExpected = expected[i];
+      var exp = normalizeFillAnswer(rawExpected);
+      input.classList.remove(
+        "is-correct",
+        "is-incorrect",
+        "is-missed",
+        "is-revealed"
+      );
 
       if (!user) {
         allAnswered = false;
         input.classList.add("is-missed");
+        if (exp) {
+          revealFillAnswer(input, rawExpected);
+          revealedAnswers.push(formatExpectedDisplay(rawExpected));
+        }
         return;
       }
 
@@ -618,6 +721,10 @@
         correctParts += 1;
       } else {
         input.classList.add("is-incorrect");
+        if (exp) {
+          revealFillAnswer(input, rawExpected);
+          revealedAnswers.push(formatExpectedDisplay(rawExpected));
+        }
       }
     });
 
@@ -625,7 +732,10 @@
       correctParts: correctParts,
       totalParts: totalParts,
       allAnswered: allAnswered && totalParts > 0,
-      fullyCorrect: totalParts > 0 && correctParts === totalParts
+      fullyCorrect: totalParts > 0 && correctParts === totalParts,
+      correctSummary: revealedAnswers.length
+        ? "Poprawne: " + revealedAnswers.join(" · ")
+        : ""
     };
   }
 
@@ -634,24 +744,30 @@
     var correctParts = 0;
     var totalParts = items.length;
     var allAnswered = true;
+    var revealedParts = [];
 
     items.forEach(function (item, itemIndex) {
       var row = card.querySelector('.tf-row[data-item-index="' + itemIndex + '"]');
       if (!row) return;
 
-      var selected = row.querySelector('input.pf-radio:checked');
+      var selected = row.querySelector("input.pf-radio:checked");
       var faces = row.querySelectorAll(".pf-choice");
       faces.forEach(function (face) {
-        face.classList.remove("is-correct", "is-incorrect", "is-missed");
+        face.classList.remove(
+          "is-correct",
+          "is-incorrect",
+          "is-missed",
+          "is-answer-key"
+        );
       });
 
       var expected = normalizePf(item.answer);
+      var partLabel = itemIndex + 1 + ". " + (expected || "?");
 
       if (!selected) {
         allAnswered = false;
-        faces.forEach(function (face) {
-          face.classList.add("is-missed");
-        });
+        markCorrectPfChoice(row, expected);
+        revealedParts.push(partLabel);
         return;
       }
 
@@ -661,8 +777,10 @@
       if (user === expected) {
         correctParts += 1;
         if (selectedLabel) selectedLabel.classList.add("is-correct");
-      } else if (selectedLabel) {
-        selectedLabel.classList.add("is-incorrect");
+      } else {
+        if (selectedLabel) selectedLabel.classList.add("is-incorrect");
+        markCorrectPfChoice(row, expected);
+        revealedParts.push(partLabel);
       }
     });
 
@@ -670,7 +788,10 @@
       correctParts: correctParts,
       totalParts: totalParts,
       allAnswered: allAnswered && totalParts > 0,
-      fullyCorrect: totalParts > 0 && correctParts === totalParts
+      fullyCorrect: totalParts > 0 && correctParts === totalParts,
+      correctSummary: revealedParts.length
+        ? "Poprawne: " + revealedParts.join(" · ")
+        : ""
     };
   }
 
@@ -680,18 +801,22 @@
     var options = card.querySelectorAll(".choice-option");
 
     options.forEach(function (opt) {
-      opt.classList.remove("is-correct", "is-incorrect", "is-missed");
+      opt.classList.remove(
+        "is-correct",
+        "is-incorrect",
+        "is-missed",
+        "is-answer-key"
+      );
     });
 
     if (!selected) {
-      options.forEach(function (opt) {
-        opt.classList.add("is-missed");
-      });
+      markCorrectChoiceOption(card, expected);
       return {
         correctParts: 0,
         totalParts: 1,
         allAnswered: false,
-        fullyCorrect: false
+        fullyCorrect: false,
+        correctSummary: expected ? "Poprawna odpowiedź: " + expected : ""
       };
     }
 
@@ -699,15 +824,20 @@
     var selectedLabel = selected.closest(".choice-option");
     var isCorrect = user === expected;
 
-    if (selectedLabel) {
-      selectedLabel.classList.add(isCorrect ? "is-correct" : "is-incorrect");
+    if (isCorrect) {
+      if (selectedLabel) selectedLabel.classList.add("is-correct");
+    } else {
+      if (selectedLabel) selectedLabel.classList.add("is-incorrect");
+      markCorrectChoiceOption(card, expected);
     }
 
     return {
       correctParts: isCorrect ? 1 : 0,
       totalParts: 1,
       allAnswered: true,
-      fullyCorrect: isCorrect
+      fullyCorrect: isCorrect,
+      correctSummary:
+        !isCorrect && expected ? "Poprawna odpowiedź: " + expected : ""
     };
   }
 
@@ -716,42 +846,52 @@
     card.classList.add("is-checked");
     card.classList.remove("is-correct", "is-incorrect", "is-partial");
 
+    if (!feedback) return;
+
+    feedback.hidden = false;
+    feedback.textContent = "";
+
+    var status = document.createElement("span");
+    status.className = "question-feedback-status";
+
     if (!result.totalParts) {
-      if (feedback) {
-        feedback.hidden = false;
-        feedback.textContent = "Brak zdefiniowanych odpowiedzi do sprawdzenia.";
-        feedback.className = "question-feedback is-neutral";
-      }
+      feedback.className = "question-feedback is-neutral";
+      status.textContent = "Brak zdefiniowanych odpowiedzi do sprawdzenia.";
+      feedback.appendChild(status);
       return;
     }
 
     if (result.fullyCorrect) {
       card.classList.add("is-correct");
-      if (feedback) {
-        feedback.hidden = false;
-        feedback.textContent = "Poprawnie";
-        feedback.className = "question-feedback is-ok";
-      }
+      feedback.className = "question-feedback is-ok";
+      status.textContent = "Poprawnie";
+      feedback.appendChild(status);
       return;
     }
 
     if (result.correctParts === 0) {
       card.classList.add("is-incorrect");
-      if (feedback) {
-        feedback.hidden = false;
-        feedback.textContent =
-          "Błędnie (" + result.correctParts + "/" + result.totalParts + ")";
-        feedback.className = "question-feedback is-bad";
-      }
-      return;
+      feedback.className = "question-feedback is-bad";
+      status.textContent =
+        "Błędnie (" + result.correctParts + "/" + result.totalParts + ")";
+    } else {
+      card.classList.add("is-partial");
+      feedback.className = "question-feedback is-partial-msg";
+      status.textContent =
+        "Częściowo poprawnie (" +
+        result.correctParts +
+        "/" +
+        result.totalParts +
+        ")";
     }
 
-    card.classList.add("is-partial");
-    if (feedback) {
-      feedback.hidden = false;
-      feedback.textContent =
-        "Częściowo poprawnie (" + result.correctParts + "/" + result.totalParts + ")";
-      feedback.className = "question-feedback is-partial-msg";
+    feedback.appendChild(status);
+
+    if (result.correctSummary) {
+      var key = document.createElement("span");
+      key.className = "question-feedback-key";
+      key.textContent = result.correctSummary;
+      feedback.appendChild(key);
     }
   }
 

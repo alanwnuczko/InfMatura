@@ -25,7 +25,7 @@
 
   <link rel="stylesheet" href="css/fonts.css?v=1.3">
   <link rel="stylesheet" href="css/style.css?v=1.3">
-  <link rel="stylesheet" href="css/pytania.css?v=1.14">
+  <link rel="stylesheet" href="css/pytania.css?v=1.16">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
@@ -45,80 +45,104 @@
   </header>
 
   <main id="main-content" class="site-main">
-    <section class="hero questions-hero" aria-labelledby="questions-title">
-      <div class="container">
-        <div class="hero-content">
-          <h1 id="questions-title" class="hero-title">Pytania teoretyczne.</h1>
-          <p class="hero-description questions-hero-desc">
-            Ćwicz teorię maturalną: systemy, sieci, SQL, algorytmy.
-            Wybierz temat i&nbsp;wylosuj zestaw.
-          </p>
+    <div class="js-app">
+      <section class="hero questions-hero" aria-labelledby="questions-title">
+        <div class="container">
+          <div class="hero-content">
+            <h1 id="questions-title" class="hero-title">Pytania teoretyczne.</h1>
+            <p class="hero-description questions-hero-desc">
+              Ćwicz teorię maturalną: systemy, sieci, SQL, algorytmy.
+              Wybierz temat i&nbsp;wylosuj zestaw.
+            </p>
 
-          <div class="questions-setup">
-            <div class="setup-field">
-              <span class="setup-label" id="topic-label">Temat</span>
-              <div
-                class="category-filters"
-                id="category-filters"
-                role="group"
-                aria-labelledby="topic-label"
-              ></div>
+            <div class="questions-setup">
+              <div class="setup-field">
+                <span class="setup-label" id="topic-label">Temat</span>
+                <div
+                  class="category-filters"
+                  id="category-filters"
+                  role="group"
+                  aria-labelledby="topic-label"
+                ></div>
+              </div>
+
+              <div class="setup-field">
+                <span class="setup-label" id="count-label">Liczba pytań</span>
+                <div
+                  class="draw-count-seg"
+                  id="draw-count-seg"
+                  role="radiogroup"
+                  aria-labelledby="count-label"
+                ></div>
+              </div>
+
+              <div class="setup-actions" id="draw-controls">
+                <button type="button" class="btn-cta draw-btn" id="draw-btn" disabled>
+                  Losuj
+                </button>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="setup-field">
-              <span class="setup-label" id="count-label">Liczba pytań</span>
-              <div
-                class="draw-count-seg"
-                id="draw-count-seg"
-                role="radiogroup"
-                aria-labelledby="count-label"
-              ></div>
-            </div>
+      <section
+        class="questions-section"
+        id="questions-section"
+        aria-labelledby="results-heading"
+        hidden
+      >
+        <div class="container">
+          <div class="questions-toolbar">
+            <h2 id="results-heading" class="section-heading">Wylosowane pytania</h2>
+            <p class="draw-summary" id="draw-summary" hidden></p>
+          </div>
 
-            <div class="setup-actions" id="draw-controls">
-              <button type="button" class="btn-cta draw-btn" id="draw-btn" disabled>
-                Losuj
+          <div id="questions-results" class="questions-results" aria-live="polite"></div>
+
+          <div id="check-answers-bar" class="check-answers-bar" hidden>
+            <div class="check-answers-inner">
+              <button type="button" class="btn-cta check-answers-btn" id="check-answers-btn" data-action="check">
+                Sprawdź odpowiedzi
               </button>
+              <button type="button" class="questions-redraw-btn" id="redraw-btn" data-action="redraw">
+                Wylosuj ponownie
+              </button>
+              <p class="check-answers-score" id="check-answers-score" hidden aria-live="polite"></p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section
-      class="questions-section"
-      id="questions-section"
-      aria-labelledby="results-heading"
-      hidden
-    >
-      <div class="container">
-        <div class="questions-toolbar">
-          <h2 id="results-heading" class="section-heading">Wylosowane pytania</h2>
-          <p class="draw-summary" id="draw-summary" hidden></p>
-        </div>
-
-        <div id="questions-results" class="questions-results" aria-live="polite"></div>
-
-        <div id="check-answers-bar" class="check-answers-bar" hidden>
-          <div class="check-answers-inner">
-            <button type="button" class="btn-cta check-answers-btn" id="check-answers-btn" data-action="check">
-              Sprawdź odpowiedzi
-            </button>
-            <button type="button" class="questions-redraw-btn" id="redraw-btn" data-action="redraw">
-              Wylosuj ponownie
-            </button>
-            <p class="check-answers-score" id="check-answers-score" hidden aria-live="polite"></p>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <noscript>
-      <div class="container" style="padding: 24px 0 80px">
-        <p class="no-results-text" style="display:block">
-          JavaScript jest wyłączony. Włącz go w przeglądarce, aby losować pytania teoretyczne.
-        </p>
-      </div>
+      <style>
+        .js-app {
+          display: none !important;
+        }
+
+        .site-main > noscript {
+          flex: 1 0 auto;
+          display: flex;
+          flex-direction: column;
+        }
+      </style>
+      <section class="hero error-hero" aria-labelledby="noscript-title">
+        <div class="container">
+          <div class="hero-content error-content">
+            <p class="error-code" aria-hidden="true">JS</p>
+            <h1 id="noscript-title" class="hero-title">JavaScript jest&nbsp;wyłączony.</h1>
+            <p class="hero-description">
+              Losowanie i&nbsp;sprawdzanie pytań teoretycznych działa w&nbsp;przeglądarce i&nbsp;wymaga JavaScriptu.
+              Włącz go w&nbsp;ustawieniach przeglądarki albo wróć do bazy arkuszy na stronie głównej.
+            </p>
+            <div class="hero-cta-group error-cta-group">
+              <a href="/" class="btn-cta">Wróć do strony głównej</a>
+              <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona" target="_blank" rel="noopener noreferrer" class="error-secondary-link">Otwórz repozytorium na GitHubie</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </noscript>
   </main>
 
@@ -142,7 +166,7 @@
     </div>
   </footer>
 
-  <script src="data/questions.js?v=1.4" defer></script>
-  <script src="js/questions.js?v=1.14" defer></script>
+  <script src="data/questions.js?v=1.6" defer></script>
+  <script src="js/questions.js?v=1.15" defer></script>
 </body>
 </html>
