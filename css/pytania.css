@@ -670,6 +670,10 @@ body:has(.questions-section[hidden]) .questions-hero {
   background-color: rgba(239, 68, 68, 0.14);
 }
 
+.choice-option.is-answer-key {
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.35);
+}
+
 .math-input:focus {
   outline: none;
   border-color: var(--text-primary);
@@ -686,6 +690,46 @@ body:has(.questions-section[hidden]) .questions-hero {
   border-color: #f87171;
   background-color: rgba(239, 68, 68, 0.12);
   color: var(--text-primary);
+}
+
+.math-input.is-revealed,
+.math-input.is-missed.is-revealed,
+.math-input.is-incorrect.is-revealed {
+  border-color: #4ade80;
+  background-color: rgba(34, 197, 94, 0.14);
+  color: #bbf7d0;
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.25);
+}
+
+.math-input.is-revealed[readonly] {
+  cursor: default;
+  opacity: 1;
+}
+
+.answer-reveal {
+  display: inline-flex;
+  align-items: center;
+  margin: 4px 6px 4px 2px;
+  padding: 4px 10px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.875em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #bbf7d0;
+  background-color: rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  border-radius: 8px;
+  vertical-align: middle;
+  white-space: nowrap;
+  max-width: min(16rem, 70vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.answer-reveal::before {
+  content: "→ ";
+  font-weight: 700;
+  color: #86efac;
 }
 
 .question-tf-wrap {
@@ -795,6 +839,10 @@ body:has(.questions-section[hidden]) .questions-hero {
   color: #bbf7d0;
 }
 
+.pf-choice.is-answer-key .pf-choice-face {
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.4);
+}
+
 .pf-choice.is-incorrect .pf-choice-face,
 .pf-choice.is-incorrect input:checked + .pf-choice-face {
   background-color: rgba(239, 68, 68, 0.18);
@@ -803,6 +851,10 @@ body:has(.questions-section[hidden]) .questions-hero {
 }
 
 .question-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   margin-top: 16px;
   padding-top: 14px;
   border-top: 1px solid var(--border-line);
@@ -811,12 +863,34 @@ body:has(.questions-section[hidden]) .questions-hero {
   color: var(--text-secondary);
 }
 
+.question-feedback-status {
+  display: block;
+}
+
+.question-feedback-key {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #bbf7d0;
+  word-break: break-word;
+}
+
 .question-feedback.is-ok {
+  color: #86efac;
+}
+
+.question-feedback.is-ok .question-feedback-status {
   color: #86efac;
 }
 
 .question-feedback.is-bad,
 .question-feedback.is-partial-msg {
+  color: #fca5a5;
+}
+
+.question-feedback.is-bad .question-feedback-status,
+.question-feedback.is-partial-msg .question-feedback-status {
   color: #fca5a5;
 }
 
@@ -942,6 +1016,17 @@ body:has(.questions-section[hidden]) .questions-hero {
     margin: 4px 6px;
     padding: 8px 6px;
     font-size: 16px;
+  }
+
+  .answer-reveal {
+    margin: 4px 4px 4px 0;
+    padding: 5px 8px;
+    font-size: 0.8125rem;
+    max-width: min(12rem, 64vw);
+  }
+
+  .question-feedback-key {
+    font-size: 0.8125rem;
   }
 
   .math-input--digit {

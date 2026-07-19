@@ -1969,5 +1969,382 @@ window.QUESTIONS_JSON = [
         answer: "F"
       }
     ]
+  },
+  {
+    id: "q-103",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2007",
+    html:
+      "<p>Dla danej tablicy <strong>Tab</strong>:</p>" +
+      "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
+      "<thead><tr><th></th><th>k=1</th><th>k=2</th><th>k=3</th><th>k=4</th></tr></thead>" +
+      "<tbody>" +
+      "<tr><td>w=1</td><td>1</td><td>1</td><td>4</td><td>4</td></tr>" +
+      "<tr><td>w=2</td><td>2</td><td>2</td><td>3</td><td>3</td></tr>" +
+      "<tr><td>w=3</td><td>3</td><td>3</td><td>2</td><td>2</td></tr>" +
+      "<tr><td>w=4</td><td>4</td><td>4</td><td>1</td><td>1</td></tr>" +
+      "</tbody></table></div>" +
+      "<p>wykonano poniższy algorytm:</p>" +
+      "<pre class=\"question-code\">k ← 1; s ← 0; w ← 0;\npowtarzaj\n  w ← w + 1;\n  s ← s + Tab[w, k];\naż w = 4;\nwypisz s, w, k;</pre>" +
+      "<p>W wyniku zostaną wypisane liczby:</p>",
+    items: [
+      { text: "10, 4, 1", answer: "P" },
+      { text: "10, 1, 1", answer: "F" },
+      { text: "40, 4, 4", answer: "F" },
+      { text: "40, 4, 1", answer: "F" }
+    ]
+  },
+  {
+    id: "q-104",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2007",
+    html:
+      "<p>Poniżej zapisano wyrażenia w odwrotnej notacji polskiej (ONP). Wartościami tych wyrażeń są:</p>",
+    items: [
+      { text: "Wyrażenie ONP „7 3 − 2 /” ma wartość 2.", answer: "P" },
+      { text: "Wyrażenie ONP „4 3 − 1 3 + *” ma wartość 8.", answer: "F" },
+      { text: "Wyrażenie ONP „3 5 1 − *” ma wartość 12.", answer: "P" },
+      { text: "Wyrażenie ONP „8 2 + 2 /” ma wartość 10.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-105",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2007",
+    html:
+      "<p>Pewna podsieć ma maskę: <strong>255.255.255.248</strong>. Ile maksymalnie komputerów można podłączyć do danej podsieci? " +
+      "Uwzględnij, że 2 z możliwych adresów w sieci to adres sieci oraz adres rozgłoszeniowy.</p>",
+    items: [
+      { text: "10", answer: "F" },
+      { text: "8", answer: "F" },
+      { text: "6", answer: "P" },
+      { text: "4", answer: "F" }
+    ]
+  },
+  {
+    id: "q-106",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2007",
+    html:
+      "<p>W celu posortowania rosnąco ciągu liczb <strong>[2, 1, 0, 3]</strong> wykonano porównania i ewentualnie zamieniono liczby w parach otoczonych owalami. Jakie to sortowanie?</p>" +
+      "<pre class=\"question-code\">(2 1) 0 3\n1 (2 0) 3\n1 0 (2 3)\n\n(1 0) 2 3\n0 (1 2) 3\n\n(0 1) 2 3\n\n0 1 2 3</pre>",
+    items: [
+      { text: "przez wstawianie", answer: "F" },
+      { text: "bąbelkowe", answer: "P" },
+      { text: "kubełkowe", answer: "F" },
+      { text: "szybkie", answer: "F" }
+    ]
+  },
+  {
+    id: "q-107",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2007",
+    html:
+      "<p>Program rozpowszechniany za darmo, z którego możemy korzystać w pełni przez nieograniczony czas, może być na licencji</p>",
+    items: [
+      { text: "shareware.", answer: "F" },
+      { text: "freeware.", answer: "P" },
+      { text: "adware.", answer: "P" },
+      { text: "GNU GPL.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-108",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2007",
+    html:
+      "<p>Dana jest tabela <strong>Lista</strong>:</p>" +
+      "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
+      "<thead><tr><th>Lp.</th><th>Imie</th><th>Nazwisko</th><th>Miasto</th><th>DataUrodzenia</th></tr></thead>" +
+      "<tbody>" +
+      "<tr><td>1</td><td>Marian</td><td>Kubok</td><td>Gdynia</td><td>1980-12-07</td></tr>" +
+      "<tr><td>2</td><td>Michalina</td><td>Przybysz</td><td>Kraków</td><td>1995-06-06</td></tr>" +
+      "<tr><td>3</td><td>Marcelina</td><td>Marchewka</td><td>Mikołajki</td><td>1988-02-09</td></tr>" +
+      "<tr><td>4</td><td>Zygmunt</td><td>Piotrowski</td><td>Katowice</td><td>1999-04-15</td></tr>" +
+      "</tbody></table></div>" +
+      "<p>Zastosowanie dla powyższej tabeli <strong>Lista</strong> zapytania</p>" +
+      "<pre class=\"question-code\">SELECT Imie, Nazwisko\nFROM Lista\nWHERE Year(DataUrodzenia)&gt;1990\nORDER BY Nazwisko;</pre>" +
+      "<p>spowoduje wypisanie:</p>",
+    items: [
+      {
+        text: "Zygmunt Piotrowski, potem Michalina Przybysz.",
+        answer: "P"
+      },
+      {
+        text: "Michalina Przybysz, potem Zygmunt Piotrowski.",
+        answer: "F"
+      },
+      {
+        text: "Marcelina Marchewka, potem Marian Kubok.",
+        answer: "F"
+      },
+      {
+        text: "Marian Kubok, potem Marcelina Marchewka.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-109",
+    category: "systemy",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
+      "<p>Liczba <strong>100110010<sub>2</sub></strong></p>",
+    items: [
+      {
+        text: "jest dwa razy większa od liczby 10011001₂.",
+        answer: "P"
+      },
+      {
+        text: "jest dwa razy mniejsza od liczby 1001100100₂.",
+        answer: "P"
+      },
+      {
+        text: "jest większa niż 512₁₀.",
+        answer: "F"
+      },
+      {
+        text: "jest mniejsza niż 472₈.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-110",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
+      "<p>Wskaż elementy, które są niezbędne do uruchomienia komputera i załadowania systemu operacyjnego.</p>",
+    items: [
+      { text: "procesor", answer: "P" },
+      { text: "twardy dysk", answer: "F" },
+      { text: "pamięć operacyjna", answer: "P" },
+      { text: "monitor", answer: "F" }
+    ]
+  },
+  {
+    id: "q-111",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
+    items: [
+      {
+        text: "System operacyjny przydziela zadaniom czas pracy procesora.",
+        answer: "P"
+      },
+      {
+        text: "System operacyjny używa zawsze tego samego systemu plików dla wszystkich urządzeń.",
+        answer: "F"
+      },
+      {
+        text: "W skład systemu operacyjnego wchodzi zawsze graficzny interfejs użytkownika.",
+        answer: "F"
+      },
+      {
+        text: "System operacyjny przydziela uruchamianym aplikacjom pamięć operacyjną.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-112",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
+      "<p>System plików <strong>NTFS</strong></p>",
+    items: [
+      {
+        text: "nie jest obsługiwany przez system Linux.",
+        answer: "F"
+      },
+      {
+        text: "przechowuje informację o rozmiarze, dacie utworzenia i modyfikacji pliku oraz o ścieżce dostępu do pliku.",
+        answer: "P"
+      },
+      {
+        text: "uniemożliwia zapisanie pojedynczego pliku o rozmiarze powyżej 4 GB.",
+        answer: "F"
+      },
+      {
+        text: "umożliwia administratorowi nadawanie pojedynczym użytkownikom lub grupom użytkowników praw dostępu do plików i katalogów.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-113",
+    category: "sieci",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
+      "<p>W pewnej firmie znajdują się m.in. komputery o następujących adresach IP:</p>" +
+      "<ul>" +
+      "<li>komputer A: 10.20.30.40 / maska 255.255.0.0;</li>" +
+      "<li>komputer B: 10.0.0.10 / maska 255.255.255.0;</li>" +
+      "<li>komputer C: 1.2.3.4 / maska 255.255.255.0;</li>" +
+      "<li>komputer D: 1.2.3.250 / maska 255.255.255.0.</li>" +
+      "</ul>",
+    items: [
+      {
+        text: "Komputer A może być widoczny w sieci Internet pod innym adresem IP.",
+        answer: "P"
+      },
+      {
+        text: "Tylko dwa z wymienionych komputerów mogą mieć dostęp do sieci Internet.",
+        answer: "F"
+      },
+      {
+        text: "Komputery A i B znajdują się w jednej podsieci.",
+        answer: "F"
+      },
+      {
+        text: "Komputery C i D muszą znajdować się w jednym budynku.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-114",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Chmura obliczeniowa jest usługą polegającą na zdalnym udostępnieniu mocy obliczeniowej urządzeń IT, oferowaną przez zewnętrznego dostawcę. " +
+      "Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
+    items: [
+      {
+        text: "Z aplikacji i danych umieszczonych w chmurze można korzystać z dowolnej lokalizacji i dowolnego sprzętu IT umożliwiającego połączenie internetowe.",
+        answer: "P"
+      },
+      {
+        text: "Użytkownik nie jest zobowiązany do zakupu licencji na oprogramowanie używane w chmurze i udostępniane przez dostawcę, płaci jedynie za jego użycie (każdorazowo lub w formie abonamentu).",
+        answer: "P"
+      },
+      {
+        text: "Użytkownik może zdalnie instalować w przydzielonych zasobach chmury dowolne aplikacje i korzystać z nich tak jak na lokalnym komputerze.",
+        answer: "F"
+      },
+      {
+        text: "Pula zasobów użytkownika (w tym: procesory, pamięć RAM, przestrzeń dyskowa) jest elastycznie skalowana w zależności od jego potrzeb i ograniczona tylko możliwościami dostawcy.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-115",
+    category: "bezpieczenstwo",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p><strong>HTTP Cookie</strong> jest niewielką porcją informacji wysyłaną przez witrynę internetową do przeglądarki klienta i zapisywaną w jej ustawieniach. " +
+      "Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
+    items: [
+      {
+        text: "Cookie zawiera polecenia, które konfigurują ustawienia przeglądarki klienta.",
+        answer: "F"
+      },
+      {
+        text: "Cookie umożliwia serwisowi sprawdzenie, czy klient już go odwiedzał w przeszłości, oraz zapamiętanie upodobań klienta.",
+        answer: "P"
+      },
+      {
+        text: "Cookie zapisane przez serwis z domeny cwaniak.org może być odczytane przez serwis z domeny spryciarz.org.",
+        answer: "F"
+      },
+      {
+        text: "Zablokowanie obsługi cookie w przeglądarce może spowodować utrudnienia dla użytkownika dokonującego zakupów w sklepie internetowym.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-116",
+    category: "bezpieczenstwo",
+    type: "truefalse",
+    source: "Zbiór zadań 2015",
+    html:
+      "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
+      "<p>Zgodnie z prawem w Internecie można opublikować zdjęcie osoby:</p>",
+    items: [
+      {
+        text: "po uzyskaniu od niej zezwolenia.",
+        answer: "P"
+      },
+      {
+        text: "gdy jest to osoba powszechnie znana i zdjęcie zostało wykonane podczas pełnienia przez nią funkcji publicznych, w szczególności politycznych, społecznych, zawodowych.",
+        answer: "P"
+      },
+      {
+        text: "gdy osoba ta jest naszym bliskim znajomym.",
+        answer: "F"
+      },
+      {
+        text: "gdy stanowi ona jedynie szczegół całości takiej jak: zgromadzenie, krajobraz, publiczna impreza.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-117",
+    category: "arkusz",
+    type: "choice",
+    source: "Zadanie przykładowe",
+    html:
+      "<p>Dokończ zdanie. Zaznacz właściwą odpowiedź spośród podanych.</p>" +
+      "<p><strong>Narzędzie arkusza kalkulacyjnego pozwalające szybko podsumować, pogrupować i przekształcić duży zbiór danych bez zmiany danych źródłowych to</strong></p>",
+    options: [
+      { id: "A", text: "filtr zaawansowany" },
+      { id: "B", text: "tabela przestawna" },
+      { id: "C", text: "formatowanie warunkowe" },
+      { id: "D", text: "walidacja danych" }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-118",
+    category: "arkusz",
+    type: "choice",
+    source: "Zadanie przykładowe",
+    html:
+      "<p>Dokończ zdanie. Zaznacz właściwą odpowiedź spośród podanych.</p>" +
+      "<p><strong>Funkcja arkusza kalkulacyjnego, która zlicza liczbę komórek w zakresie spełniających więcej niż jeden warunek, to</strong></p>",
+    options: [
+      { id: "A", text: "LICZ.JEŻELI()" },
+      { id: "B", text: "LICZ.WARUNKI()" },
+      { id: "C", text: "SUMA.JEŻELI()" },
+      { id: "D", text: "ILE.LICZB()" }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-119",
+    category: "sql",
+    type: "choice",
+    source: "Zadanie przykładowe",
+    html:
+      "<p>Dokończ zdanie. Zaznacz właściwą odpowiedź spośród podanych.</p>" +
+      "<p><strong>Klauzula języka SQL, która pozwala filtrować grupy wierszy utworzone przez GROUP BY na podstawie wyniku funkcji agregującej, to</strong></p>",
+    options: [
+      { id: "A", text: "WHERE" },
+      { id: "B", text: "ORDER BY" },
+      { id: "C", text: "HAVING" },
+      { id: "D", text: "DISTINCT" }
+    ],
+    answer: "C"
   }
 ];
