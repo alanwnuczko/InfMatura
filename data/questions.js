@@ -6,12 +6,17 @@
  * - "truefalse" - items[].answer: "P" | "F"
  * - "choice"    - options[] + answer: "A"|"B"|…
  *
+ * category (jedna na pytanie):
+ * - "systemy" | "sieci" | "sql" | "algorytmy" | "bezpieczenstwo"
+ * - "arkusz" | "multimedia" | "oprogramowanie"
+ *
  * Dla {{select}} podaj selectOptions: ["<", "=", ">"] (lub inne).
  * Sprawdzanie odpowiedzi: lokalnie w przeglądarce (js/questions.js).
-N */
+ */
 window.QUESTIONS_JSON = [
   {
     id: "q-001",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2026 · F2023",
     html:
@@ -22,6 +27,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-002",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE czerwiec 2026 · F2023",
     html:
@@ -39,6 +45,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-003",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2026 · F2015",
     html:
@@ -52,6 +59,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-004",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2026 · F2023",
     html:
@@ -62,6 +70,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-005",
+    category: "sieci",
     type: "fill",
     source: "CKE maj 2026 · F2023",
     html:
@@ -74,6 +83,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-006",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2025 · F2023",
     html:
@@ -89,6 +99,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-007",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2023",
     html:
@@ -110,6 +121,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-008",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2015",
     html:
@@ -123,6 +135,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-009",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2015",
     html:
@@ -148,6 +161,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-010",
+    category: "bezpieczenstwo",
     type: "choice",
     source: "CKE maj 2025 · F2023",
     html:
@@ -175,6 +189,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-011",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2025 · F2023",
     html:
@@ -190,6 +205,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-012",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2025 · F2015",
     html: "<p>Program typu keylogger służy do</p>",
@@ -214,6 +230,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-013",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2025 · F2015",
     html:
@@ -227,6 +244,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-014",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE grudzień 2024 · F2023",
     html:
@@ -248,6 +266,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-015",
+    category: "systemy",
     type: "fill",
     source: "CKE grudzień 2024 · F2023",
     html:
@@ -260,6 +279,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-016",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2023",
     html:
@@ -277,6 +297,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-017",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2024 · F2023",
     html:
@@ -290,6 +311,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-018",
+    category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2015",
     html:
@@ -316,6 +338,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-019",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2015",
     html:
@@ -329,6 +352,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-020",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2024 · F2023",
     html:
@@ -350,6 +374,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-021",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2024 · F2023",
     html:
@@ -362,6 +387,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-022",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2024 · F2015",
     html:
@@ -375,6 +401,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-023",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2024 · F2015",
     html:
@@ -388,6 +415,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-024",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2023 · F2023",
     html:
@@ -405,6 +433,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-025",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2023 · F2023",
     html:
@@ -423,6 +452,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-026",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2023 · F2015",
     html: "<p>Oceń prawdziwość podanych równości.</p>",
@@ -435,6 +465,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-027",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2023 · F2023",
     html:
@@ -453,6 +484,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-028",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2023 · F2023",
     selectOptions: ["<", "=", ">"],
@@ -468,6 +500,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-029",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2023 · F2015",
     html:
@@ -491,6 +524,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-030",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2023 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących liczb w różnych systemach pozycyjnych.</p>",
@@ -503,6 +537,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-031",
+    category: "sieci",
     type: "fill",
     source: "CKE grudzień 2022 · F2023",
     html:
@@ -517,6 +552,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-032",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE grudzień 2022 · F2023",
     html:
@@ -534,6 +570,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-033",
+    category: "systemy",
     type: "fill",
     source: "CKE grudzień 2022 · F2023",
     html:
@@ -548,6 +585,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-034",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2022 · F2015",
     html:
@@ -561,6 +599,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-035",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2022 · F2015",
     html:
@@ -576,6 +615,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-036",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2022 · F2015",
     html:
@@ -589,6 +629,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-037",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE marzec 2022 · F2023",
     html:
@@ -611,6 +652,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-038",
+    category: "bezpieczenstwo",
     type: "fill",
     source: "CKE marzec 2022 · F2023",
     selectOptions: ["login", "hasło", "dane karty kredytowej"],
@@ -626,6 +668,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-039",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2021 · F2015",
     html:
@@ -640,6 +683,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-040",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2021 · F2015",
     html: "<p>Oceń prawdziwość podanych równości.</p>",
@@ -652,6 +696,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-041",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2021 · F2015",
     html:
@@ -678,6 +723,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-042",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2021 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań o porównaniu liczb w różnych systemach.</p>",
@@ -702,6 +748,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-043",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
     html:
@@ -716,6 +763,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-044",
+    category: "arkusz",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
     html:
@@ -742,6 +790,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-045",
+    category: "systemy",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
     html:
@@ -755,6 +804,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-046",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
     html:
@@ -778,6 +828,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-047",
+    category: "systemy",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
     html:
@@ -791,6 +842,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-048",
+    category: "arkusz",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
     html:
@@ -817,6 +869,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-049",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2020 · F2007",
     html:
@@ -843,6 +896,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-050",
+    category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2020 · F2007",
     html:
@@ -867,6 +921,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-051",
+    category: "sql",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html:
@@ -893,6 +948,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-052",
+    category: "systemy",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html:
@@ -906,6 +962,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-053",
+    category: "sieci",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html: "<p>Protokół <strong>HTTPS</strong></p>",
@@ -930,6 +987,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-054",
+    category: "systemy",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html:
@@ -939,6 +997,977 @@ window.QUESTIONS_JSON = [
       { text: "ósemkowym dokładnie 7 cyfr.", answer: "F" },
       { text: "szesnastkowym dokładnie 4 cyfry.", answer: "P" },
       { text: "dziesiętnym dokładnie 5 cyfr.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-055",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE czerwiec 2019 · F2015",
+    html:
+      "<p>Dane są tabele <code>Uczniowie</code> i <code>Oceny</code>. Przeanalizuj i oceń poniższe zapytanie w języku SQL.</p>" +
+      "<pre class=\"question-code\">SELECT Uczniowie.imie, Uczniowie.nazwisko, AVG(Oceny.ocena)\n" +
+      "FROM Uczniowie INNER JOIN Oceny ON Uczniowie.id_ucznia = Oceny.id_ucznia\n" +
+      "GROUP BY Uczniowie.id_ucznia, Uczniowie.imie, Uczniowie.nazwisko\n" +
+      "HAVING AVG(Oceny.ocena) &gt;= 4\n" +
+      "ORDER BY AVG(Oceny.ocena), Uczniowie.nazwisko;</pre>",
+    items: [
+      {
+        text: "W wyniku zapytania, przy odpowiednich danych, mogą pojawić się następujące po sobie wiersze: Jan Abacki 4.08; Jan Kowalski 4.85.",
+        answer: "P"
+      },
+      {
+        text: "W wyniku zapytania to samo imię i nazwisko może pojawić się tylko raz, nawet jeśli dwóch uczniów ma takie samo imię i nazwisko.",
+        answer: "F"
+      },
+      {
+        text: "W wyniku zapytania otrzymamy trzy kolumny z danymi.",
+        answer: "P"
+      },
+      {
+        text: "Jedynym kryterium określającym kolejność wierszy w odpowiedzi jest średnia ocena.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-056",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE maj 2019 · F2015",
+    html:
+      "<p>Po pomnożeniu dwóch liczb <strong>1111110<sub>2</sub></strong> oraz <strong>101<sub>2</sub></strong> zapisanych w systemie dwójkowym otrzymamy:</p>",
+    items: [
+      { text: "21312₄", answer: "P" },
+      { text: "1001010110₂", answer: "F" },
+      { text: "1166₈", answer: "P" },
+      { text: "276₁₆", answer: "P" }
+    ]
+  },
+  {
+    id: "q-057",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2019 · F2015",
+    html: "<p>Oceń prawdziwość podanych zdań dotyczących systemu DNS.</p>",
+    items: [
+      { text: "DNS to skrót od Domain Name System.", answer: "P" },
+      { text: "Do danego adresu IP może być przypisanych wiele różnych nazw.", answer: "P" },
+      {
+        text: "Przy zmianie adresu IP komputera pełniącego funkcję serwera WWW jest konieczna zmiana nazwy domeny internetowej.",
+        answer: "F"
+      },
+      {
+        text: "System DNS ma jedną centralną bazę danych adresów IP i nazw.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-058",
+    category: "arkusz",
+    type: "truefalse",
+    source: "CKE czerwiec 2019 · F2015",
+    html:
+      "<p>Powyższą tablicę kwadratów w arkuszu kalkulacyjnym można otrzymać, jeżeli skopiuje się tylko jedną formułę z komórki B2 do pozostałych komórek z zakresu B2:K10. " +
+      "W tym celu do komórki B2 należy wpisać</p>" +
+      "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
+      "<thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th></tr></thead>" +
+      "<tbody>" +
+      "<tr><td>1</td><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>" +
+      "<tr><td>2</td><td>10</td><td>100</td><td>121</td><td>144</td><td>169</td><td>196</td><td>225</td><td>256</td><td>289</td><td>324</td><td>361</td></tr>" +
+      "<tr><td>3</td><td>20</td><td>400</td><td>441</td><td>484</td><td>529</td><td>576</td><td>625</td><td>676</td><td>729</td><td>784</td><td>841</td></tr>" +
+      "</tbody></table></div>" +
+      "<p>(Fragment tabeli; wiersze 2-10 zawierają kwadraty sumy wartości z kolumny A i wiersza 1.)</p>",
+    items: [
+      { text: "=($A2+B$1)*($A2+B$1)", answer: "P" },
+      { text: "=(A2+B1)*(A2+B1)", answer: "F" },
+      { text: "=($A2+B$1)^2", answer: "P" },
+      { text: "=($A$2+$B$1)^2", answer: "F" }
+    ]
+  },
+  {
+    id: "q-059",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE czerwiec 2019 · F2015",
+    html: "<p>Protokół <strong>HTTPS</strong></p>",
+    items: [
+      {
+        text: "jest protokołem pobierania poczty elektronicznej ze zdalnego serwera przez połączenie TCP/IP.",
+        answer: "F"
+      },
+      { text: "obsługuje system nazywania domen.", answer: "F" },
+      { text: "przydziela adresy IP poszczególnym komputerom.", answer: "F" },
+      { text: "jest szyfrowaną wersją protokołu http.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-060",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE czerwiec 2019 · F2015",
+    html:
+      "<p>Różnica <strong>11001001<sub>2</sub> − 1111111<sub>2</sub></strong> jest równa</p>",
+    items: [
+      { text: "2A₁₆", answer: "F" },
+      { text: "112₈", answer: "P" },
+      { text: "2110₄", answer: "F" },
+      { text: "1001010₂", answer: "P" }
+    ]
+  },
+  {
+    id: "q-061",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2019 · F2007",
+    html: "<p>Oceń prawdziwość podanych zdań dotyczących systemu DNS.</p>",
+    items: [
+      { text: "DNS to skrót od Domain Name System.", answer: "P" },
+      { text: "Do danego adresu IP może być przypisanych wiele różnych nazw.", answer: "P" },
+      {
+        text: "Przy zmianie adresu IP komputera pełniącego funkcję serwera WWW jest konieczna zmiana nazwy domeny internetowej.",
+        answer: "F"
+      },
+      {
+        text: "System DNS ma jedną centralną bazę danych adresów IP i nazw.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-062",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE maj 2019 · F2007",
+    html:
+      "<p>Po pomnożeniu dwóch liczb <strong>1111110<sub>2</sub></strong> oraz <strong>101<sub>2</sub></strong> zapisanych w systemie dwójkowym otrzymamy:</p>",
+    items: [
+      { text: "21312₄", answer: "P" },
+      { text: "1001010110₂", answer: "F" },
+      { text: "1166₈", answer: "P" },
+      { text: "276₁₆", answer: "P" }
+    ]
+  },
+  {
+    id: "q-063",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2019 · F2007",
+    html: "<p>Oceń prawdziwość podanych zdań dotyczących adresów IP.</p>",
+    items: [
+      { text: "Adres IPv6 składa się z 64 bitów.", answer: "F" },
+      { text: "Adres IPv6 składa się z 128 bitów.", answer: "P" },
+      { text: "Adres IPv4 składa się z 64 bitów.", answer: "F" },
+      { text: "Adres IPv4 składa się z 32 bitów.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-064",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "CKE maj 2019 · F2007",
+    html:
+      "<p>Skrótem nazwy złącza, przez które można podłączyć urządzenia peryferyjne do komputera, jest</p>",
+    items: [
+      { text: "USB", answer: "P" },
+      { text: "FTP", answer: "F" },
+      { text: "PHP", answer: "F" },
+      { text: "HDMI", answer: "P" }
+    ]
+  },
+  {
+    id: "q-065",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE czerwiec 2018 · F2015",
+    html:
+      "<p>W tabeli <code>T</code> zapisano wiele rekordów danych zawierających informacje o zawodnikach. " +
+      "Pola rekordu to: <code>id</code>, <code>nazwisko</code>, <code>imie</code>, <code>plec</code>, <code>wzrost</code>, " +
+      "<code>numer_startowy</code>, <code>punkty</code>, <code>id_klubu</code>.</p>" +
+      "<p>Polecenie SQL obliczające sumę punktów zawodników z klubu o <code>id_klubu</code> równym liczbie 100 może mieć postać:</p>",
+    items: [
+      {
+        text: "select sum(punkty) as suma from T where id_klubu=100;",
+        answer: "P"
+      },
+      {
+        text: "select avg(punkty) from T where id=100;",
+        answer: "F"
+      },
+      {
+        text: "select punkty as suma from T where id_klubu=100;",
+        answer: "F"
+      },
+      {
+        text: "select sum(punkty) from T where id_klubu=100;",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-066",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE czerwiec 2018 · F2015",
+    html: "<p>Które zdania dotyczące struktury danych zwanej <strong>stosem</strong> są prawdziwe?</p>",
+    items: [
+      {
+        text: "Elementy stosu są zdejmowane w odwrotnej kolejności niż kolejność ich wkładania na stos.",
+        answer: "P"
+      },
+      {
+        text: "Tylko pierwszy dodany element jest zawsze dostępny na stosie.",
+        answer: "F"
+      },
+      {
+        text: "Stos może być używany m.in. przy obliczaniu wartości wyrażeń zapisanych w Odwrotnej Notacji Polskiej (ONP).",
+        answer: "P"
+      },
+      {
+        text: "Tylko ostatnio dodany element jest zawsze dostępny na stosie.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-067",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE czerwiec 2018 · F2015",
+    html:
+      "<p>Do jednoznacznego zakodowania znaków pięcioelementowego alfabetu wystarczą/y:</p>",
+    items: [
+      { text: "2 bity.", answer: "F" },
+      { text: "3 bity.", answer: "P" },
+      { text: "5 bitów.", answer: "P" },
+      { text: "8 bitów.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-068",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE czerwiec 2018 · F2015",
+    html:
+      "<p>Dana jest funkcja rekurencyjna <strong>Rek</strong>, której argumentem jest nieujemna liczba całkowita <em>n</em>.</p>" +
+      "<pre class=\"question-code\">funkcja Rek(n)\n" +
+      "  jeśli (n &gt; 0) to wykonaj kolejno dwie instrukcje:\n" +
+      "    1. wywołaj Rek dla argumentu n − 1\n" +
+      "    2. wypisz n</pre>" +
+      "<p>Jeśli wywołamy ją dla <em>n</em> równego 5, to:</p>",
+    items: [
+      { text: "Zero będzie wypisane.", answer: "F" },
+      { text: "Największą wypisaną liczbą będzie 5.", answer: "P" },
+      { text: "Zostanie wypisanych 5 liczb.", answer: "P" },
+      { text: "Liczby zostaną wypisane w kolejności malejącej.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-069",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2015",
+    html:
+      "<p>Na pewnym serwerze WWW znajduje się strona napisana w języku PHP, a jej kod zawiera fragmenty w języku JavaScript. " +
+      "Pewien komputer-klient pobrał i wyświetlił tę stronę. Wiadomo, że:</p>",
+    items: [
+      { text: "kod PHP jest wykonywany przez komputer - serwer.", answer: "P" },
+      { text: "kod JavaScript jest wykonywany przez komputer - klient.", answer: "P" },
+      {
+        text: "podczas wykonywania kodu PHP zawsze pobierane są dane od klienta.",
+        answer: "F"
+      },
+      {
+        text: "podczas wykonywania kodu JavaScript mogą być pobierane dodatkowe dane zarówno od klienta, jak i od serwera.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-070",
+    category: "multimedia",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2015",
+    html: "<p>Oceń prawdziwość podanych zdań dotyczących modeli barw.</p>",
+    items: [
+      {
+        text: "Plakat do druku lepiej przygotować w modelu barw RGB niż CMYK.",
+        answer: "F"
+      },
+      { text: "Kolor żółty jest kolorem podstawowym w modelu RGB.", answer: "F" },
+      {
+        text: "W wyniku nałożenia się składowych Yellow i Magenta w modelu CMYK otrzymamy kolor czerwony.",
+        answer: "P"
+      },
+      {
+        text: "W modelu barw CMYK litera C pochodzi od angielskiego słowa contrast.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-071",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2015",
+    html: "<p>Wskaż zdania prawdziwe dla języka SQL.</p>",
+    items: [
+      {
+        text: "W wynikach zapytania postaci SELECT (...) ORDER BY (...) zawsze dostajemy rekordy uporządkowane ściśle rosnąco według wskazanego pola.",
+        answer: "F"
+      },
+      {
+        text: "Zapytanie UPDATE może zmienić wartości pól w bazie danych.",
+        answer: "P"
+      },
+      {
+        text: "Zapytanie postaci SELECT * FROM tabela1 WHERE pole LIKE (...) może w pewnych warunkach dać wszystkie rekordy z tabeli tabela1.",
+        answer: "P"
+      },
+      {
+        text: "Wynik zapytania SELECT * FROM tabela1 JOIN tabela2 ON tabela1.pole = tabela2.pole może być pusty przy niepustych tabelach tabela1 oraz tabela2.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-072",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2007",
+    html: "<p>Oceń prawdziwość podanych równości w różnych systemach pozycyjnych.</p>",
+    items: [
+      { text: "A5₁₆ + 234₈ = 149₁₆", answer: "F" },
+      { text: "A5₁₆ − 234₈ = 9₁₆", answer: "P" },
+      { text: "A5₁₆ * 1000₂ = A50₁₆", answer: "F" },
+      { text: "128₁₀ / 2₈ = 1000000₂", answer: "P" }
+    ]
+  },
+  {
+    id: "q-073",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2007",
+    html:
+      "<p>Dane są następujące adresy IPv4 komputerów:</p>" +
+      "<pre class=\"question-code\">Komputer nr 1: 196.122.128.0\nKomputer nr 2: 196.122.129.0\nKomputer nr 3: 196.123.129.0</pre>",
+    items: [
+      {
+        text: "Dla maski 255.255.0.0 komputery pierwszy i drugi należą do tej samej sieci.",
+        answer: "P"
+      },
+      {
+        text: "Dla maski 255.255.255.0 komputery drugi i trzeci należą do tej samej sieci.",
+        answer: "F"
+      },
+      {
+        text: "Dla maski 255.255.0.0 adres sieci, w której jest pierwszy komputer, to 196.122.0.0.",
+        answer: "P"
+      },
+      {
+        text: "Dla maski 255.255.255.0 adres rozgłoszeniowy sieci, w której jest trzeci komputer, to 196.123.129.255.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-074",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2007",
+    html:
+      "<p>Dana jest funkcja rekurencyjna:</p>" +
+      "<p class=\"question-math\">" +
+      "f(x) = 1 &nbsp;&nbsp;dla <em>x</em> ≤ 1<br>" +
+      "f(x) = <em>x</em> + f(<em>x</em> div 2) &nbsp;&nbsp;dla <em>x</em> &gt; 1" +
+      "</p>" +
+      "<p>gdzie <em>x</em> jest nieujemną liczbą całkowitą, a operacja <em>x</em> div 2 oznacza część całkowitą z dzielenia <em>x</em> przez 2.</p>",
+    items: [
+      { text: "f(15) = 25", answer: "F" },
+      { text: "f(12) = 22", answer: "P" },
+      {
+        text: "Podczas obliczania wartości f(12) operacja dodawania zostanie wykonana 4 razy.",
+        answer: "F"
+      },
+      {
+        text: "Dla x równych potędze dwójki f(x) = 2 * x − 1",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-075",
+    category: "multimedia",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2007",
+    html: "<p>Prawidłowe przyporządkowania rozszerzeń plików i ich zastosowanie to</p>",
+    items: [
+      {
+        text: "TIFF, OCR, OGG - pliki w grafice wektorowej",
+        answer: "F"
+      },
+      {
+        text: "BMP, JPG, PNG - pliki w grafice rastrowej",
+        answer: "P"
+      },
+      {
+        text: "AVI, MOV, MPEG - pliki filmowe",
+        answer: "P"
+      },
+      {
+        text: "WMA, WAV, MIDI - pliki dźwiękowe",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-076",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2018 · F2007",
+    html:
+      "<p>Dana jest tablica <strong>T[0..3, 0..3]</strong> wypełniona następującymi wartościami:</p>" +
+      "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
+      "<thead><tr><th><em>i</em> \\ <em>k</em></th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead>" +
+      "<tbody>" +
+      "<tr><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>" +
+      "<tr><td>1</td><td>2</td><td>2</td><td>4</td><td>6</td></tr>" +
+      "<tr><td>2</td><td>4</td><td>4</td><td>6</td><td>6</td></tr>" +
+      "<tr><td>3</td><td>4</td><td>5</td><td>6</td><td>8</td></tr>" +
+      "</tbody></table></div>" +
+      "<p>Dla podanych algorytmów oceń poprawność podanego wyniku ich działania.</p>" +
+      "<pre class=\"question-code\">1. suma=0;\n   Dla każdego i od 0 do 2\n     Dla każdego k od 0 do 2\n       suma=suma+T[i,k];\n   wypisz suma;\n   Podany wynik: 64\n\n" +
+      "2. k=3;\n   suma=0;\n   Dla każdego i od 0 do 3\n     suma=suma+T[i,k];\n     k=k-1;\n   wypisz suma;\n   Podany wynik: 16\n\n" +
+      "3. Dla każdego i od 0 do 3\n     Dla każdego k od 0 do 3\n       W[k,i]=T[i,k];\n   k=2;\n   Dla każdego i od 0 do 3\n     wypisz W[i,k];\n   Podany wynik: 2, 2, 4, 6\n\n" +
+      "4. Dla każdego i od 0 do 3\n     Dla każdego k od 0 do 3\n       W[k,i]=T[i,k];\n   Dla każdego i od 0 do 3\n     wypisz W[i,i];\n   Podany wynik: 1, 2, 6, 8</pre>",
+    items: [
+      { text: "Wynik algorytmu 1 (64) jest poprawny.", answer: "F" },
+      { text: "Wynik algorytmu 2 (16) jest poprawny.", answer: "P" },
+      { text: "Wynik algorytmu 3 (2, 2, 4, 6) jest poprawny.", answer: "F" },
+      { text: "Wynik algorytmu 4 (1, 2, 6, 8) jest poprawny.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-077",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2015",
+    html:
+      "<p>Po wykonaniu podanego zapytania SQL do pewnej bazy danych wyniki będą zawsze uporządkowane niemalejąco według pola <code>nazwa</code>.</p>",
+    items: [
+      {
+        text: "SELECT nazwa, wartosc FROM dane ORDER BY wartosc, nazwa",
+        answer: "F"
+      },
+      {
+        text: "SELECT nazwa, wartosc FROM dane ORDER BY nazwa",
+        answer: "P"
+      },
+      {
+        text: "SELECT nazwa, sum(wartosc) FROM dane GROUP BY nazwa",
+        answer: "F"
+      },
+      {
+        text: "SELECT nazwa, sum(wartosc) FROM dane GROUP BY nazwa ORDER BY nazwa",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-078",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2015",
+    html:
+      "<p>Rozważ następujące zapytanie SQL do pewnej bazy danych:</p>" +
+      "<pre class=\"question-code\">SELECT pesel, COUNT(*)\n" +
+      "FROM samochody\n" +
+      "WHERE pesel NOT IN (SELECT pesel FROM dokumenty_zastrzezone)\n" +
+      "GROUP BY pesel HAVING COUNT(*) &gt; 1</pre>" +
+      "<p>Po wykonaniu tego zapytania w odpowiedzi</p>" +
+      "<p><em>Uwaga:</em> kolumna <code>pesel</code> zawiera numery PESEL.</p>",
+    items: [
+      {
+        text: "ten sam numer PESEL może pojawić się więcej niż jeden raz.",
+        answer: "F"
+      },
+      {
+        text: "nie pojawi się żaden numer PESEL, który jest zapisany w tabeli dokumenty_zastrzezone.",
+        answer: "P"
+      },
+      {
+        text: "otrzymasz tabelę o 2 kolumnach.",
+        answer: "P"
+      },
+      {
+        text: "przy odpowiednich danych może pojawić się wiersz „82122302134, 1”.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-079",
+    category: "bezpieczenstwo",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2015",
+    html:
+      "<p>Pewien oszust chce rozesłać wiadomość, podszywając się pod Jana Kowalskiego, ale nie zdołał wykraść żadnych należących do Jana haseł ani innych prywatnych informacji. " +
+      "Posiada jednak klucz publiczny Jana Kowalskiego, który ten udostępnił w sieci, a także znaleziony w internecie adres e-mail Jana. Może zatem</p>",
+    items: [
+      {
+        text: "założyć konto „Jan Kowalski” w serwisie społecznościowym i stamtąd rozsyłać wiadomości.",
+        answer: "P"
+      },
+      {
+        text: "na podstawie klucza publicznego Jana Kowalskiego szybko wygenerować jego podpis cyfrowy.",
+        answer: "F"
+      },
+      {
+        text: "na podstawie klucza publicznego Jana Kowalskiego szybko obliczyć jego klucz prywatny.",
+        answer: "F"
+      },
+      {
+        text: "rozsyłać listy elektroniczne, które w nagłówku „Od:” będą miały adres e-mail Jana Kowalskiego.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-080",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2007",
+    html:
+      "<p>Dane są tablica <strong>A[1..6]</strong> o zawartości [6, 2, −1, 5, 1, 2] oraz następujący fragment algorytmu:</p>" +
+      "<pre class=\"question-code\">s ← 0\n" +
+      "n ← 3\n" +
+      "i ← 6\n" +
+      "dopóki i &gt; n − 1 wykonuj\n" +
+      "  s ← s + A[i]\n" +
+      "  i ← i − 1</pre>" +
+      "<p>Po wykonaniu tego algorytmu spełniony jest warunek</p>",
+    items: [
+      { text: "s jest parzyste.", answer: "F" },
+      { text: "s = 7.", answer: "P" },
+      { text: "s > 6.", answer: "P" },
+      { text: "s = 3.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-081",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2007",
+    html: "<p>Realizacji usług poczty elektronicznej służy protokół</p>",
+    items: [
+      { text: "SMTP.", answer: "P" },
+      { text: "IMAP.", answer: "P" },
+      { text: "EMAIL.", answer: "F" },
+      { text: "POP3.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-082",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2007",
+    html: "<p>Liczbą większą od <strong>150<sub>10</sub></strong> jest</p>",
+    items: [
+      { text: "10011001₂", answer: "P" },
+      { text: "1222₄", answer: "F" },
+      { text: "227₈", answer: "P" },
+      { text: "9B₁₆", answer: "P" }
+    ]
+  },
+  {
+    id: "q-083",
+    category: "multimedia",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2007",
+    html: "<p>Obrazy rastrowe</p>",
+    items: [
+      {
+        text: "są reprezentowane jako tablice pikseli, co powoduje istotną utratę jakości przy powiększaniu obrazu.",
+        answer: "P"
+      },
+      {
+        text: "tworzone są przy użyciu wyrażeń matematycznych opisujących występujące w obrazie odcinki, krzywe, elipsy itp.",
+        answer: "F"
+      },
+      {
+        text: "mogą być wprowadzane do komputera przy użyciu urządzeń takich jak aparat cyfrowy lub skaner.",
+        answer: "P"
+      },
+      {
+        text: "mogą powstać w efekcie cyfrowego zapisu obrazu widzialnego.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-084",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2007",
+    html:
+      "<p>Algorytm zwany sitem Eratostenesa opierający się na „wykreślaniu” wielokrotności kolejnych (niewykreślonych wcześniej) liczb naturalnych służy wyznaczeniu</p>",
+    items: [
+      { text: "największego wspólnego dzielnika dwóch liczb.", answer: "F" },
+      { text: "najmniejszej wspólnej wielokrotności dwóch liczb.", answer: "F" },
+      { text: "liczb pierwszych z zadanego przedziału.", answer: "P" },
+      { text: "potęg dwójki z zadanego przedziału.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-085",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "CKE maj 2017 · F2007",
+    html:
+      "<p>Przykładem programu, który służy do tłumaczenia instrukcji kodu źródłowego programu komputerowego na język maszynowy, jest</p>",
+    items: [
+      { text: "walidator.", answer: "F" },
+      { text: "kompilator.", answer: "P" },
+      { text: "edytor tekstu.", answer: "F" },
+      { text: "defragmentator.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-086",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE czerwiec 2016 · F2015",
+    html:
+      "<p>W językach programowania: Pascal, C++, Java tablica jest strukturą danych,</p>",
+    items: [
+      { text: "która ma maksymalnie 256 elementów.", answer: "F" },
+      { text: "w której można przechowywać tylko liczby.", answer: "F" },
+      {
+        text: "w której możemy się odwoływać do poszczególnych elementów za pomocą indeksów.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-087",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE czerwiec 2016 · F2015",
+    html: "<p>Suma <strong>200<sub>10</sub> + 10<sub>2</sub></strong> jest równa</p>",
+    items: [
+      { text: "210₁₀", answer: "F" },
+      { text: "312₈", answer: "P" },
+      { text: "CA₁₆", answer: "P" }
+    ]
+  },
+  {
+    id: "q-088",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE czerwiec 2016 · F2015",
+    html:
+      "<p>Jednym z podstawowych pojęć w informatyce jest algorytm. Każdy algorytm powinien spełniać własność:</p>",
+    items: [
+      {
+        text: "dowolnego porządku operacji, tzn. działania wykonywane w algorytmie można wykonać w dowolnej kolejności.",
+        answer: "F"
+      },
+      {
+        text: "skończonej liczby operacji, tzn. algorytm można zapisać w postaci skończonego ciągu instrukcji lub operacji.",
+        answer: "P"
+      },
+      {
+        text: "jednoznaczności operacji, tzn. algorytm może zawierać tylko takie operacje, których działanie jest jednoznacznie określone.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-089",
+    category: "multimedia",
+    type: "truefalse",
+    source: "CKE czerwiec 2016 · F2015",
+    html: "<p>Grafika wektorowa</p>",
+    items: [
+      {
+        text: "pozwala skalować obraz bez utraty jego jakości.",
+        answer: "P"
+      },
+      {
+        text: "używa figur geometrycznych do przechowywania informacji o obrazie.",
+        answer: "P"
+      },
+      {
+        text: "jest powszechnie stosowana do zapisu zdjęć w tabletach, aparatach fotograficznych i telefonach komórkowych.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-090",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE maj 2016 · F2015",
+    html:
+      "<p>Po wpisaniu w pasku adresu przeglądarki <code>http://81.219.47.83</code> otwiera się strona Centralnej Komisji Egzaminacyjnej, " +
+      "ale po wpisaniu <code>http://cke.edu.pl</code> pojawia się błąd „Nie można odnaleźć podanej strony”. " +
+      "Możliwe przyczyny tego stanu rzeczy to:</p>",
+    items: [
+      {
+        text: "awaria serwera SMTP Centralnej Komisji Egzaminacyjnej,",
+        answer: "F"
+      },
+      {
+        text: "awaria serwera poczty użytkownika,",
+        answer: "F"
+      },
+      {
+        text: "awaria serwera DNS,",
+        answer: "P"
+      },
+      {
+        text: "brak prawidłowego klucza szyfrującego w przeglądarce.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-091",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE maj 2016 · F2015",
+    html:
+      "<p>Dana jest funkcja <em>f</em> określona wzorem rekurencyjnym</p>" +
+      "<p class=\"question-math\">" +
+      "f(1) = 4<br>" +
+      "f(n + 1) = 1 / (1 − f(n)) &nbsp;&nbsp;dla <em>n</em> ≥ 1" +
+      "</p>" +
+      "<p>Wtedy:</p>",
+    items: [
+      { text: "f(8) = 1/3", answer: "F" },
+      { text: "f(9) = 3/4", answer: "P" },
+      { text: "f(10) = 4", answer: "P" },
+      { text: "f(100) = −1/3", answer: "F" }
+    ]
+  },
+  {
+    id: "q-092",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE maj 2016 · F2015",
+    html: "<p>Dla dwóch liczb <strong>1111<sub>2</sub></strong> i <strong>101<sub>2</sub></strong> ich</p>",
+    items: [
+      { text: "suma jest równa 10110₂.", answer: "F" },
+      { text: "różnica jest równa 1010₂.", answer: "P" },
+      { text: "iloczyn jest mniejszy od 11000₂.", answer: "F" },
+      { text: "iloraz jest większy od 10₂.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-093",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "CKE maj 2016 · F2015",
+    html: "<p>Oceń prawdziwość podanych zdań dotyczących systemów operacyjnych.</p>",
+    items: [
+      {
+        text: "Jednym z zadań systemu operacyjnego jest przydział pamięci działającym programom.",
+        answer: "P"
+      },
+      {
+        text: "Na jednym dysku twardym mogą być zainstalowane dwa systemy operacyjne.",
+        answer: "P"
+      },
+      {
+        text: "System operacyjny musi być przechowywany w pamięci ROM.",
+        answer: "F"
+      },
+      {
+        text: "System operacyjny musi być przechowywany na twardym dysku.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-094",
+    category: "algorytmy",
+    type: "truefalse",
+    source: "CKE czerwiec 2015 · F2015",
+    html: "<p>Algorytm Euklidesa</p>",
+    items: [
+      { text: "służy do obliczania potęgi aᵇ.", answer: "F" },
+      {
+        text: "służy do obliczania największego wspólnego dzielnika dwóch liczb.",
+        answer: "P"
+      },
+      {
+        text: "zastosowany do liczb a = 100, b = 10 da wynik 5.",
+        answer: "F"
+      },
+      {
+        text: "zastosowany do liczb a = 100, b = 8 da wynik 4.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-095",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE czerwiec 2015 · F2015",
+    html: "<p>Liczba szesnastkowa <strong>FCA<sub>16</sub></strong> jest</p>",
+    items: [
+      { text: "mniejsza od liczby FFF₁₆.", answer: "P" },
+      { text: "większa od liczby AAAA₁₆.", answer: "F" },
+      { text: "mniejsza od liczby 1111₁₆.", answer: "P" },
+      { text: "większa od liczby 9999₁₆.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-096",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE czerwiec 2015 · F2015",
+    html: "<p>Klucz obcy w tabeli bazy danych</p>",
+    items: [
+      { text: "pochodzi z innej tabeli.", answer: "P" },
+      { text: "służy do łączenia tabeli z inną tabelą.", answer: "P" },
+      { text: "musi być opisany za pomocą jednej kolumny.", answer: "F" },
+      { text: "jednoznacznie identyfikuje wiersze tej tabeli.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-097",
+    category: "sieci",
+    type: "truefalse",
+    source: "CKE czerwiec 2015 · F2015",
+    html: "<p>Adres IPv4</p>",
+    items: [
+      { text: "składa się z 48 bitów.", answer: "F" },
+      { text: "jest unikatowy w skali świata.", answer: "F" },
+      { text: "jest unikatowy w skali sieci lokalnej.", answer: "P" },
+      { text: "300.200.256.1 jest poprawny.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-098",
+    category: "systemy",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2015",
+    html:
+      "<p>Po wymnożeniu dwóch liczb <strong>1032<sub>4</sub></strong> oraz <strong>131<sub>4</sub></strong> zapisanych w systemie czwórkowym otrzymamy</p>",
+    items: [
+      { text: "78₁₀", answer: "F" },
+      { text: "8D6₁₆", answer: "P" },
+      { text: "4326₈", answer: "P" },
+      { text: "10011010110₂", answer: "F" }
+    ]
+  },
+  {
+    id: "q-099",
+    category: "multimedia",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2015",
+    html: "<p>Kompresja stratna w grafice</p>",
+    items: [
+      {
+        text: "ma związek z plikami graficznymi w formacie BMP.",
+        answer: "F"
+      },
+      {
+        text: "ma związek z plikami graficznymi w formacie JPG.",
+        answer: "P"
+      },
+      {
+        text: "jest metodą zmniejszania rozmiaru pliku graficznego bez utraty szczegółów w obrazie.",
+        answer: "F"
+      },
+      {
+        text: "wykorzystuje algorytm szyfrowania RSA.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-100",
+    category: "sql",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2015",
+    html: "<p>Filtrowanie tabeli w bazie danych</p>",
+    items: [
+      {
+        text: "polega na wyborze wierszy spełniających określone kryterium.",
+        answer: "P"
+      },
+      {
+        text: "polega na wyborze niektórych kolumn z tabeli.",
+        answer: "F"
+      },
+      {
+        text: "zmienia jej zawartość.",
+        answer: "F"
+      },
+      {
+        text: "wymaga podania warunku dla jednej lub kilku kolumn tabeli.",
+        answer: "P"
+      }
+    ]
+  },
+  {
+    id: "q-101",
+    category: "oprogramowanie",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2015",
+    html:
+      "<p>Na licencji <strong>ADWARE</strong> jest rozpowszechniane oprogramowanie, które</p>",
+    items: [
+      {
+        text: "jest rozpowszechniane za darmo, ale zawiera funkcje wyświetlające reklamy.",
+        answer: "P"
+      },
+      { text: "ma otwarty kod źródłowy.", answer: "F" },
+      { text: "jest opłacane przez użytkownika.", answer: "F" },
+      {
+        text: "może być używane tylko przez z góry ustalony czas.",
+        answer: "F"
+      }
+    ]
+  },
+  {
+    id: "q-102",
+    category: "arkusz",
+    type: "truefalse",
+    source: "CKE maj 2015 · F2015",
+    html:
+      "<p>W komórkach arkusza kalkulacyjnego umieszczone zostały poniższe wartości i formuły:</p>" +
+      "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
+      "<thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead>" +
+      "<tbody>" +
+      "<tr><td>1</td><td>1</td><td>2</td><td>3</td></tr>" +
+      "<tr><td>2</td><td>2</td><td>=A$2*B1</td><td></td></tr>" +
+      "<tr><td>3</td><td>3</td><td></td><td></td></tr>" +
+      "<tr><td>4</td><td>4</td><td></td><td></td></tr>" +
+      "</tbody></table></div>" +
+      "<p>Następnie zawartość komórki B2 została skopiowana do komórki C2 oraz do komórek B3, B4, …, B10. " +
+      "Ustal, które z poniższych stwierdzeń są poprawne.</p>",
+    items: [
+      {
+        text: "W komórce C2 umieszczona zostanie formuła =A$2*C1.",
+        answer: "F"
+      },
+      {
+        text: "W komórce B3 umieszczona zostanie formuła =A$2*B2.",
+        answer: "P"
+      },
+      {
+        text: "Wartość w komórce B10 wyniesie 1024.",
+        answer: "P"
+      },
+      {
+        text: "Wartość w komórce C2 wyniesie 4.",
+        answer: "F"
+      }
     ]
   }
 ];
