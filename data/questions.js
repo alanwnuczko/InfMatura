@@ -6,12 +6,17 @@
  * - "truefalse" - items[].answer: "P" | "F"
  * - "choice"    - options[] + answer: "A"|"B"|…
  *
+ * category (jedna na pytanie):
+ * - "systemy" | "sieci" | "sql" | "algorytmy" | "bezpieczenstwo"
+ * - "arkusz" | "multimedia" | "oprogramowanie"
+ *
  * Dla {{select}} podaj selectOptions: ["<", "=", ">"] (lub inne).
  * Sprawdzanie odpowiedzi: lokalnie w przeglądarce (js/questions.js).
-N */
+ */
 window.QUESTIONS_JSON = [
   {
     id: "q-001",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2026 · F2023",
     html:
@@ -22,6 +27,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-002",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE czerwiec 2026 · F2023",
     html:
@@ -39,6 +45,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-003",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2026 · F2015",
     html:
@@ -52,6 +59,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-004",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2026 · F2023",
     html:
@@ -62,6 +70,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-005",
+    category: "sieci",
     type: "fill",
     source: "CKE maj 2026 · F2023",
     html:
@@ -74,6 +83,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-006",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2025 · F2023",
     html:
@@ -89,6 +99,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-007",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2023",
     html:
@@ -110,6 +121,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-008",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2015",
     html:
@@ -123,6 +135,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-009",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2015",
     html:
@@ -148,6 +161,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-010",
+    category: "bezpieczenstwo",
     type: "choice",
     source: "CKE maj 2025 · F2023",
     html:
@@ -175,6 +189,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-011",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2025 · F2023",
     html:
@@ -190,6 +205,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-012",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2025 · F2015",
     html: "<p>Program typu keylogger służy do</p>",
@@ -214,6 +230,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-013",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2025 · F2015",
     html:
@@ -227,6 +244,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-014",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE grudzień 2024 · F2023",
     html:
@@ -248,6 +266,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-015",
+    category: "systemy",
     type: "fill",
     source: "CKE grudzień 2024 · F2023",
     html:
@@ -260,6 +279,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-016",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2023",
     html:
@@ -277,6 +297,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-017",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2024 · F2023",
     html:
@@ -290,6 +311,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-018",
+    category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2015",
     html:
@@ -316,6 +338,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-019",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2015",
     html:
@@ -329,6 +352,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-020",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2024 · F2023",
     html:
@@ -350,6 +374,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-021",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2024 · F2023",
     html:
@@ -362,6 +387,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-022",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2024 · F2015",
     html:
@@ -375,6 +401,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-023",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2024 · F2015",
     html:
@@ -388,6 +415,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-024",
+    category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2023 · F2023",
     html:
@@ -405,6 +433,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-025",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2023 · F2023",
     html:
@@ -423,6 +452,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-026",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2023 · F2015",
     html: "<p>Oceń prawdziwość podanych równości.</p>",
@@ -435,6 +465,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-027",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2023 · F2023",
     html:
@@ -453,6 +484,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-028",
+    category: "systemy",
     type: "fill",
     source: "CKE maj 2023 · F2023",
     selectOptions: ["<", "=", ">"],
@@ -468,6 +500,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-029",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2023 · F2015",
     html:
@@ -491,6 +524,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-030",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2023 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących liczb w różnych systemach pozycyjnych.</p>",
@@ -503,6 +537,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-031",
+    category: "sieci",
     type: "fill",
     source: "CKE grudzień 2022 · F2023",
     html:
@@ -517,6 +552,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-032",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE grudzień 2022 · F2023",
     html:
@@ -534,6 +570,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-033",
+    category: "systemy",
     type: "fill",
     source: "CKE grudzień 2022 · F2023",
     html:
@@ -548,6 +585,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-034",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2022 · F2015",
     html:
@@ -561,6 +599,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-035",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2022 · F2015",
     html:
@@ -576,6 +615,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-036",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2022 · F2015",
     html:
@@ -589,6 +629,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-037",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE marzec 2022 · F2023",
     html:
@@ -611,6 +652,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-038",
+    category: "bezpieczenstwo",
     type: "fill",
     source: "CKE marzec 2022 · F2023",
     selectOptions: ["login", "hasło", "dane karty kredytowej"],
@@ -626,6 +668,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-039",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2021 · F2015",
     html:
@@ -640,6 +683,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-040",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2021 · F2015",
     html: "<p>Oceń prawdziwość podanych równości.</p>",
@@ -652,6 +696,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-041",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2021 · F2015",
     html:
@@ -678,6 +723,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-042",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2021 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań o porównaniu liczb w różnych systemach.</p>",
@@ -702,6 +748,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-043",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
     html:
@@ -716,6 +763,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-044",
+    category: "arkusz",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
     html:
@@ -742,6 +790,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-045",
+    category: "systemy",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
     html:
@@ -755,6 +804,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-046",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
     html:
@@ -778,6 +828,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-047",
+    category: "systemy",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
     html:
@@ -791,6 +842,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-048",
+    category: "arkusz",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
     html:
@@ -817,6 +869,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-049",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2020 · F2007",
     html:
@@ -843,6 +896,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-050",
+    category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2020 · F2007",
     html:
@@ -867,6 +921,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-051",
+    category: "sql",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html:
@@ -893,6 +948,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-052",
+    category: "systemy",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html:
@@ -906,6 +962,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-053",
+    category: "sieci",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html: "<p>Protokół <strong>HTTPS</strong></p>",
@@ -930,6 +987,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-054",
+    category: "systemy",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
     html:
@@ -943,6 +1001,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-055",
+    category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
     html:
@@ -973,6 +1032,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-056",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2019 · F2015",
     html:
@@ -986,6 +1046,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-057",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2019 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących systemu DNS.</p>",
@@ -1004,6 +1065,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-058",
+    category: "arkusz",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
     html:
@@ -1016,7 +1078,7 @@ window.QUESTIONS_JSON = [
       "<tr><td>2</td><td>10</td><td>100</td><td>121</td><td>144</td><td>169</td><td>196</td><td>225</td><td>256</td><td>289</td><td>324</td><td>361</td></tr>" +
       "<tr><td>3</td><td>20</td><td>400</td><td>441</td><td>484</td><td>529</td><td>576</td><td>625</td><td>676</td><td>729</td><td>784</td><td>841</td></tr>" +
       "</tbody></table></div>" +
-      "<p>(Fragment tabeli; wiersze 2–10 zawierają kwadraty sumy wartości z kolumny A i wiersza 1.)</p>",
+      "<p>(Fragment tabeli; wiersze 2-10 zawierają kwadraty sumy wartości z kolumny A i wiersza 1.)</p>",
     items: [
       { text: "=($A2+B$1)*($A2+B$1)", answer: "P" },
       { text: "=(A2+B1)*(A2+B1)", answer: "F" },
@@ -1026,6 +1088,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-059",
+    category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
     html: "<p>Protokół <strong>HTTPS</strong></p>",
@@ -1041,6 +1104,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-060",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
     html:
@@ -1054,6 +1118,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-061",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących systemu DNS.</p>",
@@ -1072,6 +1137,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-062",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
     html:
@@ -1085,6 +1151,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-063",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących adresów IP.</p>",
@@ -1097,6 +1164,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-064",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
     html:
@@ -1110,6 +1178,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-065",
+    category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
     html:
@@ -1138,6 +1207,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-066",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
     html: "<p>Które zdania dotyczące struktury danych zwanej <strong>stosem</strong> są prawdziwe?</p>",
@@ -1162,6 +1232,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-067",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
     html:
@@ -1175,6 +1246,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-068",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
     html:
@@ -1193,14 +1265,15 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-069",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2018 · F2015",
     html:
       "<p>Na pewnym serwerze WWW znajduje się strona napisana w języku PHP, a jej kod zawiera fragmenty w języku JavaScript. " +
       "Pewien komputer-klient pobrał i wyświetlił tę stronę. Wiadomo, że:</p>",
     items: [
-      { text: "kod PHP jest wykonywany przez komputer – serwer.", answer: "P" },
-      { text: "kod JavaScript jest wykonywany przez komputer – klient.", answer: "P" },
+      { text: "kod PHP jest wykonywany przez komputer - serwer.", answer: "P" },
+      { text: "kod JavaScript jest wykonywany przez komputer - klient.", answer: "P" },
       {
         text: "podczas wykonywania kodu PHP zawsze pobierane są dane od klienta.",
         answer: "F"
@@ -1213,6 +1286,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-070",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2018 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących modeli barw.</p>",
@@ -1234,6 +1308,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-071",
+    category: "sql",
     type: "truefalse",
     source: "CKE maj 2018 · F2015",
     html: "<p>Wskaż zdania prawdziwe dla języka SQL.</p>",
@@ -1258,6 +1333,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-072",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
     html: "<p>Oceń prawdziwość podanych równości w różnych systemach pozycyjnych.</p>",
@@ -1270,6 +1346,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-073",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
     html:
@@ -1296,6 +1373,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-074",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
     html:
@@ -1320,30 +1398,32 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-075",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
     html: "<p>Prawidłowe przyporządkowania rozszerzeń plików i ich zastosowanie to</p>",
     items: [
       {
-        text: "TIFF, OCR, OGG — pliki w grafice wektorowej",
+        text: "TIFF, OCR, OGG - pliki w grafice wektorowej",
         answer: "F"
       },
       {
-        text: "BMP, JPG, PNG — pliki w grafice rastrowej",
+        text: "BMP, JPG, PNG - pliki w grafice rastrowej",
         answer: "P"
       },
       {
-        text: "AVI, MOV, MPEG — pliki filmowe",
+        text: "AVI, MOV, MPEG - pliki filmowe",
         answer: "P"
       },
       {
-        text: "WMA, WAV, MIDI — pliki dźwiękowe",
+        text: "WMA, WAV, MIDI - pliki dźwiękowe",
         answer: "P"
       }
     ]
   },
   {
     id: "q-076",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
     html:
@@ -1370,6 +1450,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-077",
+    category: "sql",
     type: "truefalse",
     source: "CKE maj 2017 · F2015",
     html:
@@ -1395,6 +1476,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-078",
+    category: "sql",
     type: "truefalse",
     source: "CKE maj 2017 · F2015",
     html:
@@ -1426,6 +1508,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-079",
+    category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2017 · F2015",
     html:
@@ -1452,6 +1535,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-080",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
     html:
@@ -1472,6 +1556,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-081",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
     html: "<p>Realizacji usług poczty elektronicznej służy protokół</p>",
@@ -1484,6 +1569,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-082",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
     html: "<p>Liczbą większą od <strong>150<sub>10</sub></strong> jest</p>",
@@ -1496,6 +1582,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-083",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
     html: "<p>Obrazy rastrowe</p>",
@@ -1520,6 +1607,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-084",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
     html:
@@ -1533,6 +1621,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-085",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
     html:
@@ -1546,6 +1635,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-086",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
     html:
@@ -1561,6 +1651,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-087",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
     html: "<p>Suma <strong>200<sub>10</sub> + 10<sub>2</sub></strong> jest równa</p>",
@@ -1572,6 +1663,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-088",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
     html:
@@ -1593,6 +1685,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-089",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
     html: "<p>Grafika wektorowa</p>",
@@ -1613,6 +1706,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-090",
+    category: "sieci",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
     html:
@@ -1640,6 +1734,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-091",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
     html:
@@ -1658,6 +1753,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-092",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
     html: "<p>Dla dwóch liczb <strong>1111<sub>2</sub></strong> i <strong>101<sub>2</sub></strong> ich</p>",
@@ -1670,6 +1766,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-093",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących systemów operacyjnych.</p>",
@@ -1694,6 +1791,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-094",
+    category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
     html: "<p>Algorytm Euklidesa</p>",
@@ -1715,6 +1813,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-095",
+    category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
     html: "<p>Liczba szesnastkowa <strong>FCA<sub>16</sub></strong> jest</p>",
@@ -1727,6 +1826,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-096",
+    category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
     html: "<p>Klucz obcy w tabeli bazy danych</p>",
@@ -1739,6 +1839,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-097",
+    category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
     html: "<p>Adres IPv4</p>",
@@ -1751,6 +1852,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-098",
+    category: "systemy",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
     html:
@@ -1764,6 +1866,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-099",
+    category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
     html: "<p>Kompresja stratna w grafice</p>",
@@ -1788,6 +1891,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-100",
+    category: "sql",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
     html: "<p>Filtrowanie tabeli w bazie danych</p>",
@@ -1812,6 +1916,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-101",
+    category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
     html:
@@ -1831,6 +1936,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-102",
+    category: "arkusz",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
     html:

@@ -2,9 +2,22 @@
   "use strict";
 
   var DRAW_COUNTS = [1, 5, 10];
+  var CATEGORIES = [
+    { id: "systemy", label: "Systemy liczbowe" },
+    { id: "sieci", label: "Sieci i protokoły" },
+    { id: "sql", label: "Bazy danych i SQL" },
+    { id: "algorytmy", label: "Algorytmy i struktury" },
+    { id: "bezpieczenstwo", label: "Bezpieczeństwo" },
+    { id: "arkusz", label: "Arkusz kalkulacyjny" },
+    { id: "multimedia", label: "Grafika i multimedia" },
+    { id: "oprogramowanie", label: "Oprogramowanie i sprzęt" }
+  ];
+
   var questionBank = [];
   var currentPicked = [];
-  var lastRequestedCount = 1;
+  var lastRequestedCount = 5;
+  var selectedCount = 5;
+  var activeCategory = "all";
   var elements = {};
 
   function init() {
@@ -14,65 +27,138 @@
     initScrollHeader();
     loadQuestions();
     bindEvents();
-    updateBankMeta();
-    renderDrawButtons();
+    renderCategoryFilters();
+    renderCountSeg();
+    updateDrawAction();
     showEmptyState();
   }
 
   function cacheElements() {
     elements.header = document.getElementById("site-header");
     elements.currentYear = document.getElementById("current-year");
-    elements.drawControls = document.getElementById("draw-controls");
+    elements.categoryFilters = document.getElementById("category-filters");
+    elements.drawCountSeg = document.getElementById("draw-count-seg");
+    elements.drawBtn = document.getElementById("draw-btn");
+    elements.resultsSection = document.getElementById("questions-section");
     elements.results = document.getElementById("questions-results");
-    elements.empty = document.getElementById("questions-empty");
-    elements.bankCount = document.getElementById("questions-bank-count");
     elements.drawSummary = document.getElementById("draw-summary");
     elements.redrawBtn = document.getElementById("redraw-btn");
-    elements.redrawBtnBottom = document.getElementById("redraw-btn-bottom");
-    elements.checkBtnTop = document.getElementById("check-answers-btn-top");
-    elements.checkBtnBottom = document.getElementById("check-answers-btn-bottom");
+    elements.checkBtn = document.getElementById("check-answers-btn");
     elements.checkBar = document.getElementById("check-answers-bar");
     elements.checkScore = document.getElementById("check-answers-score");
   }
 
-  function getCheckButtons() {
-    return [elements.checkBtnTop, elements.checkBtnBottom].filter(Boolean);
+  function getCategoryLabel(categoryId) {
+    if (!categoryId || categoryId === "all") return "";
+    for (var i = 0; i < CATEGORIES.length; i++) {
+      if (CATEGORIES[i].id === categoryId) return CATEGORIES[i].label;
+    }
+    return categoryId;
   }
 
-  function getRedrawButtons() {
-    return [elements.redrawBtn, elements.redrawBtnBottom].filter(Boolean);
-  }
-
-  function setCheckButtonsVisible(visible) {
-    getCheckButtons().forEach(function (btn) {
-      btn.hidden = !visible;
-      btn.disabled = false;
+  function getFilteredBank() {
+    if (activeCategory === "all") return questionBank;
+    return questionBank.filter(function (q) {
+      return q.category === activeCategory;
     });
+  }
+
+  function countByCategory(categoryId) {
+    if (categoryId === "all") return questionBank.length;
+    var n = 0;
+    for (var i = 0; i < questionBank.length; i++) {
+      if (questionBank[i].category === categoryId) n++;
+    }
+    return n;
+  }
+
+  function renderCategoryFilters() {
+    if (!elements.categoryFilters) return;
+    elements.categoryFilters.innerHTML = "";
+
+    var allBtn = createCategoryChip("all", "Wszystkie", questionBank.length);
+    elements.categoryFilters.appendChild(allBtn);
+
+    CATEGORIES.forEach(function (cat) {
+      var count = countByCategory(cat.id);
+      if (count === 0) return;
+      elements.categoryFilters.appendChild(
+        createCategoryChip(cat.id, cat.label, count)
+      );
+    });
+  }
+
+  function createCategoryChip(id, label, count) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className =
+      "category-chip" + (activeCategory === id ? " is-active" : "");
+    btn.setAttribute("data-category", id);
+    btn.setAttribute("aria-pressed", activeCategory === id ? "true" : "false");
+    btn.setAttribute(
+      "aria-label",
+      label + ", " + count + (count === 1 ? " pytanie" : " pytań")
+    );
+
+    var labelSpan = document.createElement("span");
+    labelSpan.className = "category-chip-label";
+    labelSpan.textContent = label;
+
+    var countSpan = document.createElement("span");
+    countSpan.className = "category-chip-count";
+    countSpan.textContent = String(count);
+
+    btn.appendChild(labelSpan);
+    btn.appendChild(countSpan);
+    btn.addEventListener("click", function () {
+      setActiveCategory(id);
+    });
+    return btn;
+  }
+
+  function setActiveCategory(categoryId) {
+    if (activeCategory === categoryId) return;
+    activeCategory = categoryId;
+
+    if (elements.categoryFilters) {
+      var chips = elements.categoryFilters.querySelectorAll(".category-chip");
+      chips.forEach(function (chip) {
+        var isActive = chip.getAttribute("data-category") === activeCategory;
+        chip.classList.toggle("is-active", isActive);
+        chip.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    }
+
+    updateDrawAction();
+  }
+
+  function setActionsBarVisible(visible) {
     if (elements.checkBar) elements.checkBar.hidden = !visible;
-  }
-
-  function setCheckButtonsLabel(label) {
-    getCheckButtons().forEach(function (btn) {
-      btn.textContent = label;
-      btn.disabled = false;
-    });
-  }
-
-  function setRedrawButtonsVisible(visible) {
+    if (elements.checkBtn) {
+      elements.checkBtn.hidden = !visible;
+      elements.checkBtn.disabled = false;
+    }
     if (elements.redrawBtn) {
       elements.redrawBtn.hidden = !visible;
       elements.redrawBtn.disabled = false;
     }
-    if (elements.redrawBtnBottom) {
-      elements.redrawBtnBottom.disabled = false;
-      elements.redrawBtnBottom.removeAttribute("hidden");
+  }
+
+  function setCheckButtonLabel(label) {
+    if (elements.checkBtn) {
+      elements.checkBtn.textContent = label;
+      elements.checkBtn.disabled = false;
     }
   }
 
   function redrawLastSet() {
     var last = Number(lastRequestedCount);
-    if (!isFinite(last) || last < 1) last = 1;
+    if (!isFinite(last) || last < 1) last = selectedCount || 5;
     drawQuestions(last);
+  }
+
+  function drawSelected() {
+    drawQuestions(selectedCount);
   }
 
   function loadQuestions() {
@@ -113,14 +199,6 @@
     );
   }
 
-  function updateBankMeta() {
-    if (elements.bankCount) {
-      var n = questionBank.length;
-      elements.bankCount.textContent =
-        n === 1 ? "1 pytanie w bazie" : n + " pytań w bazie";
-    }
-  }
-
   function pluralizeQuestions(n) {
     if (n === 1) return "1 pytanie";
     var mod10 = n % 10;
@@ -131,30 +209,60 @@
     return n + " pytań";
   }
 
-  function renderDrawButtons() {
-    if (!elements.drawControls) return;
-    elements.drawControls.innerHTML = "";
-
-    if (questionBank.length === 0) {
-      var disabled = document.createElement("p");
-      disabled.className = "questions-hint";
-      disabled.textContent = "Baza pytań jest pusta.";
-      elements.drawControls.appendChild(disabled);
-      return;
-    }
+  function renderCountSeg() {
+    if (!elements.drawCountSeg) return;
+    elements.drawCountSeg.innerHTML = "";
 
     DRAW_COUNTS.forEach(function (count) {
       var btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "btn-cta draw-btn";
+      btn.className =
+        "draw-count-opt" + (selectedCount === count ? " is-active" : "");
+      btn.setAttribute("role", "radio");
+      btn.setAttribute(
+        "aria-checked",
+        selectedCount === count ? "true" : "false"
+      );
       btn.setAttribute("data-count", String(count));
-      btn.textContent = "Losuj " + pluralizeQuestions(count);
-      btn.disabled = questionBank.length === 0;
+      btn.textContent = String(count);
       btn.addEventListener("click", function () {
-        drawQuestions(count);
+        setSelectedCount(count);
       });
-      elements.drawControls.appendChild(btn);
+      elements.drawCountSeg.appendChild(btn);
     });
+  }
+
+  function setSelectedCount(count) {
+    if (selectedCount === count) return;
+    selectedCount = count;
+
+    if (elements.drawCountSeg) {
+      var opts = elements.drawCountSeg.querySelectorAll(".draw-count-opt");
+      opts.forEach(function (opt) {
+        var isActive = Number(opt.getAttribute("data-count")) === selectedCount;
+        opt.classList.toggle("is-active", isActive);
+        opt.setAttribute("aria-checked", isActive ? "true" : "false");
+      });
+    }
+
+    updateDrawAction();
+  }
+
+  function updateDrawAction() {
+    var pool = getFilteredBank();
+    var canDraw = pool.length > 0;
+
+    if (elements.drawBtn) {
+      elements.drawBtn.disabled = !canDraw;
+      if (!canDraw && questionBank.length === 0) {
+        elements.drawBtn.textContent = "Brak pytań";
+      } else if (!canDraw) {
+        elements.drawBtn.textContent = "Brak w temacie";
+      } else {
+        elements.drawBtn.textContent =
+          "Losuj " + pluralizeQuestions(Math.min(selectedCount, pool.length));
+      }
+    }
   }
 
   function shuffleCopy(arr) {
@@ -169,15 +277,16 @@
   }
 
   function drawQuestions(requestedCount) {
-    if (!questionBank.length) {
+    var pool = getFilteredBank();
+    if (!pool.length) {
       showEmptyState();
       return;
     }
 
     lastRequestedCount = requestedCount;
-    var count = Math.min(requestedCount, questionBank.length);
-    currentPicked = shuffleCopy(questionBank).slice(0, count);
-    renderResults(currentPicked, requestedCount);
+    var count = Math.min(requestedCount, pool.length);
+    currentPicked = shuffleCopy(pool).slice(0, count);
+    renderResults(currentPicked, requestedCount, pool.length);
   }
 
   function normalizeFillAnswer(value) {
@@ -367,35 +476,46 @@
     return label;
   }
 
-  function renderResults(picked, requestedCount) {
+  function scrollToResultsHeading() {
+    var target =
+      document.getElementById("results-heading") ||
+      document.querySelector(".questions-toolbar") ||
+      elements.results;
+    if (target && target.scrollIntoView) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function renderResults(picked, requestedCount, poolSize) {
     if (!elements.results) return;
 
-    var alreadyVisible =
-      !elements.results.hidden && elements.results.childElementCount > 0;
+    var available = typeof poolSize === "number" ? poolSize : getFilteredBank().length;
 
-    if (elements.empty) elements.empty.hidden = true;
-    elements.results.hidden = false;
-    elements.results.innerHTML = "";
+    if (elements.resultsSection) elements.resultsSection.hidden = false;
 
     if (elements.drawSummary) {
       var summary = "Wylosowano " + pluralizeQuestions(picked.length);
+      var catLabel = getCategoryLabel(activeCategory);
+      if (catLabel) {
+        summary += " · " + catLabel;
+      }
       if (requestedCount > picked.length) {
         summary +=
-          " (w bazie jest tylko " + pluralizeQuestions(questionBank.length) + ")";
+          " (w filtrze jest tylko " + pluralizeQuestions(available) + ")";
       }
       elements.drawSummary.textContent = summary;
       elements.drawSummary.hidden = false;
     }
-
-    setRedrawButtonsVisible(true);
 
     if (elements.checkScore) {
       elements.checkScore.hidden = true;
       elements.checkScore.textContent = "";
       elements.checkScore.className = "check-answers-score";
     }
-    setCheckButtonsVisible(true);
-    setCheckButtonsLabel("Sprawdź odpowiedzi");
+    setActionsBarVisible(true);
+    setCheckButtonLabel("Sprawdź odpowiedzi");
+
+    var fragment = document.createDocumentFragment();
 
     picked.forEach(function (question, index) {
       var card = document.createElement("article");
@@ -412,6 +532,14 @@
       badge.textContent = "Pytanie " + (index + 1);
 
       header.appendChild(badge);
+
+      var catName = getCategoryLabel(question.category);
+      if (catName) {
+        var catBadge = document.createElement("span");
+        catBadge.className = "question-category-badge";
+        catBadge.textContent = catName;
+        header.appendChild(catBadge);
+      }
 
       if (question.source) {
         var source = document.createElement("span");
@@ -441,17 +569,15 @@
       card.appendChild(header);
       card.appendChild(body);
       card.appendChild(feedback);
-      elements.results.appendChild(card);
+      fragment.appendChild(card);
     });
 
-    if (!alreadyVisible) {
-      var toolbar = document.querySelector(".questions-toolbar");
-      if (toolbar && toolbar.scrollIntoView) {
-        toolbar.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        elements.results.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
+    elements.results.innerHTML = "";
+    elements.results.appendChild(fragment);
+
+    requestAnimationFrame(function () {
+      scrollToResultsHeading();
+    });
   }
 
   function clearCheckMarks(card) {
@@ -679,25 +805,18 @@
             : "check-answers-score is-partial-msg";
     }
 
-    setCheckButtonsLabel("Sprawdź ponownie");
+    setCheckButtonLabel("Sprawdź ponownie");
   }
 
   function showEmptyState() {
     currentPicked = [];
-    if (elements.results) {
-      elements.results.hidden = true;
-      elements.results.innerHTML = "";
-    }
-    if (elements.empty) elements.empty.hidden = false;
+    if (elements.resultsSection) elements.resultsSection.hidden = true;
+    if (elements.results) elements.results.innerHTML = "";
     if (elements.drawSummary) {
       elements.drawSummary.hidden = true;
       elements.drawSummary.textContent = "";
     }
-    if (elements.redrawBtn) elements.redrawBtn.hidden = true;
-    if (elements.checkBar) elements.checkBar.hidden = true;
-    getCheckButtons().forEach(function (btn) {
-      btn.hidden = true;
-    });
+    setActionsBarVisible(false);
     if (elements.checkScore) {
       elements.checkScore.hidden = true;
       elements.checkScore.textContent = "";
@@ -705,6 +824,12 @@
   }
 
   function bindEvents() {
+    if (elements.drawBtn) {
+      elements.drawBtn.addEventListener("click", function () {
+        drawSelected();
+      });
+    }
+
     document.addEventListener("click", function (event) {
       var target = event.target;
       if (!target || typeof target.closest !== "function") return;
