@@ -46,6 +46,7 @@
     elements.checkBtn = document.getElementById("check-answers-btn");
     elements.checkBar = document.getElementById("check-answers-bar");
     elements.checkScore = document.getElementById("check-answers-score");
+    elements.backToTop = document.getElementById("back-to-top");
   }
 
   function getCategoryLabel(categoryId) {
@@ -178,7 +179,7 @@
   }
 
   function initScrollHeader() {
-    if (!elements.header) return;
+    if (!elements.header && !elements.backToTop) return;
     var ticking = false;
 
     window.addEventListener(
@@ -187,11 +188,23 @@
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(function () {
-          if (window.pageYOffset > 48) {
-            elements.header.classList.add("header--scrolled");
-          } else {
-            elements.header.classList.remove("header--scrolled");
+          if (elements.header) {
+            if (window.pageYOffset > 48) {
+              elements.header.classList.add("header--scrolled");
+            } else {
+              elements.header.classList.remove("header--scrolled");
+            }
           }
+
+          if (elements.backToTop) {
+            var scrollPos = window.pageYOffset;
+            var docHeight = document.documentElement.scrollHeight;
+            var show = selectedCount === 10 && scrollPos > docHeight / 2;
+            elements.backToTop.hidden = false;
+            elements.backToTop.classList.toggle("is-visible", show);
+            elements.backToTop.setAttribute("aria-hidden", show ? "false" : "true");
+          }
+
           ticking = false;
         });
       },
@@ -842,56 +855,22 @@
   }
 
   function setQuestionFeedback(card, result) {
-    var feedback = card.querySelector(".question-feedback");
     card.classList.add("is-checked");
     card.classList.remove("is-correct", "is-incorrect", "is-partial");
 
-    if (!feedback) return;
-
-    feedback.hidden = false;
-    feedback.textContent = "";
-
-    var status = document.createElement("span");
-    status.className = "question-feedback-status";
-
-    if (!result.totalParts) {
-      feedback.className = "question-feedback is-neutral";
-      status.textContent = "Brak zdefiniowanych odpowiedzi do sprawdzenia.";
-      feedback.appendChild(status);
-      return;
-    }
+    if (!result.totalParts) return;
 
     if (result.fullyCorrect) {
       card.classList.add("is-correct");
-      feedback.className = "question-feedback is-ok";
-      status.textContent = "Poprawnie";
-      feedback.appendChild(status);
-      return;
-    }
-
-    if (result.correctParts === 0) {
+    } else if (result.correctParts === 0) {
       card.classList.add("is-incorrect");
-      feedback.className = "question-feedback is-bad";
-      status.textContent =
-        "Błędnie (" + result.correctParts + "/" + result.totalParts + ")";
     } else {
       card.classList.add("is-partial");
-      feedback.className = "question-feedback is-partial-msg";
-      status.textContent =
-        "Częściowo poprawnie (" +
-        result.correctParts +
-        "/" +
-        result.totalParts +
-        ")";
     }
 
-    feedback.appendChild(status);
-
-    if (result.correctSummary) {
-      var key = document.createElement("span");
-      key.className = "question-feedback-key";
-      key.textContent = result.correctSummary;
-      feedback.appendChild(key);
+    var feedback = card.querySelector(".question-feedback");
+    if (feedback) {
+      feedback.hidden = true;
     }
   }
 
@@ -967,6 +946,12 @@
     if (elements.drawBtn) {
       elements.drawBtn.addEventListener("click", function () {
         drawSelected();
+      });
+    }
+
+    if (elements.backToTop) {
+      elements.backToTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
 
