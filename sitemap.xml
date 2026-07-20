@@ -7,13 +7,13 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://infmatura.dev/pytania-teoretyczne.html</loc>
+    <loc>https://infmatura.dev/pytania-teoretyczne/</loc>
     <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://infmatura.dev/polityka-prywatnosci.html</loc>
+    <loc>https://infmatura.dev/polityka-prywatnosci/</loc>
     <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
