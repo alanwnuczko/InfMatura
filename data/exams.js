@@ -22,7 +22,7 @@ window.EXAMS_JSON = [
       "Arkusz"
     ],
     "hasData": true,
-    "hasSolution": false, // brak rozwiązania
+    "hasSolution": true,
     "hasZasady": true
   },
   {
