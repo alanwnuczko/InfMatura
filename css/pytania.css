@@ -449,10 +449,10 @@ body:has(.questions-section[hidden]) .questions-hero {
 
 .addition-grid {
   display: grid;
-  grid-template-columns: var(--add-op) repeat(var(--digit-cols), var(--add-cell));
+  grid-template-columns: var(--add-op) repeat(var(--digit-cols), minmax(var(--add-cell), var(--add-cell)));
   gap: var(--add-gap-y) var(--add-gap-x);
   width: max-content;
-  min-width: 100%;
+  min-width: max-content;
   margin: 0 auto;
   justify-content: center;
   align-items: center;

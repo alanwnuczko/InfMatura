@@ -708,9 +708,11 @@
     var allAnswered = true;
     var revealedAnswers = [];
 
-    inputs.forEach(function (input, i) {
+    inputs.forEach(function (input) {
+      var idxAttr = input.getAttribute("data-answer-index");
+      var idx = idxAttr ? parseInt(idxAttr, 10) : 0;
       var user = normalizeFillAnswer(input.value);
-      var rawExpected = expected[i];
+      var rawExpected = expected[idx];
       var exp = normalizeFillAnswer(rawExpected);
       input.classList.remove(
         "is-correct",
