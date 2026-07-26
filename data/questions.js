@@ -10,6 +10,9 @@
  * - "systemy" | "sieci" | "sql" | "algorytmy" | "bezpieczenstwo"
  * - "arkusz" | "multimedia" | "oprogramowanie"
  *
+ * level (poziom egzaminu):
+ * - "PP" | "PR"
+ *
  * Dla {{select}} podaj selectOptions: ["<", "=", ">"] (lub inne).
  * Sprawdzanie odpowiedzi: lokalnie w przeglądarce (js/questions.js).
  */
@@ -19,6 +22,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2026 · F2023",
+    level: "PR",
     html:
       "<p>Poniżej zapisano wyrażenie matematyczne zawierające dodatnie liczby całkowite zapisane w systemach: szóstkowym, dziesiętnym i trójkowym.<br>" +
       "W miejsce kropek wpisz odpowiednie liczby, tak aby obie równości były prawdziwe.</p>" +
@@ -30,6 +34,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE czerwiec 2026 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -48,6 +53,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2026 · F2015",
+    level: "PR",
     html:
       "<p>Liczba <strong>11101010<sub>2</sub></strong> (zapisana w systemie binarnym) jest</p>",
     items: [
@@ -62,6 +68,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE maj 2026 · F2023",
+    level: "PR",
     html:
       "<p>Poniżej zapisano wyrażenie matematyczne zawierające liczby zapisane w systemach: piątkowym, dziesiętnym i trójkowym.<br>" +
       "W miejsce kropek wpisz odpowiednie liczby (zapisane w systemie piątkowym i trójkowym), tak aby obie równości były prawdziwe.</p>" +
@@ -73,6 +80,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "fill",
     source: "CKE maj 2026 · F2023",
+    level: "PR",
     html:
       "<p>Uzupełnij zdania. Wpisz właściwe liczby bitów.</p>" +
       "<div class=\"question-fill-lines\">" +
@@ -86,6 +94,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2025 · F2023",
+    level: "PR",
     html:
       "<p>Poniżej sposobem pisemnym dodano dwie liczby zapisane w systemie trójkowym. Uzupełnij brakujące cyfry tak, aby działanie było wykonane poprawnie.</p>" +
       "<div class=\"question-addition\" style=\"--digit-cols: 6\" aria-label=\"Dodawanie w systemie trójkowym\">" +
@@ -102,6 +111,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -124,6 +134,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2015",
+    level: "PR",
     html:
       "<p>Dla liczb <strong>11010101<sub>2</sub></strong>, <strong>1222<sub>4</sub></strong>, <strong>333<sub>8</sub></strong>, <strong>D6<sub>16</sub></strong> zapisanych w systemach pozycyjnych o podstawach 2, 4, 8 i 16:</p>",
     items: [
@@ -138,6 +149,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2025 · F2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -164,6 +176,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "choice",
     source: "CKE maj 2025 · F2023",
+    level: "PR",
     html:
       "<p>Dokończ zdanie. Zaznacz właściwą odpowiedź spośród podanych.</p>" +
       "<p><strong>Program typu keylogger służy do</strong></p>",
@@ -192,6 +205,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE maj 2025 · F2023",
+    level: "PR",
     html:
       "<p>Poniżej sposobem pisemnym dodano dwie liczby podane w zapisie binarnym. Uzupełnij brakujące cyfry tak, aby działanie było wykonane poprawnie.</p>" +
       "<div class=\"question-addition addition--wide\" style=\"--digit-cols: 12\" aria-label=\"Dodawanie binarne\">" +
@@ -208,6 +222,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2025 · F2015",
+    level: "PR",
     html: "<p>Program typu keylogger służy do</p>",
     items: [
       {
@@ -233,6 +248,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2025 · F2015",
+    level: "PR",
     html:
       "<p>Liczba <strong>1111 1111 1111 1111<sub>2</sub></strong> (zapisana w systemie binarnym) jest równa</p>",
     items: [
@@ -247,6 +263,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE grudzień 2024 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań dotyczących podpisu elektronicznego. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -269,6 +286,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE grudzień 2024 · F2023",
+    level: "PR",
     html:
       "<p>Wykonaj działania na liczbach zapisanych w systemie piątkowym. Wyniki podaj także w systemie piątkowym.</p>" +
       "<div class=\"question-fill-lines\">" +
@@ -282,6 +300,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -300,6 +319,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2024 · F2023",
+    level: "PR",
     html:
       "<p>Wykonaj działania na liczbach zapisanych w systemach pozycyjnych o podstawach 5 i 6. " +
       "Wynik dodawania liczb w systemie o podstawie 5 zapisz w tym systemie, wynik odejmowania liczb zapisanych w systemie o podstawie 6 zapisz w systemie o podstawie 6.</p>" +
@@ -314,6 +334,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2015",
+    level: "PR",
     html:
       "<p>W tabeli <code>miasta</code> zamieszczono informacje o liczbie ludności miast Polski. Zawartość tabeli <code>miasta</code>:</p>" +
       "<div class=\"question-data-table-wrap\">" +
@@ -341,6 +362,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2024 · F2015",
+    level: "PR",
     html:
       "<p>Wynik dodawania liczb binarnych <strong>1011101<sub>2</sub></strong> oraz <strong>111<sub>2</sub></strong> jest:</p>",
     items: [
@@ -355,6 +377,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2024 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -377,6 +400,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE maj 2024 · F2023",
+    level: "PR",
     html:
       "<p>Wykonaj działania na liczbach zapisanych w systemie trójkowym i systemie dziewiątkowym. Wyniki podaj w systemie trójkowym.</p>" +
       "<div class=\"question-fill-lines\">" +
@@ -390,6 +414,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2024 · F2015",
+    level: "PR",
     html:
       "<p>Różnica <strong>100100111<sub>2</sub> &minus; 1111100<sub>2</sub></strong> jest równa:</p>",
     items: [
@@ -404,6 +429,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2024 · F2015",
+    level: "PR",
     html:
       "<p>Suma <strong>100100111<sub>2</sub> + 1111100<sub>2</sub></strong> jest równa:</p>",
     items: [
@@ -418,6 +444,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE czerwiec 2023 · F2023",
+    level: "PR",
     html:
       "<p>Uzupełnij brakujące pola tabeli:</p>" +
       "<ul>" +
@@ -436,6 +463,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2023 · F2023",
+    level: "PR",
     html:
       "<p>Zapis koloru tła w arkuszu CSS został wyrażony w postaci</p>" +
       "<pre class=\"question-code\">background-color: #E9967A;</pre>",
@@ -455,6 +483,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2023 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych równości.</p>",
     items: [
       { text: "101₁₆ = 11001011₂", answer: "F" },
@@ -468,6 +497,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2023 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>W komunikacji między dwoma osobami A i B z wykorzystaniem <strong>szyfrowania asymetrycznego</strong> klucz prywatny osoby A stosuje się do</p>",
@@ -487,6 +517,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE maj 2023 · F2023",
+    level: "PR",
     selectOptions: ["<", "=", ">"],
     html:
       "<p>Dane są liczby zapisane w systemach pozycyjnych o podstawach 3, 5 i 6. " +
@@ -503,6 +534,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2023 · F2015",
+    level: "PR",
     html:
       "<p>Rozważamy dwie funkcje <strong>F</strong> i <strong>G</strong>, których argumentem jest liczba całkowita <em>x</em> &gt; 1 (gdzie <em>mod</em> oznacza resztę z dzielenia):</p>" +
       "<pre class=\"question-code\">F(x):\n  i ← 2\n  dopóki x mod i ≠ 0 wykonuj\n    i ← i + 1\n  zwróć i\n\nG(x):\n  i ← x − 1\n  dopóki x mod i ≠ 0 wykonuj\n    i ← i − 1\n  zwróć i</pre>",
@@ -527,6 +559,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2023 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących liczb w różnych systemach pozycyjnych.</p>",
     items: [
       { text: "A5₁₆ = 245₈", answer: "P" },
@@ -540,6 +573,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "fill",
     source: "CKE grudzień 2022 · F2023",
+    level: "PR",
     html:
       "<p>Dopasuj odpowiedni protokół (FTP, SMTP, IMAP, HTTPS) do podanego opisu:</p>" +
       "<div class=\"question-fill-lines\">" +
@@ -555,6 +589,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE grudzień 2022 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -573,6 +608,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "fill",
     source: "CKE grudzień 2022 · F2023",
+    level: "PR",
     html:
       "<p>Uzupełnij tabelę. Zapisz wyniki działania w zapisie czwórkowym i szesnastkowym.</p>" +
       "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
@@ -588,6 +624,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2022 · F2015",
+    level: "PR",
     html:
       "<p>Po dodaniu dwóch liczb <strong>101101<sub>2</sub></strong> i <strong>111011<sub>2</sub></strong> zapisanych w systemie binarnym otrzymamy:</p>",
     items: [
@@ -602,6 +639,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2022 · F2015",
+    level: "PR",
     html:
       "<p>Dany jest algorytm:</p>" +
       "<pre class=\"question-code\">s ← 0\ndla i = 1, 2, …, n\n  dla j = i, i + 1, …, n\n    s ← s + 1</pre>" +
@@ -618,6 +656,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2022 · F2015",
+    level: "PR",
     html:
       "<p>Po dodaniu liczb <strong>132<sub>4</sub></strong> oraz <strong>3111<sub>4</sub></strong> zapisanych w systemie czwórkowym otrzymamy:</p>",
     items: [
@@ -632,6 +671,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE marzec 2022 · F2023",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>W myśl polskiego prawa dozwolone jest</p>",
@@ -655,6 +695,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "fill",
     source: "CKE marzec 2022 · F2023",
+    level: "PR",
     selectOptions: ["login", "hasło", "dane karty kredytowej"],
     html:
       "<p>Przy transakcjach wykonywanych w pewnym sklepie internetowym potrzebne są między innymi trzy wrażliwe informacje: login (nazwa użytkownika), hasło do serwisu i dane karty kredytowej.</p>" +
@@ -671,6 +712,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2021 · F2015",
+    level: "PR",
     html:
       "<p>Mamy dane operacje logiczne na bitach <strong>not</strong>, <strong>and</strong> i <strong>or</strong> oraz wyrażenie <strong>W(a,b)</strong>:</p>" +
       "<pre class=\"question-code\">W(a,b) = ((not a) and b) or (a and (not b))</pre>",
@@ -686,6 +728,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2021 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych równości.</p>",
     items: [
       { text: "(10101)₂ + (101011)₂ = (111111)₂", answer: "F" },
@@ -699,6 +742,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2021 · F2015",
+    level: "PR",
     html:
       "<p>Dana jest następująca funkcja:</p>" +
       "<pre class=\"question-code\">funkcja f(n):\n  jeżeli n &gt; 0\n    wypisz n\n    f(n − 2)\n    wypisz n</pre>",
@@ -726,6 +770,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2021 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań o porównaniu liczb w różnych systemach.</p>",
     items: [
       {
@@ -751,6 +796,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
+    level: "PR",
     html:
       "<p>Mamy dane operacje (bramki) logiczne na bitach: <strong>not</strong> oraz <strong>and</strong> oraz wyrażenie <strong>W(a,b)</strong>:</p>" +
       "<pre class=\"question-code\">W(a,b) = (not ((not a) and b)) and (not (a and (not b)))</pre>",
@@ -766,6 +812,7 @@ window.QUESTIONS_JSON = [
     category: "arkusz",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
+    level: "PR",
     html:
       "<p>W komórce C1 arkusza kalkulacyjnego zapisano formułę:</p>" +
       "<pre class=\"question-code\">=JEŻELI(ORAZ(MOD(A1;2)=1;MOD(B1;2)=1);A1+B1;A1*B1)</pre>",
@@ -793,6 +840,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE marzec 2021 · F2015",
+    level: "PR",
     html:
       "<p>Różnica <strong>1011101<sub>2</sub> &minus; 10111<sub>2</sub></strong> dwóch liczb zapisanych w systemie binarnym jest:</p>",
     items: [
@@ -807,6 +855,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
+    level: "PR",
     html:
       "<p>Dana jest rekurencyjna funkcja <em>f(n)</em>:</p>" +
       "<pre class=\"question-code\">f(n):\n  jeżeli n = 0\n    wynikiem jest 1\n  w przeciwnym przypadku\n    s ← 1\n    dla i = 0, 1, …, n − 1\n      s ← s + f(i)\n    wynikiem jest s</pre>",
@@ -831,6 +880,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
+    level: "PR",
     html:
       "<p>Liczba <strong>BA<sub>16</sub></strong> (zapisana w systemie szesnastkowym) jest równa</p>",
     items: [
@@ -845,6 +895,7 @@ window.QUESTIONS_JSON = [
     category: "arkusz",
     type: "truefalse",
     source: "CKE lipiec 2020 · F2015",
+    level: "PR",
     html:
       "<p>W komórkach A1 i B1 arkusza kalkulacyjnego zapisano pewne liczby całkowite dodatnie. W komórce C1 wpisano formułę:</p>" +
       "<pre class=\"question-code\">=JEŻELI(MOD(A1;2)=0;JEŻELI(MOD(B1;2)=0;A1*B1/4;A1*B1);JEŻELI(MOD(B1;2)=0;A1*B1;(A1+B1)/2))</pre>",
@@ -872,6 +923,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2020 · F2007",
+    level: "PR",
     html:
       "<p>W poniższym algorytmie <em>n</em> jest nieujemną liczbą całkowitą, <em>mod</em> to operator reszty z dzielenia, <em>div</em> to operator dzielenia całkowitego.</p>" +
       "<pre class=\"question-code\">w ← 0\ndopóki n ≠ 0 wykonuj\n  w ← w + (n mod 10)\n  n ← n div 10</pre>",
@@ -899,6 +951,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2020 · F2007",
+    level: "PR",
     html:
       "<p>Dana jest konfiguracja interfejsu sieciowego komputerów A i B.</p>" +
       "<p><strong>Komputer A:</strong> IPv4 192.168.10.65, maska 255.255.255.0<br>" +
@@ -924,6 +977,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
+    level: "PR",
     html:
       "<p>W tabeli <code>T</code> zapisano wiele rekordów danych zawierających informacje o zawodnikach. Pola rekordu to: <code>id</code>, <code>nazwisko</code>, <code>imie</code>, <code>plec</code>, <code>wzrost</code>, <code>numer_startowy</code>, <code>punkty</code>, <code>id_klubu</code>.</p>" +
       "<p>Polecenie SQL obliczające średnią punktów zawodników z klubu o <code>id_klubu</code> równym 100 może mieć postać:</p>",
@@ -951,6 +1005,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
+    level: "PR",
     html:
       "<p>Różnica <strong>11001001<sub>2</sub> &minus; 1111110<sub>2</sub></strong> (dwóch liczb zapisanych w systemie binarnym) jest równa</p>",
     items: [
@@ -965,6 +1020,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
+    level: "PR",
     html: "<p>Protokół <strong>HTTPS</strong></p>",
     items: [
       {
@@ -990,6 +1046,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE kwiecień 2020 · F2015",
+    level: "PR",
     html:
       "<p>Liczba, która w zapisie binarnym ma dokładnie 16 cyfr i jedynkę na najbardziej znaczącej pozycji ma w zapisie</p>",
     items: [
@@ -1004,6 +1061,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
+    level: "PR",
     html:
       "<p>Dane są tabele <code>Uczniowie</code> i <code>Oceny</code>. Przeanalizuj i oceń poniższe zapytanie w języku SQL.</p>" +
       "<pre class=\"question-code\">SELECT Uczniowie.imie, Uczniowie.nazwisko, AVG(Oceny.ocena)\n" +
@@ -1035,6 +1093,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2019 · F2015",
+    level: "PR",
     html:
       "<p>Po pomnożeniu dwóch liczb <strong>1111110<sub>2</sub></strong> oraz <strong>101<sub>2</sub></strong> zapisanych w systemie dwójkowym otrzymamy:</p>",
     items: [
@@ -1049,6 +1108,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2019 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących systemu DNS.</p>",
     items: [
       { text: "DNS to skrót od Domain Name System.", answer: "P" },
@@ -1068,6 +1128,7 @@ window.QUESTIONS_JSON = [
     category: "arkusz",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
+    level: "PR",
     html:
       "<p>Powyższą tablicę kwadratów w arkuszu kalkulacyjnym można otrzymać, jeżeli skopiuje się tylko jedną formułę z komórki B2 do pozostałych komórek z zakresu B2:K10. " +
       "W tym celu do komórki B2 należy wpisać</p>" +
@@ -1091,6 +1152,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
+    level: "PR",
     html: "<p>Protokół <strong>HTTPS</strong></p>",
     items: [
       {
@@ -1107,6 +1169,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2019 · F2015",
+    level: "PR",
     html:
       "<p>Różnica <strong>11001001<sub>2</sub> − 1111111<sub>2</sub></strong> jest równa</p>",
     items: [
@@ -1121,6 +1184,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących systemu DNS.</p>",
     items: [
       { text: "DNS to skrót od Domain Name System.", answer: "P" },
@@ -1140,6 +1204,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
+    level: "PR",
     html:
       "<p>Po pomnożeniu dwóch liczb <strong>1111110<sub>2</sub></strong> oraz <strong>101<sub>2</sub></strong> zapisanych w systemie dwójkowym otrzymamy:</p>",
     items: [
@@ -1154,6 +1219,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących adresów IP.</p>",
     items: [
       { text: "Adres IPv6 składa się z 64 bitów.", answer: "F" },
@@ -1167,6 +1233,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2019 · F2007",
+    level: "PR",
     html:
       "<p>Skrótem nazwy złącza, przez które można podłączyć urządzenia peryferyjne do komputera, jest</p>",
     items: [
@@ -1181,6 +1248,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
+    level: "PR",
     html:
       "<p>W tabeli <code>T</code> zapisano wiele rekordów danych zawierających informacje o zawodnikach. " +
       "Pola rekordu to: <code>id</code>, <code>nazwisko</code>, <code>imie</code>, <code>plec</code>, <code>wzrost</code>, " +
@@ -1210,6 +1278,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
+    level: "PR",
     html: "<p>Które zdania dotyczące struktury danych zwanej <strong>stosem</strong> są prawdziwe?</p>",
     items: [
       {
@@ -1235,6 +1304,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
+    level: "PR",
     html:
       "<p>Do jednoznacznego zakodowania znaków pięcioelementowego alfabetu wystarczą/y:</p>",
     items: [
@@ -1249,6 +1319,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2018 · F2015",
+    level: "PR",
     html:
       "<p>Dana jest funkcja rekurencyjna <strong>Rek</strong>, której argumentem jest nieujemna liczba całkowita <em>n</em>.</p>" +
       "<pre class=\"question-code\">funkcja Rek(n)\n" +
@@ -1268,6 +1339,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2018 · F2015",
+    level: "PR",
     html:
       "<p>Na pewnym serwerze WWW znajduje się strona napisana w języku PHP, a jej kod zawiera fragmenty w języku JavaScript. " +
       "Pewien komputer-klient pobrał i wyświetlił tę stronę. Wiadomo, że:</p>",
@@ -1289,6 +1361,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2018 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących modeli barw.</p>",
     items: [
       {
@@ -1311,6 +1384,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE maj 2018 · F2015",
+    level: "PR",
     html: "<p>Wskaż zdania prawdziwe dla języka SQL.</p>",
     items: [
       {
@@ -1336,6 +1410,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych równości w różnych systemach pozycyjnych.</p>",
     items: [
       { text: "A5₁₆ + 234₈ = 149₁₆", answer: "F" },
@@ -1349,6 +1424,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
+    level: "PR",
     html:
       "<p>Dane są następujące adresy IPv4 komputerów:</p>" +
       "<pre class=\"question-code\">Komputer nr 1: 196.122.128.0\nKomputer nr 2: 196.122.129.0\nKomputer nr 3: 196.123.129.0</pre>",
@@ -1376,6 +1452,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
+    level: "PR",
     html:
       "<p>Dana jest funkcja rekurencyjna:</p>" +
       "<p class=\"question-math\">" +
@@ -1401,6 +1478,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
+    level: "PR",
     html: "<p>Prawidłowe przyporządkowania rozszerzeń plików i ich zastosowanie to</p>",
     items: [
       {
@@ -1426,6 +1504,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2018 · F2007",
+    level: "PR",
     html:
       "<p>Dana jest tablica <strong>T[0..3, 0..3]</strong> wypełniona następującymi wartościami:</p>" +
       "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
@@ -1453,6 +1532,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE maj 2017 · F2015",
+    level: "PR",
     html:
       "<p>Po wykonaniu podanego zapytania SQL do pewnej bazy danych wyniki będą zawsze uporządkowane niemalejąco według pola <code>nazwa</code>.</p>",
     items: [
@@ -1479,6 +1559,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE maj 2017 · F2015",
+    level: "PR",
     html:
       "<p>Rozważ następujące zapytanie SQL do pewnej bazy danych:</p>" +
       "<pre class=\"question-code\">SELECT pesel, COUNT(*)\n" +
@@ -1511,6 +1592,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "CKE maj 2017 · F2015",
+    level: "PR",
     html:
       "<p>Pewien oszust chce rozesłać wiadomość, podszywając się pod Jana Kowalskiego, ale nie zdołał wykraść żadnych należących do Jana haseł ani innych prywatnych informacji. " +
       "Posiada jednak klucz publiczny Jana Kowalskiego, który ten udostępnił w sieci, a także znaleziony w internecie adres e-mail Jana. Może zatem</p>",
@@ -1538,6 +1620,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
+    level: "PR",
     html:
       "<p>Dane są tablica <strong>A[1..6]</strong> o zawartości [6, 2, −1, 5, 1, 2] oraz następujący fragment algorytmu:</p>" +
       "<pre class=\"question-code\">s ← 0\n" +
@@ -1559,6 +1642,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
+    level: "PR",
     html: "<p>Realizacji usług poczty elektronicznej służy protokół</p>",
     items: [
       { text: "SMTP.", answer: "P" },
@@ -1572,6 +1656,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
+    level: "PR",
     html: "<p>Liczbą większą od <strong>150<sub>10</sub></strong> jest</p>",
     items: [
       { text: "10011001₂", answer: "P" },
@@ -1585,6 +1670,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
+    level: "PR",
     html: "<p>Obrazy rastrowe</p>",
     items: [
       {
@@ -1610,6 +1696,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
+    level: "PR",
     html:
       "<p>Algorytm zwany sitem Eratostenesa opierający się na „wykreślaniu” wielokrotności kolejnych (niewykreślonych wcześniej) liczb naturalnych służy wyznaczeniu</p>",
     items: [
@@ -1624,6 +1711,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2017 · F2007",
+    level: "PR",
     html:
       "<p>Przykładem programu, który służy do tłumaczenia instrukcji kodu źródłowego programu komputerowego na język maszynowy, jest</p>",
     items: [
@@ -1638,6 +1726,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
+    level: "PR",
     html:
       "<p>W językach programowania: Pascal, C++, Java tablica jest strukturą danych,</p>",
     items: [
@@ -1654,6 +1743,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
+    level: "PR",
     html: "<p>Suma <strong>200<sub>10</sub> + 10<sub>2</sub></strong> jest równa</p>",
     items: [
       { text: "210₁₀", answer: "F" },
@@ -1666,6 +1756,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
+    level: "PR",
     html:
       "<p>Jednym z podstawowych pojęć w informatyce jest algorytm. Każdy algorytm powinien spełniać własność:</p>",
     items: [
@@ -1688,6 +1779,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE czerwiec 2016 · F2015",
+    level: "PR",
     html: "<p>Grafika wektorowa</p>",
     items: [
       {
@@ -1709,6 +1801,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
+    level: "PR",
     html:
       "<p>Po wpisaniu w pasku adresu przeglądarki <code>http://81.219.47.83</code> otwiera się strona Centralnej Komisji Egzaminacyjnej, " +
       "ale po wpisaniu <code>http://cke.edu.pl</code> pojawia się błąd „Nie można odnaleźć podanej strony”. " +
@@ -1737,6 +1830,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
+    level: "PR",
     html:
       "<p>Dana jest funkcja <em>f</em> określona wzorem rekurencyjnym</p>" +
       "<p class=\"question-math\">" +
@@ -1756,6 +1850,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
+    level: "PR",
     html: "<p>Dla dwóch liczb <strong>1111<sub>2</sub></strong> i <strong>101<sub>2</sub></strong> ich</p>",
     items: [
       { text: "suma jest równa 10110₂.", answer: "F" },
@@ -1769,6 +1864,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2016 · F2015",
+    level: "PR",
     html: "<p>Oceń prawdziwość podanych zdań dotyczących systemów operacyjnych.</p>",
     items: [
       {
@@ -1794,6 +1890,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
+    level: "PR",
     html: "<p>Algorytm Euklidesa</p>",
     items: [
       { text: "służy do obliczania potęgi aᵇ.", answer: "F" },
@@ -1816,6 +1913,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
+    level: "PR",
     html: "<p>Liczba szesnastkowa <strong>FCA<sub>16</sub></strong> jest</p>",
     items: [
       { text: "mniejsza od liczby FFF₁₆.", answer: "P" },
@@ -1829,6 +1927,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
+    level: "PR",
     html: "<p>Klucz obcy w tabeli bazy danych</p>",
     items: [
       { text: "pochodzi z innej tabeli.", answer: "P" },
@@ -1842,6 +1941,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE czerwiec 2015 · F2015",
+    level: "PR",
     html: "<p>Adres IPv4</p>",
     items: [
       { text: "składa się z 48 bitów.", answer: "F" },
@@ -1855,6 +1955,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
+    level: "PR",
     html:
       "<p>Po wymnożeniu dwóch liczb <strong>1032<sub>4</sub></strong> oraz <strong>131<sub>4</sub></strong> zapisanych w systemie czwórkowym otrzymamy</p>",
     items: [
@@ -1869,6 +1970,7 @@ window.QUESTIONS_JSON = [
     category: "multimedia",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
+    level: "PR",
     html: "<p>Kompresja stratna w grafice</p>",
     items: [
       {
@@ -1894,6 +1996,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
+    level: "PR",
     html: "<p>Filtrowanie tabeli w bazie danych</p>",
     items: [
       {
@@ -1919,6 +2022,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
+    level: "PR",
     html:
       "<p>Na licencji <strong>ADWARE</strong> jest rozpowszechniane oprogramowanie, które</p>",
     items: [
@@ -1939,6 +2043,7 @@ window.QUESTIONS_JSON = [
     category: "arkusz",
     type: "truefalse",
     source: "CKE maj 2015 · F2015",
+    level: "PR",
     html:
       "<p>W komórkach arkusza kalkulacyjnego umieszczone zostały poniższe wartości i formuły:</p>" +
       "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
@@ -1975,6 +2080,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2015 · F2007",
+    level: "PR",
     html:
       "<p>Dla danej tablicy <strong>Tab</strong>:</p>" +
       "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
@@ -2000,6 +2106,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2015 · F2007",
+    level: "PR",
     html:
       "<p>Poniżej zapisano wyrażenia w odwrotnej notacji polskiej (ONP). Wartościami tych wyrażeń są:</p>",
     items: [
@@ -2014,6 +2121,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "CKE maj 2015 · F2007",
+    level: "PR",
     html:
       "<p>Pewna podsieć ma maskę: <strong>255.255.255.248</strong>. Ile maksymalnie komputerów można podłączyć do danej podsieci? " +
       "Uwzględnij, że 2 z możliwych adresów w sieci to adres sieci oraz adres rozgłoszeniowy.</p>",
@@ -2029,6 +2137,7 @@ window.QUESTIONS_JSON = [
     category: "algorytmy",
     type: "truefalse",
     source: "CKE maj 2015 · F2007",
+    level: "PR",
     html:
       "<p>W celu posortowania rosnąco ciągu liczb <strong>[2, 1, 0, 3]</strong> wykonano porównania i ewentualnie zamieniono liczby w parach otoczonych owalami. Jakie to sortowanie?</p>" +
       "<pre class=\"question-code\">(2 1) 0 3\n1 (2 0) 3\n1 0 (2 3)\n\n(1 0) 2 3\n0 (1 2) 3\n\n(0 1) 2 3\n\n0 1 2 3</pre>",
@@ -2044,6 +2153,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "CKE maj 2015 · F2007",
+    level: "PR",
     html:
       "<p>Program rozpowszechniany za darmo, z którego możemy korzystać w pełni przez nieograniczony czas, może być na licencji</p>",
     items: [
@@ -2058,6 +2168,7 @@ window.QUESTIONS_JSON = [
     category: "sql",
     type: "truefalse",
     source: "CKE maj 2015 · F2007",
+    level: "PR",
     html:
       "<p>Dana jest tabela <strong>Lista</strong>:</p>" +
       "<div class=\"question-data-table-wrap\"><table class=\"question-data-table\">" +
@@ -2095,6 +2206,7 @@ window.QUESTIONS_JSON = [
     category: "systemy",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>Liczba <strong>100110010<sub>2</sub></strong></p>",
@@ -2122,6 +2234,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>Wskaż elementy, które są niezbędne do uruchomienia komputera i załadowania systemu operacyjnego.</p>",
@@ -2137,6 +2250,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
     items: [
@@ -2163,6 +2277,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>System plików <strong>NTFS</strong></p>",
@@ -2190,6 +2305,7 @@ window.QUESTIONS_JSON = [
     category: "sieci",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>W pewnej firmie znajdują się m.in. komputery o następujących adresach IP:</p>" +
@@ -2223,6 +2339,7 @@ window.QUESTIONS_JSON = [
     category: "oprogramowanie",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Chmura obliczeniowa jest usługą polegającą na zdalnym udostępnieniu mocy obliczeniowej urządzeń IT, oferowaną przez zewnętrznego dostawcę. " +
       "Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
@@ -2250,6 +2367,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p><strong>HTTP Cookie</strong> jest niewielką porcją informacji wysyłaną przez witrynę internetową do przeglądarki klienta i zapisywaną w jej ustawieniach. " +
       "Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>",
@@ -2277,6 +2395,7 @@ window.QUESTIONS_JSON = [
     category: "bezpieczenstwo",
     type: "truefalse",
     source: "Zbiór zadań 2015",
+    level: "PR",
     html:
       "<p>Oceń prawdziwość podanych zdań. Zaznacz <strong>P</strong>, jeśli zdanie jest prawdziwe, albo <strong>F</strong> - jeśli jest fałszywe.</p>" +
       "<p>Zgodnie z prawem w Internecie można opublikować zdjęcie osoby:</p>",
@@ -2344,6 +2463,497 @@ window.QUESTIONS_JSON = [
       { id: "B", text: "ORDER BY" },
       { id: "C", text: "HAVING" },
       { id: "D", text: "DISTINCT" }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-120",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE czerwiec 2020 \u00B7 F2007",
+    html:
+      "<p>Rozróżniamy trzy podstawowe topologie połączeń komputerów w sieci:</p>",
+    options: [
+      { id: "A", text: "magistrala, pierścień i gwiazda." },
+      { id: "B", text: "LAN, WAN, MAN." },
+      { id: "C", text: "„każdy z każdym”, „klient – serwer”, „serwer – klient”." },
+      { id: "D", text: "ARPANET, BITNET, SIPRNet." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-121",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE czerwiec 2020 \u00B7 F2007",
+    html:
+      "<p>Jednostka gęstości „dpi” określa</p>",
+    options: [
+      { id: "A", text: "liczbę bitów na cal." },
+      { id: "B", text: "liczbę kropek (punktów) na cal wydruku." },
+      { id: "C", text: "liczbę znaków alfanumerycznych na cal." },
+      { id: "D", text: "liczbę bajtów na cal." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-122",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE czerwiec 2020 \u00B7 F2007",
+    html:
+      "<p>Liczba binarna 111010101 to w systemie dziesiętnym</p>",
+    options: [
+      { id: "A", text: "481." },
+      { id: "B", text: "467." },
+      { id: "C", text: "469." },
+      { id: "D", text: "471." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-123",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE czerwiec 2020 \u00B7 F2007",
+    html:
+      "<p>Jeżeli w arkuszu kalkulacyjnym komórka A4 zawiera liczbę 10, a komórka A5 – liczbę 12, to wpisanie formuły <code>=JEŻELI(A4&lt;10; A4/2; JEŻELI(A5&lt;&gt;12; 2; MOD(A4;A5)))</code> w komórce A6 poskutkuje wyświetleniem liczby</p>",
+    options: [
+      { id: "A", text: "2." },
+      { id: "B", text: "5." },
+      { id: "C", text: "10." },
+      { id: "D", text: "8." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-124",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE czerwiec 2020 \u00B7 F2007",
+    html:
+      "<p>Ploter to</p>",
+    options: [
+      { id: "A", text: "urządzenie elektroniczne, pozwalające nakładać na siebie obraz cyfrowy i analogowy." },
+      { id: "B", text: "urządzenie wskazujące, służące przede wszystkim do rysowania elementów graficznych na komputerze." },
+      { id: "C", text: "urządzenie umożliwiające druk 3D." },
+      { id: "D", text: "komputerowe urządzenie peryferyjne, służące do pracy z dużymi płaskimi powierzchniami, mogące nanosić obrazy, wycinać wzory, grawerować." }
+    ],
+    answer: "D"
+  },
+  {
+    id: "q-125",
+    category: "algorytmy",
+    level: "PP",
+    type: "choice",
+    source: "CKE czerwiec 2020 \u00B7 F2007",
+    html:
+      "<p>Dla tablicy <em>A</em> [1..<em>n</em>] algorytm:</p><pre class=\"question-code\">dla j=1,2, ... , n-1:\n  dla i=1,2, ... , n-1:\n    jeśli A[i] > A[i+1] to A[i] \u2194 A[i+1]</pre><p>(gdzie \u2194 oznacza zamianę wartości elementów)</p><p>opisuje algorytm sortowania</p>",
+    options: [
+      { id: "A", text: "szybkiego." },
+      { id: "B", text: "przez wybór." },
+      { id: "C", text: "przez wstawianie." },
+      { id: "D", text: "bąbelkowego." }
+    ],
+    answer: "D"
+  },
+  {
+    id: "q-126",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2019 \u00B7 F2007",
+    html:
+      "<p>Formatem grafiki wektorowej jest</p>",
+    options: [
+      { id: "A", text: "PNG" },
+      { id: "B", text: "SVG" },
+      { id: "C", text: "TIFF" },
+      { id: "D", text: "GIF" }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-127",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2019 \u00B7 F2007",
+    html:
+      "<p>Liczba 4736<sub>9</sub> zapisana w systemie dziewiątkowym ma w systemie trójkowym postać</p>",
+    options: [
+      { id: "A", text: "21212011\u2083" },
+      { id: "B", text: "11211020\u2083" },
+      { id: "C", text: "10201221\u2083" },
+      { id: "D", text: "112020\u2083" }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-128",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2019 \u00B7 F2007",
+    html:
+      "<p>Creative Commons to</p>",
+    options: [
+      { id: "A", text: "licencja umożliwiająca autorowi dzieła określenie praw do korzystania z utworu." },
+      { id: "B", text: "format zapisu plików wideo umożliwiający zapis z wysoką rozdzielczością." },
+      { id: "C", text: "technologia tworzenia zaawansowanej grafiki komputerowej." },
+      { id: "D", text: "gra edukacyjna dla dzieci rozwijająca kreatywne myślenie." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-129",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2019 \u00B7 F2007",
+    html:
+      "<p>Komórki od A1 do C51 arkusza kalkulacyjnego zawierają zestawienie danych pracowników, ich wykształcenie i pensję miesięczną brutto. Wskaż formułę, która pozwoli obliczyć sumę pensji brutto pracowników mających wyższe wykształcenie.</p>\n<div class=\"question-data-table-wrap\">\n<table class=\"question-data-table\">\n<thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead>\n<tbody>\n<tr><th>1</th><td>Pracownik</td><td>Wykształcenie</td><td>Pensja brutto</td></tr>\n<tr><th>2</th><td>Kowalski Jan</td><td>wyższe</td><td>5 250,00 zł</td></tr>\n<tr><th>3</th><td>Król Maciej</td><td>średnie</td><td>2 800,00 zł</td></tr>\n<tr><th>4</th><td>Adamus Anna</td><td>wyższe</td><td>4 260,00 zł</td></tr>\n<tr><th>5</th><td>Nowak Barbara</td><td>podstawowe</td><td>2 200,00 zł</td></tr>\n<tr><th>6</th><td>Gerber Jadwiga</td><td>podstawowe</td><td>2 930,00 zł</td></tr>\n<tr><th>7</th><td>Wąs Maria</td><td>średnie</td><td>3 600,00 zł</td></tr>\n<tr><th>8</th><td>Berger Katarzyna</td><td>podstawowe</td><td>2 950,00 zł</td></tr>\n<tr><th>9</th><td>Zaręba Ewa</td><td>średnie</td><td>3 500,00 zł</td></tr>\n<tr><th>10</th><td>Wirek Piotr</td><td>wyższe</td><td>5 200,00 zł</td></tr>\n<tr><th>11</th><td>Wasowski Zenon</td><td>wyższe</td><td>4 900,00 zł</td></tr>\n</tbody>\n</table>\n</div>",
+    options: [
+      { id: "A", text: "= SUMA((C2:C51);JEŻELI(B2:B51)=\"wyższe\")" },
+      { id: "B", text: "= JEŻELI(B2:B51=\"wyższe\";SUMA(C2:C51))" },
+      { id: "C", text: "= JEŻELI.SUMA(C2:C51;\"wyższe\";B2:B51)" },
+      { id: "D", text: "= SUMA.JEŻELI(B2:B51;\"wyższe\";C2:C51)" }
+    ],
+    answer: "D"
+  },
+  {
+    id: "q-130",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2018 \u00B7 F2007",
+    html:
+      "<p>Format, w którym zapisywana jest grafika rastrowa, to</p>",
+    options: [
+      { id: "A", text: "wmf" },
+      { id: "B", text: "avi" },
+      { id: "C", text: "png" },
+      { id: "D", text: "mp4" }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-131",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2018 \u00B7 F2007",
+    html:
+      "<p>W pliku graficznym zapisano bez użycia kompresji obrazek o rozmiarach 1280 na 720 pikseli z użyciem 24 bitów na kolor. Ten plik zajmuje na dysku</p>",
+    options: [
+      { id: "A", text: "921 600 bitów." },
+      { id: "B", text: "2 764 800 bajtów." },
+      { id: "C", text: "176 947 kilobajtów." },
+      { id: "D", text: "24 megabajty." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-132",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2018 \u00B7 F2007",
+    html:
+      "<p class=\"question-math\">10110<sub>2</sub> + 111100<sub>2</sub> jest równe</p>",
+    options: [
+      { id: "A", text: "111110\u2082" },
+      { id: "B", text: "84\u2081\u2080" },
+      { id: "C", text: "1010010\u2082" },
+      { id: "D", text: "124\u2088" }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-133",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2018 \u00B7 F2007",
+    html:
+      "<p>Poniżej zapisano adresy IPv4 dla komputerów w sieci lokalnej w systemie dziesiętnym w punktach A, B i D oraz w systemie binarnym w punkcie C. Nieprawidłowym adresem IP jest</p>",
+    options: [
+      { id: "A", text: "168.255.255.360" },
+      { id: "B", text: "1.0.0.1" },
+      { id: "C", text: "11000000.10101000.00000000.00000011" },
+      { id: "D", text: "13.13.13.13" }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-134",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2018 \u00B7 F2007",
+    html:
+      "<p>W komórce B2 wpisano formułę taką jak poniżej.</p>\n<div class=\"question-data-table-wrap\">\n<table class=\"question-data-table\">\n<thead><tr><th></th><th>A</th><th>B</th></tr></thead>\n<tbody>\n<tr><th>1</th><td>średnia ocen</td><td>nagroda</td></tr>\n<tr><th>2</th><td>4,5</td><td>=JEŻELI(A2>5;\"tablet\";JEŻELI(A2>4,5;\"słuchawki\";JEŻELI(A2>4;\"książka\";\"brak nagrody\")))</td></tr>\n</tbody>\n</table>\n</div>\n<p>Wartość formuły w komórce B2 to</p>",
+    options: [
+      { id: "A", text: "tablet." },
+      { id: "B", text: "słuchawki." },
+      { id: "C", text: "książka." },
+      { id: "D", text: "brak nagrody." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-135",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2017 \u00B7 F2007",
+    html:
+      "<p>Adres IP 196.168.1.5 w systemie dwójkowym ma postać:</p>",
+    options: [
+      { id: "A", text: "11000100.10101000.00000001.00000101" },
+      { id: "B", text: "11000100.10101000.00000011.00000101" },
+      { id: "C", text: "11000100.10101000.10000000.10100000" },
+      { id: "D", text: "11000100.10101000.00000001.10100000" }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-136",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2017 \u00B7 F2007",
+    html:
+      "<p>Wskaż licencję, która pozwala na bezpłatne wykorzystanie kodu źródłowego programu w dowolnym celu niekomercyjnym.</p>",
+    options: [
+      { id: "A", text: "Freeware" },
+      { id: "B", text: "Shareware" },
+      { id: "C", text: "GPL" },
+      { id: "D", text: "MOLP" }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-137",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2017 \u00B7 F2007",
+    html:
+      "<p>Językiem interpretowanym przez przeglądarki internetowe jest:</p>",
+    options: [
+      { id: "A", text: "PHP." },
+      { id: "B", text: "Javascript." },
+      { id: "C", text: "Python." },
+      { id: "D", text: "C++." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-138",
+    category: "bezpieczenstwo",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2017 \u00B7 F2007",
+    html:
+      "<p>Zagrożeniem dla bezpieczeństwa danych zapisanych na dysku twardym komputera jest:</p>",
+    options: [
+      { id: "A", text: "korzystanie z aktualizacji systemu operacyjnego dostępnych w internecie." },
+      { id: "B", text: "czytanie i właściwie reagowanie na komunikaty systemu operacyjnego." },
+      { id: "C", text: "korzystanie z komunikatorów internetowych." },
+      { id: "D", text: "otwieranie wszystkich załączników do otrzymywanych e-mailów." }
+    ],
+    answer: "D"
+  },
+  {
+    id: "q-139",
+    category: "sieci",
+    level: "PP",
+    type: "fill",
+    source: "CKE maj 2017 \u00B7 F2007",
+    html:
+      "<p>Uzupełnij tabelę. Spośród podanych protokołów (POP3, HTTP, SSH, FTP) wybierz zapewniające poprawne działanie wymienionych usług i odpowiednio je przyporządkuj.</p>\n<div class=\"question-data-table-wrap\">\n<table class=\"question-data-table\">\n<thead><tr><th>Usługi</th><th>Protokoły</th></tr></thead>\n<tbody>\n<tr><td>przeglądanie stron www</td><td>{{select}}</td></tr>\n<tr><td>odbiór poczty elektronicznej</td><td>{{select}}</td></tr>\n<tr><td>transfer plików</td><td>{{select}}</td></tr>\n<tr><td>szyfrowane połączenie zdalne</td><td>{{select}}</td></tr>\n</tbody>\n</table>\n</div>",
+    answers: ["http", "pop3", "ftp", "ssh"],
+    selectOptions: ["POP3", "HTTP", "SSH", "FTP"]
+  },
+  {
+    id: "q-140",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2016 \u00B7 F2007",
+    html:
+      "<p>Protokół DHCP</p>",
+    options: [
+      { id: "A", text: "odpowiedzialny jest za przydzielanie adresów IP." },
+      { id: "B", text: "jest protokołem przesyłania dokumentów hipertekstowych." },
+      { id: "C", text: "jest protokołem terminalu sieciowego zapewniający szyfrowanie połączenia." },
+      { id: "D", text: "odpowiedzialny jest za tłumaczenie adresów domenowych na adresy IP i odwrotnie." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-141",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2016 \u00B7 F2007",
+    html:
+      "<p>Unicode to</p>",
+    options: [
+      { id: "A", text: "sposób kodowania znaków." },
+      { id: "B", text: "protokół komunikacyjny." },
+      { id: "C", text: "sposób szyfrowania danych." },
+      { id: "D", text: "protokół standardowego wejścia/wyjścia." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-142",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2016 \u00B7 F2007",
+    html:
+      "<p>Programowanie polegające na określeniu i wykorzystaniu klas nazywamy programowaniem</p>",
+    options: [
+      { id: "A", text: "liniowym." },
+      { id: "B", text: "obiektowym." },
+      { id: "C", text: "strukturalnym." },
+      { id: "D", text: "mikroprocesorów." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-143",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2016 \u00B7 F2007",
+    html:
+      "<p>Ciąg deklaracji i instrukcji zapisany w języku programowania wysokiego poziomu nazywamy kodem</p>",
+    options: [
+      { id: "A", text: "wynikowym." },
+      { id: "B", text: "pośrednim." },
+      { id: "C", text: "źródłowym." },
+      { id: "D", text: "maszynowym." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-144",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2016 \u00B7 F2007",
+    html:
+      "<p class=\"question-math\">Ile jest równe Y, aby X+Y=60<sub>(10)</sub>, jeżeli X=10110<sub>(2)</sub>?</p>",
+    options: [
+      { id: "A", text: "100011\u2082" },
+      { id: "B", text: "100110\u2082" },
+      { id: "C", text: "100101\u2082" },
+      { id: "D", text: "100111\u2082" }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-145",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2015 \u00B7 F2007",
+    html:
+      "<p class=\"question-math\">Jaką ostatnią cyfrę w zapisie dziesiętnym ma liczba 2<sup>2015</sup>?</p>",
+    options: [
+      { id: "A", text: "2" },
+      { id: "B", text: "4" },
+      { id: "C", text: "6" },
+      { id: "D", text: "8" }
+    ],
+    answer: "D"
+  },
+  {
+    id: "q-146",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2015 \u00B7 F2007",
+    html:
+      "<p>Jaki serwer tłumaczy adres IP na adres domenowy i odwrotnie?</p>",
+    options: [
+      { id: "A", text: "serwer pocztowy" },
+      { id: "B", text: "serwer WWW" },
+      { id: "C", text: "serwer FTP" },
+      { id: "D", text: "serwer DNS" }
+    ],
+    answer: "D"
+  },
+  {
+    id: "q-147",
+    category: "sql",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2015 \u00B7 F2007",
+    html:
+      "<p><strong>Zaznacz poprawne dokończenie zdania.</strong></p><p>Klucz podstawowy w tabeli bazy danych</p>",
+    options: [
+      { id: "A", text: "zawiera wartości wyłącznie numeryczne." },
+      { id: "B", text: "umożliwia jednoznaczną identyfikację wiersza." },
+      { id: "C", text: "umożliwia jednoznaczną identyfikację kolumny." },
+      { id: "D", text: "nie może służyć do łączenia z inną tabelą." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-148",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2015 \u00B7 F2007",
+    html:
+      "<p><strong>Zaznacz poprawną odpowiedź.</strong></p><p>W komórce C2 wpisano formułę taką, jak poniżej, a następnie przekopiowano ją do komórki C6. W rezultacie uzyskano w komórce C6 następującą wartość:</p>\n<div class=\"question-data-table-wrap\">\n<table class=\"question-data-table\">\n<thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead>\n<tbody>\n<tr><th>1.</th><td>Produkcja</td><td>Sprzedaż</td><td>Magazyn</td></tr>\n<tr><th>2.</th><td>30</td><td>20</td><td>=SUMA($A$2:A2)-SUMA($B$2:B2)</td></tr>\n<tr><th>3.</th><td>20</td><td>10</td><td></td></tr>\n<tr><th>4.</th><td>30</td><td>25</td><td></td></tr>\n<tr><th>5.</th><td>15</td><td>18</td><td></td></tr>\n<tr><th>6.</th><td>23</td><td>18</td><td></td></tr>\n</tbody>\n</table>\n</div>",
+    options: [
+      { id: "A", text: "36" },
+      { id: "B", text: "27" },
+      { id: "C", text: "22" },
+      { id: "D", text: "5" }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-149",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2015 \u00B7 F2007",
+    html:
+      "<p><strong>Zaznacz poprawną odpowiedź.</strong></p><p>W komórce C2 wpisano formułę taką, jak poniżej, a następnie przekopiowano ją do komórki C4. W rezultacie uzyskano w komórce C4 następującą wartość:</p>\n<div class=\"question-data-table-wrap\">\n<table class=\"question-data-table\">\n<thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead>\n<tbody>\n<tr><th>1.</th><td>I</td><td>II</td><td>Zaliczenie</td></tr>\n<tr><th>2.</th><td>1</td><td>2</td><td>=JEŻELI(ORAZ(ŚREDNIA(A2:B2)>=2;ORAZ(A2&lt;&gt;1;B2&lt;&gt;1));\"zdał\";\"nie zdał\")</td></tr>\n<tr><th>3.</th><td>2</td><td>2</td><td></td></tr>\n<tr><th>4.</th><td>5</td><td>1</td><td></td></tr>\n</tbody>\n</table>\n</div>",
+    options: [
+      { id: "A", text: "3" },
+      { id: "B", text: "zdał" },
+      { id: "C", text: "nie zdał" },
+      { id: "D", text: "PRAWDA" }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-150",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2015 \u00B7 F2007",
+    html:
+      "<p>Który z poniższych formatów plików nie służy do zapisywania filmów?</p>",
+    options: [
+      { id: "A", text: "mov" },
+      { id: "B", text: "avi" },
+      { id: "C", text: "mp3" },
+      { id: "D", text: "mp4" }
     ],
     answer: "C"
   }

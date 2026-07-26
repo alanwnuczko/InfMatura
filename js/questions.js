@@ -554,10 +554,13 @@
         header.appendChild(catBadge);
       }
 
-      if (question.source) {
+      if (question.source || question.level) {
         var source = document.createElement("span");
         source.className = "question-source";
-        source.textContent = question.source;
+        var textParts = [];
+        if (question.source) textParts.push(question.source);
+        if (question.level) textParts.push(question.level);
+        source.textContent = textParts.join(" · ");
         header.appendChild(source);
       }
 
