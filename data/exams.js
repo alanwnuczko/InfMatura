@@ -66,6 +66,19 @@ window.EXAMS_JSON = [
     "hasZasady": true
   },
   {
+    "id": "2023-05_PR_F2023",
+    "year": 2023,
+    "month": "05",
+    "type": "PR",
+    "formula": "F2023",
+    "parts": [
+      "Arkusz"
+    ],
+    "hasData": true,
+    "hasSolution": false, // brak rozwiązania
+    "hasZasady": true
+  },
+  {
     "id": "2022-12_PR_F2023",
     "year": 2022,
     "month": "12",
@@ -78,19 +91,6 @@ window.EXAMS_JSON = [
     "hasSolution": true,
     "hasZasady": true
   },
-  // {
-  //   "id": "2023-05_PR_F2023",
-  //   "year": 2023,
-  //   "month": "05",
-  //   "type": "PR",
-  //   "formula": "F2023",
-  //   "parts": [
-  //     "Arkusz"
-  //   ],
-  //   "hasData": true,
-  //   "hasSolution": true,
-  //   "hasZasady": true
-  // },
   // {
   //   "id": "2022-05_PR_F2015",
   //   "year": 2022,
