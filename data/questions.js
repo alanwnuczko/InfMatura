@@ -2532,7 +2532,7 @@ window.QUESTIONS_JSON = [
   },
   {
     id: "q-124",
-    category: "systemy",
+    category: "oprogramowanie",
     level: "PP",
     type: "choice",
     source: "CKE czerwiec 2020 \u00B7 F2007",
@@ -2956,5 +2956,501 @@ window.QUESTIONS_JSON = [
       { id: "D", text: "mp4" }
     ],
     answer: "C"
+  },
+  {
+    id: "q-151",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2014 \u00B7 F2007",
+    html: "<p>Liczba binarna 10101010 to w systemie dziesiętnym</p>",
+    options: [
+      { id: "A", text: "160." },
+      { id: "B", text: "165." },
+      { id: "C", text: "170." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-152",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2014 \u00B7 F2007",
+    html: "<p>Ujednolicony format adresowania zasobów (informacji, danych, usług) stosowany w internecie i w sieciach lokalnych to</p>",
+    options: [
+      { id: "A", text: "FTP." },
+      { id: "B", text: "URL." },
+      { id: "C", text: "URN." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-153",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2014 \u00B7 F2007",
+    html: "<p>Urządzenie, które pobiera dane cyfrowe z komputera i zamienia je na sygnały analogowe przesyłane w sieci telefonicznej, to</p>",
+    options: [
+      { id: "A", text: "karta sieciowa." },
+      { id: "B", text: "router." },
+      { id: "C", text: "modem." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-154",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2014 \u00B7 F2007",
+    html: "<p>W arkuszu kalkulacyjnym <strong>adres bezwzględny</strong> oznacza adres komórki zapisany w formule, który nie zmienia się przy kopiowaniu komórki zawierającej tę formułę. Przykładem takiego adresu jest</p>",
+    options: [
+      { id: "A", text: "B$12$." },
+      { id: "B", text: "B12." },
+      { id: "C", text: "$B$12." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-155",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2014 \u00B7 F2007",
+    html: "<p>Formatami plików graficznych przechowujących <strong>grafikę rastrową</strong> są</p>",
+    options: [
+      { id: "A", text: "JPEG, GIF, BMP." },
+      { id: "B", text: "SVG, CDR, SWF." },
+      { id: "C", text: "PAS, CPP, COM." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-156",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2014 \u00B7 F2007",
+    html: "<p>W arkuszu kalkulacyjnym komórka <strong>B3</strong> zawiera liczbę <strong>7</strong>, a komórka <strong>B4</strong> zawiera liczbę <strong>9</strong>. Jeśli formułę <strong>=JEŻELI(B3&lt;7;B3/2;JEŻELI(B4&lt;&gt;9;3;MOD(B4;B3)))</strong> wpiszemy do komórki <strong>C3</strong>, to pojawi się tam</p>",
+    options: [
+      { id: "A", text: "4." },
+      { id: "B", text: "3." },
+      { id: "C", text: "2." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-157",
+    category: "sql",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Kolumna w tabeli bazy danych</p>",
+    options: [
+      { id: "A", text: "zawiera dane różnych typów." },
+      { id: "B", text: "zawiera dane tego samego typu." },
+      { id: "C", text: "może mieć taką samą nazwę, jak inna kolumna w tej samej tabeli." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-158",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Aby zmniejszyć rozmiar przechowywanych danych, stosuje się programy do</p>",
+    options: [
+      { id: "A", text: "kompresji." },
+      { id: "B", text: "tworzenia kopii zapasowych." },
+      { id: "C", text: "defragmentacji dysku." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-159",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Liczba 10101 zapisana w systemie binarnym jest</p>",
+    options: [
+      { id: "A", text: "większa od liczby 10110 zapisanej w systemie binarnym." },
+      { id: "B", text: "mniejsza od liczby 20 zapisanej w systemie dziesiętnym." },
+      { id: "C", text: "równa liczbie 15 zapisanej w systemie szesnastkowym." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-160",
+    category: "arkusz",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Jeśli w arkuszu kalkulacyjnym w komórce C1 umieścimy formułę =A1*$B$1, to po skopiowaniu jej do komórki C2 uzyskamy formułę</p>",
+    options: [
+      { id: "A", text: "=A1*$B$1." },
+      { id: "B", text: "=A2*$B$2." },
+      { id: "C", text: "=A2*$B$1." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-161",
+    category: "multimedia",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Grafika wektorowa to sposób tworzenia i przechowywania w komputerze obrazów, które są reprezentowane w postaci</p>",
+    options: [
+      { id: "A", text: "zbiorów punktów jednokolorowych." },
+      { id: "B", text: "opisów figur geometrycznych (odcinków, łuków, okręgów, elips ...)." },
+      { id: "C", text: "siatki niezależnie traktowanych pikseli." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-162",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Protokół sieciowy to</p>",
+    options: [
+      { id: "A", text: "zbiór reguł, zgodnie z którymi następuje wymiana informacji między komputerami w sieci." },
+      { id: "B", text: "polecenie, które wysyła pakiet informacji do dowolnego komputera w sieci z żądaniem potwierdzenia otrzymania informacji." },
+      { id: "C", text: "sterownik, który musi być zainstalowany, aby była możliwa wymiana informacji z innymi komputerami w sieci." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-163",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2013 \u00B7 F2007",
+    html: "<p>Programy komputerowe rozpowszechniane bez opłat do wypróbowania przez użytkowników, mające często ograniczenia czasowe, limit uruchomień lub blokadę dostępu do niektórych funkcji, mają licencję</p>",
+    options: [
+      { id: "A", text: "freeware." },
+      { id: "B", text: "komercyjną." },
+      { id: "C", text: "shareware." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-164",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2012 \u00B7 F2007",
+    html: "<p>Największa liczba dziesiętna, jaką można zapisać na 32 bitach jest</p>",
+    options: [
+      { id: "A", text: "równa 65 000." },
+      { id: "B", text: "większa od 1 123 000." },
+      { id: "C", text: "mniejsza od 4 000." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-165",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2012 \u00B7 F2007",
+    html: "<p>Programowanie strukturalne to termin oznaczający</p>",
+    options: [
+      { id: "A", text: "tworzenie oprogramowania analizującego strukturę połączeń w sieci WWW." },
+      { id: "B", text: "programowanie nastawione na wykorzystanie struktury sprzętu, na którym uruchamiany będzie wynikowy program." },
+      { id: "C", text: "tworzenie programów zawierających struktury sterujące (np. pętle \u201Edopóki\u201D, \u201Epowtarzaj\u201D, instrukcję \u201Ejeżeli\u201D)." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-166",
+    category: "bezpieczenstwo",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2012 \u00B7 F2007",
+    html: "<p>Aby uniemożliwić odczytanie przez niepowołane osoby pliku przesyłanego pocztą elektroniczną, stosuje się narzędzia służące do</p>",
+    options: [
+      { id: "A", text: "archiwizacji." },
+      { id: "B", text: "kompilacji." },
+      { id: "C", text: "szyfrowania." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-167",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p class=\"question-math\">Dane są dwie liczby: A=11001<sub>2</sub> oraz B=1010<sub>2</sub></p>",
+    options: [
+      { id: "A", text: "A*B=101\u2081\u2080." },
+      { id: "B", text: "A+B = 35\u2081\u2080." },
+      { id: "C", text: "A-B = 10100\u2082." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-168",
+    category: "algorytmy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p>Dane są dwie liczby całkowite <em>a</em>, <em>b</em> takie, że <em>b &gt; a</em> oraz schemat algorytmu:</p>\n<p><strong>start</strong><br><em>i</em> &larr; <em>a</em><br><strong>dopóki</strong> <em>i</em> &lt; <em>b</em> <strong>wykonuj</strong>:<br>&nbsp;&nbsp;<strong>wypisz</strong> <em>i</em><br>&nbsp;&nbsp;<em>i</em> &larr; <em>i</em> + 1<br><strong>stop</strong></p>\n<p>Wynikiem działania tego algorytmu jest wypisanie</p>",
+    options: [
+      { id: "A", text: "wyłącznie liczb parzystych z przedziału domkniętego \u27e8a, b\u27e9." },
+      { id: "B", text: "wyłącznie liczb nieparzystych z przedziału domkniętego \u27e8a, b\u27e9." },
+      { id: "C", text: "wszystkich liczb z przedziału domkniętego \u27e8a, b\u27e9." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-169",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p>Do odbierania wiadomości za pomocą poczty elektronicznej służy protokół</p>",
+    options: [
+      { id: "A", text: "SMTP." },
+      { id: "B", text: "POP3." },
+      { id: "C", text: "FTP." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-170",
+    category: "sieci",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p>W sieciach komputerowych</p>",
+    options: [
+      { id: "A", text: "komputery pracujące w tej samej sieci mają identyczne adresy IP." },
+      { id: "B", text: "LAN to komputer podłączony do sieci, posiadający adres IP." },
+      { id: "C", text: "serwer DNS tłumaczy adresy domenowe na adresy IP." }
+    ],
+    answer: "C"
+  },
+  {
+    id: "q-171",
+    category: "bezpieczenstwo",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p>Firewall to program</p>",
+    options: [
+      { id: "A", text: "umożliwiający filtrowanie pakietów danych." },
+      { id: "B", text: "służący do sprawdzania błędów na dysku." },
+      { id: "C", text: "zwiększający przepustowość w sieciach komputerowych." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-172",
+    category: "sql",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p>W relacyjnym modelu bazy danych</p>",
+    options: [
+      { id: "A", text: "wyróżniamy trzy rodzaje relacji." },
+      { id: "B", text: "podstawową formą organizacji danych są kwerendy." },
+      { id: "C", text: "kluczem podstawowym nie może być kolumna zawierająca tylko i wyłącznie teksty." }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-173",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2011 \u00B7 F2007",
+    html: "<p>Programowanie strukturalne polega między innymi na</p>",
+    options: [
+      { id: "A", text: "budowaniu hierarchicznej struktury folderów." },
+      { id: "B", text: "hierarchicznym podziale programu na wyodrębnione podzadania." },
+      { id: "C", text: "hierarchicznym podziale długiego tekstu." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-174",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2010 \u00B7 F2007",
+    html: "<p>Wiadomo, że kodem ASCII małej litery \u201Ea\u201D jest 97. Kodem małej litery \u201Ed\u201D jest liczba</p>",
+    options: [
+      { id: "A", text: "(01100100)\u2082" },
+      { id: "B", text: "(01011010)\u2082" },
+      { id: "C", text: "(01101110)\u2082" }
+    ],
+    answer: "A"
+  },
+  {
+    id: "q-175",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2010 \u00B7 F2007",
+    html: "<p>Zbiór programów, które zarządzają pracą komputera, to</p>",
+    options: [
+      { id: "A", text: "oprogramowanie edukacyjne." },
+      { id: "B", text: "system operacyjny." },
+      { id: "C", text: "pakiet programów biurowych." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-176",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2010 \u00B7 F2007",
+    html: "<p>Popularnym językiem programowania jest</p>",
+    options: [
+      { id: "A", text: "Kawa." },
+      { id: "B", text: "Java." },
+      { id: "C", text: "Agawa." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-177",
+    category: "systemy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2010 \u00B7 F2007",
+    html: "<p>Który parametr <strong>nie dotyczy</strong> charakterystyki dysku twardego?</p>",
+    options: [
+      { id: "A", text: "Pojemność liczona np. w GB." },
+      { id: "B", text: "Czas zapisu i odczytu 1 kB danych liczony w cyklach rozkazowych procesora." },
+      { id: "C", text: "Liczba obrotów talerzy dysku na minutę (obr/min)." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-178",
+    category: "algorytmy",
+    level: "PP",
+    type: "choice",
+    source: "CKE maj 2010 \u00B7 F2007",
+    html: "<p>Dany jest następujący algorytm:</p>\n<p>1. <em>n</em> &larr; 6, <em>i</em> &larr; 1, <em>s</em> &larr; 0<br>2. dopóki <em>i</em> &lt;= <em>n</em> wykonuj<br>&nbsp;&nbsp;&nbsp;&nbsp;<em>s</em> &larr; <em>s</em> + <em>i</em><br>&nbsp;&nbsp;&nbsp;&nbsp;<em>i</em> &larr; <em>i</em> + 1<br>3. <em>s</em> &larr; <em>s</em> + 1</p>\n<p>Uwaga: &larr; oznacza instrukcję przypisania.</p>\n<p>Po wykonaniu tego algorytmu wartości zmiennych <em>s</em>, <em>i</em> są odpowiednio równe</p>",
+    options: [
+      { id: "A", text: "21, 6." },
+      { id: "B", text: "22, 7." },
+      { id: "C", text: "21, 7." }
+    ],
+    answer: "B"
+  },
+  {
+    id: "q-179",
+    category: "sql",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>Tabela bazy danych spełnia warunki:</p>",
+    items: [
+      { text: "jest podstawową jednostką organizacji danych w relacyjnych bazach danych", answer: "P" },
+      { text: "każdy jej wiersz składa się tylko z danych tego samego typu", answer: "F" },
+      { text: "wszystkie dane w kolumnie są tego samego typu.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-180",
+    category: "systemy",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>10 MB to</p>",
+    items: [
+      { text: "mniej niż 1 GB.", answer: "P" },
+      { text: "więcej niż 1 TB.", answer: "F" },
+      { text: "10240 bajtów.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-181",
+    category: "oprogramowanie",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>Program, który umożliwia tłumaczenie programu w języku programowania wysokiego poziomu na kod gotowy do wykonania na komputerze, to</p>",
+    items: [
+      { text: "kompilator.", answer: "P" },
+      { text: "BIOS.", answer: "F" },
+      { text: "konsolidator.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-182",
+    category: "sieci",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>Hiperłącze może oznaczać</p>",
+    items: [
+      { text: "zamieszczone w dokumencie elektronicznym odwołanie do innego dokumentu.", answer: "P" },
+      { text: "zamieszczone w dokumencie elektronicznym odwołanie do innego miejsca w tym dokumencie.", answer: "P" },
+      { text: "połączenie między dwoma komputerami w sieci.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-183",
+    category: "sieci",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>Jednoznaczny standard wskazywania położenia i sposobu dostępu do zasobów w Internecie to</p>",
+    items: [
+      { text: "URL.", answer: "P" },
+      { text: "XML.", answer: "F" },
+      { text: "OLE.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-184",
+    category: "algorytmy",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>Minimum ciągu n-elementowego (dla dowolnego całkowitego n &ge; 1)</p>",
+    items: [
+      { text: "można zawsze znaleźć, wykonując nie więcej niż n porównań pomiędzy elementami ciągu.", answer: "P" },
+      { text: "można zawsze znaleźć, wykonując nie więcej niż n/2 porównań pomiędzy elementami ciągu.", answer: "F" },
+      { text: "można znaleźć za pomocą strategii przeszukiwania liniowego.", answer: "P" }
+    ]
+  },
+  {
+    id: "q-185",
+    category: "algorytmy",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>Rozważ poniższy algorytm.</p>\n<p><em>i</em> &larr; 0, <em>s</em> &larr; 0<br><strong>czytaj</strong> <em>n</em><br><strong>powtarzaj</strong><br>&nbsp;&nbsp;<em>i</em> &larr; <em>i</em> + 1<br>&nbsp;&nbsp;<em>s</em> &larr; <em>s</em> + 1/<em>i</em><br><strong>aż</strong> <em>i</em> = <em>n</em> (tj. kiedy <em>i</em> &lt; <em>n</em> zwróci Fałsz)<br><strong>wypisz</strong> <em>s</em></p>\n<p>Wynikiem działania tego algorytmu dla liczby całkowitej n &gt; 0 jest wypisanie wartości wyrażenia</p>",
+    items: [
+      { text: "1 + 2 + 3 + ... + n.", answer: "F" },
+      { text: "1 + 1/2 + 1/3 + ... + 1/n.", answer: "P" },
+      { text: "1 * 1/2 * 1/3 * ... * 1/n.", answer: "F" }
+    ]
+  },
+  {
+    id: "q-186",
+    category: "sql",
+    level: "PP",
+    type: "truefalse",
+    source: "CKE maj 2009 \u00B7 F2007",
+    html: "<p>W bazie danych</p>",
+    items: [
+      { text: "sortowanie tabeli oznacza uporządkowanie wierszy według zawartości wybranych kolumn.", answer: "P" },
+      { text: "sortowanie tabeli oznacza uporządkowanie kolumn według zawartości wybranych wierszy.", answer: "F" },
+      { text: "filtrowanie tabeli to wybór wierszy spełniających określone kryteria.", answer: "P" }
+    ]
   }
 ];
