@@ -1,5 +1,18 @@
 window.EXAMS_JSON = [
   {
+    "id": "2026-06_PR_F2023",
+    "year": 2026,
+    "month": "06",
+    "type": "PR",
+    "formula": "F2023",
+    "parts": [
+      "Arkusz"
+    ],
+    "hasData": true,
+    "hasSolution": true,
+    "hasZasady": true
+  },
+  {
     "id": "2026-05_PR_F2023",
     "year": 2026,
     "month": "05",
