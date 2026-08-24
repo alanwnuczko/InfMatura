@@ -74,7 +74,7 @@ window.EXAMS_JSON = [
       "Arkusz",
     ],
     "hasData": true,
-    "hasSolution": false,
+    "hasSolution": true,
     "hasZasady": true
   },
   {
