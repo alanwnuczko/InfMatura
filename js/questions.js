@@ -199,7 +199,7 @@
           if (elements.backToTop) {
             var scrollPos = window.pageYOffset;
             var docHeight = document.documentElement.scrollHeight;
-            var show = selectedCount === 10 && scrollPos > docHeight / 2;
+            var show = selectedCount >= 10 && scrollPos > docHeight / 2;
             elements.backToTop.hidden = false;
             elements.backToTop.classList.toggle("is-visible", show);
             elements.backToTop.setAttribute("aria-hidden", show ? "false" : "true");
@@ -226,6 +226,11 @@
     if (!elements.drawCountSeg) return;
     elements.drawCountSeg.innerHTML = "";
 
+    // Remove previously injected custom input wrapper if any
+    var existingCustom = elements.drawCountSeg.parentNode &&
+      elements.drawCountSeg.parentNode.querySelector(".draw-count-custom-wrap");
+    if (existingCustom) existingCustom.remove();
+
     DRAW_COUNTS.forEach(function (count) {
       var btn = document.createElement("button");
       btn.type = "button";
@@ -239,23 +244,98 @@
       btn.setAttribute("data-count", String(count));
       btn.textContent = String(count);
       btn.addEventListener("click", function () {
-        setSelectedCount(count);
+        setSelectedCount(count, true);
       });
       elements.drawCountSeg.appendChild(btn);
     });
+
+    // Custom number input — rendered as sibling after the pill group
+    var customWrap = document.createElement("div");
+    customWrap.className = "draw-count-custom-wrap" +
+      (!DRAW_COUNTS.includes(selectedCount) ? " is-active" : "");
+
+    var input = document.createElement("input");
+    input.type = "number";
+    input.className = "draw-count-custom-input";
+    input.id = "draw-count-custom-input";
+    input.min = "1";
+    input.max = "999";
+    input.placeholder = "Własna…";
+    input.setAttribute("aria-label", "Wpisz własną liczbę pytań");
+    input.autocomplete = "off";
+
+    if (!DRAW_COUNTS.includes(selectedCount)) {
+      input.value = String(selectedCount);
+    }
+
+    function applyCustomCount() {
+      var raw = parseInt(input.value, 10);
+      if (!isFinite(raw) || raw < 1) return;
+      setSelectedCount(raw, false);
+    }
+
+    input.addEventListener("focus", function () {
+      var opts = elements.drawCountSeg.querySelectorAll(".draw-count-opt");
+      opts.forEach(function (opt) {
+        opt.classList.remove("is-active");
+        opt.setAttribute("aria-checked", "false");
+      });
+      customWrap.classList.add("is-active");
+    });
+
+    input.addEventListener("input", function () {
+      var raw = parseInt(input.value, 10);
+      if (isFinite(raw) && raw >= 1) {
+        selectedCount = raw;
+        updateDrawAction();
+      }
+    });
+
+    input.addEventListener("blur", function () {
+      applyCustomCount();
+    });
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        applyCustomCount();
+        input.blur();
+      }
+    });
+
+    customWrap.appendChild(input);
+
+    // Insert after the seg element
+    if (elements.drawCountSeg.parentNode) {
+      elements.drawCountSeg.parentNode.insertBefore(
+        customWrap,
+        elements.drawCountSeg.nextSibling
+      );
+    }
+    elements.customCountInput = input;
   }
 
-  function setSelectedCount(count) {
-    if (selectedCount === count) return;
+  function setSelectedCount(count, clearCustom) {
+    if (selectedCount === count && !clearCustom) return;
     selectedCount = count;
 
     if (elements.drawCountSeg) {
       var opts = elements.drawCountSeg.querySelectorAll(".draw-count-opt");
+      var isPreset = DRAW_COUNTS.includes(count);
       opts.forEach(function (opt) {
-        var isActive = Number(opt.getAttribute("data-count")) === selectedCount;
+        var isActive = isPreset && Number(opt.getAttribute("data-count")) === selectedCount;
         opt.classList.toggle("is-active", isActive);
         opt.setAttribute("aria-checked", isActive ? "true" : "false");
       });
+
+      var customWrap = elements.drawCountSeg.parentNode &&
+        elements.drawCountSeg.parentNode.querySelector(".draw-count-custom-wrap");
+      if (customWrap) {
+        customWrap.classList.toggle("is-active", !isPreset);
+      }
+
+      if (clearCustom && elements.customCountInput) {
+        elements.customCountInput.value = "";
+      }
     }
 
     updateDrawAction();

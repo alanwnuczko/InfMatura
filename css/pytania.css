@@ -132,6 +132,83 @@ body:has(.questions-section[hidden]) .questions-hero {
   background-color: var(--text-primary);
 }
 
+/* Custom count input — standalone pill input next to the segment */
+.draw-count-custom-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Row layout: pill segment + custom input side by side */
+.setup-field:has(#draw-count-seg) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Keep the label above on its own line */
+.setup-field:has(#draw-count-seg) .setup-label {
+  flex: 0 0 100%;
+}
+
+.draw-count-custom-input {
+  width: 6rem;
+  height: 48px;
+  padding: 0 16px;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-secondary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-pill);
+  outline: none;
+  -moz-appearance: textfield;
+  transition: border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  cursor: text;
+}
+
+.draw-count-custom-input::-webkit-inner-spin-button,
+.draw-count-custom-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.draw-count-custom-input::placeholder {
+  color: var(--text-secondary);
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.draw-count-custom-input:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.draw-count-custom-input:focus {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 1px var(--text-primary);
+}
+
+.draw-count-custom-wrap.is-active .draw-count-custom-input {
+  color: var(--bg-main);
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.draw-count-custom-wrap.is-active .draw-count-custom-input::placeholder {
+  color: var(--bg-main);
+  opacity: 0.65;
+}
+
+.draw-count-custom-wrap.is-active .draw-count-custom-input:focus {
+  box-shadow: none;
+  opacity: 0.9;
+}
+
+
 .setup-actions {
   display: flex;
   flex-wrap: wrap;
