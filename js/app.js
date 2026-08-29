@@ -546,9 +546,15 @@
 
     if (exam.hasSolution) {
       linksHTML +=
-        '<a href="' + getSolutionLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
-          '<span>Rozwiązanie Python</span>' + arrowUpSVG +
-        '</a>';
+        '<div class="card-link-split">' +
+          '<a href="' + getSolutionLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__main">' +
+            '<span>Rozwiązanie Python</span>' + arrowUpSVG +
+          '</a>' +
+          '<div class="card-link-split__divider" aria-hidden="true"></div>' +
+          '<a href="' + getSolutionZipLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__zip" title="Pobierz rozwiązanie jako ZIP">' +
+            '<span>ZIP</span>' + arrowDownSVG +
+          '</a>' +
+        '</div>';
     }
 
     linksHTML += '</div>';

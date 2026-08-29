@@ -743,6 +743,78 @@ button, input {
   flex-shrink: 0;
 }
 
+/* Split solution button */
+.card-link-split {
+  display: flex;
+  align-items: stretch;
+  min-height: 44px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.18s ease;
+}
+
+.card-link-split:has(a:hover) {
+  border-color: var(--text-secondary);
+}
+
+.card-link-split__main {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.card-link-split__main:hover {
+  background-color: var(--border-line);
+}
+
+.card-link-split__main:hover .link-arrow-svg {
+  transform: translate(2px, -2px);
+  color: var(--text-primary);
+}
+
+.card-link-split__divider {
+  width: 1px;
+  flex-shrink: 0;
+  background-color: var(--border-line);
+  align-self: stretch;
+}
+
+.card-link-split__zip {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease;
+  white-space: nowrap;
+}
+
+.card-link-split__zip:hover {
+  background-color: var(--border-line);
+  color: var(--text-primary);
+}
+
+.card-link-split__zip:hover .link-arrow-svg {
+  transform: translateY(2px);
+  color: var(--text-primary);
+}
+
+
 .no-results {
   display: none;
   padding: 80px 0;
@@ -967,6 +1039,22 @@ button, input {
   border-color: var(--text-secondary);
   color: var(--text-primary);
   transform: translateY(-1px);
+}
+
+.exam-grid.view-list .card-link-split {
+  flex-shrink: 0;
+  min-height: 40px;
+}
+
+.exam-grid.view-list .card-link-split__main {
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  gap: 8px;
+  padding: 8px 14px;
+}
+
+.exam-grid.view-list .card-link-split__zip {
+  padding: 8px 12px;
 }
 
 .legal-page {
