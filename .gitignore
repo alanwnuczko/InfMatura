@@ -1,2 +1,19 @@
+# Notes & Assistant files
 pytania-teoretyczne.md
 CLAUDE.md
+.claude/
+
+# Temporary & Cache files
+.cache/
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo

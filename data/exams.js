@@ -1,4 +1,4 @@
-window.EXAMS_JSON = [
+var EXAMS_LIST = [
   {
     "id": "2026-06_PR_F2023",
     "year": 2026,
@@ -230,3 +230,11 @@ window.EXAMS_JSON = [
     "hasZasady": true
   }
 ];
+
+if (typeof window !== "undefined") {
+  window.EXAMS_JSON = EXAMS_LIST;
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = EXAMS_LIST;
+}

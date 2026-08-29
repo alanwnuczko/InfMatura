@@ -308,6 +308,18 @@
       }
     });
 
+    if (elements.grid) {
+      elements.grid.addEventListener("click", function (e) {
+        if (e.target.closest("a, button")) {
+          return;
+        }
+        var card = e.target.closest(".exam-card");
+        if (card && card.dataset.examUrl) {
+          window.location.href = card.dataset.examUrl;
+        }
+      });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       link.addEventListener("click", function (e) {
         var targetId = link.getAttribute("href");
@@ -492,6 +504,7 @@
     var card = document.createElement("article");
     card.className = "exam-card";
     card.id = exam.id;
+    card.setAttribute("data-exam-url", "/arkusze/" + exam.id + "/");
 
     var formulaLabel = getFormulaLabel(exam);
     var typeLabel = getTypeLabel(exam);
@@ -517,7 +530,7 @@
           '<span class="pill-badge ' + typeClass + '">' + typeLabel + '</span>' +
           '<span class="pill-badge ' + formulaClass + '">' + formulaLabel + '</span>' +
         '</div>' +
-        '<h3 class="card-title">' + displayTitle + '</h3>' +
+        '<h3 class="card-title"><a href="/arkusze/' + exam.id + '/" class="card-title-link" title="Przejdź do strony arkusza ' + displayTitle + '">' + displayTitle + '</a></h3>' +
       '</div>';
 
     var linksHTML = '<div class="card-links">';
@@ -678,9 +691,9 @@
         "position": i + 1,
         "item": {
           "@type": ["LearningResource", "DigitalDocument"],
-          "@id": "https://infmatura.dev/#" + exam.id,
+          "@id": "https://infmatura.dev/arkusze/" + exam.id + "/",
           "name": title,
-          "url": "https://infmatura.dev/#" + exam.id,
+          "url": "https://infmatura.dev/arkusze/" + exam.id + "/",
           "inLanguage": "pl",
           "datePublished": exam.year + "-" + exam.month + "-01",
           "learningResourceType": "Exam paper",
