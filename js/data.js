@@ -50,6 +50,11 @@ function getSolutionLink(exam) {
   return REPO_BASE + "/tree/main/Arkusze/" + exam.id + "/Rozwiazanie";
 }
 
+function getSolutionZipLink(exam) {
+  if (!exam.hasSolution) return null;
+  return REPO_BASE + "/raw/main/Arkusze/" + exam.id + "/Rozwiazanie.zip";
+}
+
 function getZasadyLink(exam) {
   if (!exam.hasZasady) return null;
   return PDF_CDN_BASE + "/" + exam.id + "/Zasady.pdf";
