@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfMatura - Arkusze i rozwiązania maturalne z informatyki</title>
-  <meta name="description" content="Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.">
+  <title>Baza arkuszy maturalnych z informatyki | InfMatura</title>
+  <meta name="description" content="Katalog arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.">
   <meta name="theme-color" content="#09090B">
   <meta name="robots" content="index, follow">
   <meta name="author" content="alanwnuczko">
 
-  <link rel="canonical" href="https://infmatura.dev/">
+  <link rel="canonical" href="https://infmatura.dev/arkusze/">
   <meta property="og:site_name" content="InfMatura">
-  <meta property="og:title" content="InfMatura - Arkusze i rozwiązania maturalne z informatyki">
-  <meta property="og:description" content="Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie, pliki z danymi oraz zasady oceniania CKE.">
+  <meta property="og:title" content="Baza arkuszy maturalnych z informatyki | InfMatura">
+  <meta property="og:description" content="Katalog arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie, pliki z danymi oraz zasady oceniania CKE.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://infmatura.dev/">
+  <meta property="og:url" content="https://infmatura.dev/arkusze/">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:image" content="https://infmatura.dev/assets/preview.png">
   <meta property="og:image:type" content="image/png">
@@ -23,29 +23,33 @@
   <meta property="og:image:alt" content="Podgląd strony InfMatura z bazą arkuszy maturalnych">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="InfMatura - Arkusze i rozwiązania maturalne z informatyki">
-  <meta name="twitter:description" content="Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie oraz pliki z danymi.">
+  <meta name="twitter:title" content="Baza arkuszy maturalnych z informatyki | InfMatura">
+  <meta name="twitter:description" content="Katalog arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy). Rozwiązania w Pythonie oraz pliki z danymi.">
   <meta name="twitter:image" content="https://infmatura.dev/assets/preview.png">
 
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="stylesheet" href="css/fonts.css?v=1.3">
-  <link rel="stylesheet" href="css/style.css?v=2.9">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="/css/fonts.css?v=1.3">
+  <link rel="stylesheet" href="/css/style.css?v=2.9">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": "https://infmatura.dev/#website",
-    "url": "https://infmatura.dev/",
-    "name": "InfMatura",
-    "description": "Baza arkuszy maturalnych z informatyki (poziom rozszerzony i podstawowy) - rozwiązania w Pythonie, pliki z danymi i zasady oceniania CKE.",
-    "inLanguage": "pl",
-    "publisher": {
-      "@type": "Person",
-      "name": "alanwnuczko",
-      "url": "https://github.com/alanwnuczko"
-    }
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Strona główna",
+        "item": "https://infmatura.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Baza arkuszy",
+        "item": "https://infmatura.dev/arkusze/"
+      }
+    ]
   }
   </script>
 </head>
@@ -67,26 +71,22 @@
 
   <main id="main-content" class="site-main">
     <div class="js-app">
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="catalog-page" id="baza-arkuszy" aria-labelledby="archive-heading">
         <div class="container">
-          <div class="hero-content">
-            <h1 id="hero-title" class="hero-title">Arkusze i&nbsp;rozwiązania maturalne z&nbsp;informatyki.</h1>
-            <p class="hero-description">
-              Baza arkuszy maturalnych z&nbsp;informatyki na poziomie rozszerzonym i&nbsp;podstawowym. Rozwiązania w&nbsp;Pythonie, pliki z&nbsp;danymi oraz zasady oceniania CKE.
-            </p>
-            <div class="hero-cta-group">
-              <a href="/arkusze/" class="btn-cta">Przejdź do bazy arkuszy</a>
-              <a href="/pytania-teoretyczne/" class="btn-cta">Przejdź do pytań teoretycznych</a>
-            </div>
-          </div>
-        </div>
-      </section>
+          <nav class="breadcrumbs" aria-label="Ścieżka powrotu">
+            <ol class="breadcrumb-list">
+              <li class="breadcrumb-item">
+                <a href="/" class="breadcrumb-link">Strona główna</a>
+                <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              </li>
+              <li class="breadcrumb-item">
+                <span class="breadcrumb-current" aria-current="page">Baza arkuszy</span>
+                <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              </li>
+            </ol>
+          </nav>
 
-      <section class="archive-section" id="baza-arkuszy" aria-labelledby="archive-heading">
-        <div class="container">
-          <h2 id="archive-heading" class="section-heading">
-            <a href="/arkusze/" class="section-heading-link">Baza arkuszy</a>
-          </h2>
+          <h1 id="archive-heading" class="section-heading">Baza arkuszy</h1>
 
           <div class="toolbar" role="search" aria-label="Filtrowanie arkuszy">
             <div class="search-wrapper">
@@ -184,9 +184,21 @@
           flex-direction: column;
         }
       </style>
-      <section class="hero error-hero" aria-labelledby="noscript-title">
+      <section class="hero error-hero has-breadcrumbs" aria-labelledby="noscript-title">
         <div class="container">
           <div class="hero-content error-content">
+            <nav class="breadcrumbs" aria-label="Ścieżka powrotu">
+              <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                  <a href="/" class="breadcrumb-link">Strona główna</a>
+                  <span class="breadcrumb-separator" aria-hidden="true">/</span>
+                </li>
+                <li class="breadcrumb-item">
+                  <span class="breadcrumb-current" aria-current="page">Baza arkuszy</span>
+                  <span class="breadcrumb-separator" aria-hidden="true">/</span>
+                </li>
+              </ol>
+            </nav>
             <p class="error-code" aria-hidden="true">JS</p>
             <h1 id="noscript-title" class="hero-title">JavaScript jest&nbsp;wyłączony.</h1>
             <p class="hero-description">
@@ -227,8 +239,8 @@
     ↑ Na górę
   </button>
 
-  <script src="data/exams.js?v=1.1" defer></script>
-  <script src="js/data.js?v=1.1" defer></script>
-  <script src="js/app.js?v=1.3" defer></script>
+  <script src="/data/exams.js?v=1.1" defer></script>
+  <script src="/js/data.js?v=1.1" defer></script>
+  <script src="/js/app.js?v=1.3" defer></script>
 </body>
 </html>

@@ -1174,6 +1174,7 @@ button, input {
 
 .legal-content {
   max-width: 720px;
+  margin-inline: auto;
 }
 
 .legal-title {
@@ -1247,6 +1248,38 @@ button, input {
   text-decoration: none;
 }
 
+.section-heading-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.section-heading-link:hover {
+  color: #FFFFFF;
+}
+
+.catalog-page {
+  padding: 36px 0 80px;
+}
+
+.catalog-page .section-heading {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin-bottom: 28px;
+}
+
+.hero.has-breadcrumbs {
+  padding-top: 36px;
+}
+
+.legal-page.has-breadcrumbs {
+  padding-top: 36px;
+}
+
+.error-hero.has-breadcrumbs {
+  padding-top: 36px;
+  align-items: flex-start;
+}
+
 /* Breadcrumbs Navigation */
 .breadcrumbs {
   margin-bottom: 24px;
@@ -1259,13 +1292,19 @@ button, input {
   gap: 8px;
   list-style: none;
   font-size: 0.875rem;
+  line-height: 1.4;
   color: var(--text-secondary);
 }
 
-.breadcrumb-item {
+.breadcrumbs .breadcrumb-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 .breadcrumb-separator {
@@ -1273,14 +1312,16 @@ button, input {
   user-select: none;
 }
 
-.breadcrumb-link {
+.breadcrumbs .breadcrumb-link {
   color: var(--text-secondary);
   text-decoration: none;
+  text-underline-offset: unset;
   transition: color 0.18s ease;
 }
 
-.breadcrumb-link:hover {
+.breadcrumbs .breadcrumb-link:hover {
   color: var(--text-primary);
+  text-decoration: none;
 }
 
 .breadcrumb-current {
@@ -2012,6 +2053,13 @@ button, input {
 
   .error-hero {
     padding: 64px 0 80px;
+  }
+
+  .hero.has-breadcrumbs,
+  .legal-page.has-breadcrumbs,
+  .error-hero.has-breadcrumbs,
+  .catalog-page {
+    padding-top: 28px;
   }
 
   .hero-title {

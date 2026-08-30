@@ -67,6 +67,7 @@ $sitemapUrls = [System.Collections.Generic.List[string]]::new()
 $today = (Get-Date).ToString("yyyy-MM-dd")
 
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>1.0</priority>`n  </url>")
+$sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/arkusze/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>0.95</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/pytania-teoretyczne/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>weekly</changefreq>`n    <priority>0.9</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/polityka-prywatnosci/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>monthly</changefreq>`n    <priority>0.3</priority>`n  </url>")
 
@@ -253,14 +254,14 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
           {
             "@type": "ListItem",
             "position": 1,
-            "name": "InfMatura",
+            "name": "Strona główna",
             "item": "https://infmatura.dev/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Baza arkuszy",
-            "item": "https://infmatura.dev/#baza-arkuszy"
+            "item": "https://infmatura.dev/arkusze/"
           },
           {
             "@type": "ListItem",
@@ -354,11 +355,12 @@ $jsonLd
               <span class="breadcrumb-separator" aria-hidden="true">/</span>
             </li>
             <li class="breadcrumb-item">
-              <a href="/#baza-arkuszy" class="breadcrumb-link">Baza arkuszy</a>
+              <a href="/arkusze/" class="breadcrumb-link">Baza arkuszy</a>
               <span class="breadcrumb-separator" aria-hidden="true">/</span>
             </li>
             <li class="breadcrumb-item">
               <span class="breadcrumb-current" aria-current="page">$dTitle ($($e.type))</span>
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
             </li>
           </ol>
         </nav>
@@ -385,7 +387,7 @@ $codeViewerHTML
         <!-- Session Navigation -->
         <nav class="exam-nav-bar" aria-label="Nawigacja między arkuszami">
           $prevBtn
-          <a href="/#baza-arkuszy" class="exam-nav-link exam-nav-link--all">Wszystkie arkusze</a>
+          <a href="/arkusze/" class="exam-nav-link exam-nav-link--all">Wszystkie arkusze</a>
           $nextBtn
         </nav>
       </div>
