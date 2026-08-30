@@ -17,6 +17,13 @@
     }
 
     var pendingHash = window.location.hash;
+    if (pendingHash === "#baza-arkuszy") {
+      var path = window.location.pathname;
+      if (path === "/" || path === "/index.html") {
+        window.location.replace("/arkusze/" + window.location.search);
+        return;
+      }
+    }
     if (!pendingHash) {
       window.scrollTo(0, 0);
     }
@@ -711,10 +718,10 @@
     var schema = {
       "@context": "https://schema.org",
       "@type": ["CollectionPage", "WebPage"],
-      "@id": "https://infmatura.dev/#archive",
+      "@id": "https://infmatura.dev/arkusze/",
       "name": "Baza arkuszy maturalnych z informatyki - InfMatura",
       "description": "Archiwum arkuszy CKE z informatyki rozszerzonej i podstawowej. Zawiera arkusze PDF, rozwiązania w Pythonie oraz zasady oceniania.",
-      "url": "https://infmatura.dev/",
+      "url": "https://infmatura.dev/arkusze/",
       "inLanguage": "pl",
       "isPartOf": { "@id": "https://infmatura.dev/#website" },
       "about": {
