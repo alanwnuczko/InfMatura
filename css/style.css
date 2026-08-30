@@ -1327,8 +1327,10 @@ button, input {
 }
 
 .exam-actions-bar .card-link {
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   padding: 10px 20px;
   min-height: 44px;
   width: auto;
@@ -1344,9 +1346,149 @@ button, input {
 
 .exam-actions-bar .card-link-split__main,
 .exam-actions-bar .card-link-split__zip {
+  font-family: var(--font-sans);
   padding: 10px 18px;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.pdf-viewer-section {
+  margin-bottom: 48px;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+.pdf-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.pdf-viewer-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.pdf-viewer-hint {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin-top: 6px;
+  max-width: 42rem;
+}
+
+.pdf-viewer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pdf-viewer {
+  background: rgba(14, 14, 18, 0.78);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-glow);
+  overflow: hidden;
+}
+
+.pdf-frame-wrap {
+  position: relative;
+  height: 26rem;
+  min-height: 16rem;
+  background: #111113;
+}
+
+.pdf-viewer-section.is-expanded .pdf-frame-wrap {
+  height: calc(100dvh - 8.5rem);
+}
+
+.pdf-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #18181b;
+}
+
+.pdf-viewer-section.is-resizing .pdf-frame {
+  pointer-events: none;
+}
+
+.pdf-resize-handle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 32px;
+  cursor: ns-resize;
+  touch-action: none;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid var(--border-line);
+  user-select: none;
+}
+
+.pdf-resize-handle::before {
+  content: "";
+  width: 40px;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.pdf-resize-handle-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.pdf-resize-handle:hover,
+.pdf-resize-handle:focus-visible {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.pdf-resize-handle:hover::before,
+.pdf-resize-handle:focus-visible::before {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.pdf-resize-handle:hover .pdf-resize-handle-label,
+.pdf-resize-handle:focus-visible .pdf-resize-handle-label {
+  color: var(--text-secondary);
+}
+
+.pdf-fallback {
+  margin: 0;
+  padding: 10px 16px 14px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.pdf-fallback-link {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pdf-fallback-link:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .pdf-viewer-section {
+    display: none;
+  }
 }
 
 /* Info Section Card */
@@ -1443,8 +1585,10 @@ button, input {
   gap: 8px;
   min-height: 38px;
   padding: 0 16px;
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--text-secondary);
   background-color: rgba(255, 255, 255, 0.035);
   border: 1px solid var(--border-line);
@@ -1526,9 +1670,10 @@ button, input {
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--text-secondary);
   background-color: transparent;
   border: 1px solid transparent;
@@ -1966,6 +2111,14 @@ button, input {
     height: 44px;
     padding: 0 18px;
     font-size: 0.875rem;
+  }
+
+  .pdf-frame-wrap {
+    height: 20rem;
+  }
+
+  .pdf-viewer-section.is-expanded .pdf-frame-wrap {
+    height: calc(100dvh - 7rem);
   }
 
 }
