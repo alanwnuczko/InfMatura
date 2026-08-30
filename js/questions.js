@@ -96,10 +96,7 @@
       "category-chip" + (activeCategory === id ? " is-active" : "");
     btn.setAttribute("data-category", id);
     btn.setAttribute("aria-pressed", activeCategory === id ? "true" : "false");
-    btn.setAttribute(
-      "aria-label",
-      label + ", " + count + (count === 1 ? " pytanie" : " pytań")
-    );
+    btn.setAttribute("aria-label", label + ", " + pluralizeQuestions(count));
 
     var labelSpan = document.createElement("span");
     labelSpan.className = "category-chip-label";
@@ -249,7 +246,7 @@
       elements.drawCountSeg.appendChild(btn);
     });
 
-    // Custom number input — rendered as sibling after the pill group
+    // Custom number input - rendered as sibling after the pill group
     var customWrap = document.createElement("div");
     customWrap.className = "draw-count-custom-wrap" +
       (!DRAW_COUNTS.includes(selectedCount) ? " is-active" : "");

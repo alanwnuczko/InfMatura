@@ -184,8 +184,8 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
                 $tabsHTML += "<button class=""code-tab$isActive"" role=""tab"" aria-selected=""$isAriaSelected"" aria-controls=""$panelId"" id=""$tabId"">$fName</button>"
 
                 if ($ext -eq ".md") {
-                    $escapedRawMd = [System.Web.HttpUtility]::HtmlEncode($fContent)
-                    $panelsHTML += "<div class=""code-panel$isActive code-panel-md"" id=""$panelId"" role=""tabpanel"" aria-labelledby=""$tabId""><div class=""code-panel-header""><span class=""code-file-name"">$fName</span><button class=""copy-code-btn"" type=""button"" aria-label=""Kopiuj zawartość $fName"">$copySvg<span class=""copy-btn-text"">Kopiuj</span></button></div><script type=""text/markdown"">$fContent</script><div class=""markdown-rendered""></div></div>"
+                    $escapedRawMd = Escape-Html $fContent
+                    $panelsHTML += "<div class=""code-panel$isActive code-panel-md"" id=""$panelId"" role=""tabpanel"" aria-labelledby=""$tabId""><div class=""code-panel-header""><span class=""code-file-name"">$fName</span><button class=""copy-code-btn"" type=""button"" aria-label=""Kopiuj zawartość $fName"">$copySvg<span class=""copy-btn-text"">Kopiuj</span></button></div><script type=""text/markdown"">$escapedRawMd</script><div class=""markdown-rendered""></div></div>"
                 } else {
                     $langClass = Get-LanguageClass $fName
                     $escapedCode = Escape-Html $fContent
@@ -320,7 +320,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="/css/fonts.css?v=1.3">
-  <link rel="stylesheet" href="/css/style.css?v=2.1">
+  <link rel="stylesheet" href="/css/style.css?v=2.7">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <script type="application/ld+json">
@@ -420,102 +420,7 @@ $codeViewerHTML
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js" defer></script>
-
-  <script>
-    (function () {
-      var header = document.getElementById("site-header");
-      var backToTop = document.getElementById("back-to-top");
-
-      window.addEventListener("scroll", function () {
-        var y = window.pageYOffset;
-        if (header) {
-          if (y > 48) header.classList.add("header--scrolled");
-          else header.classList.remove("header--scrolled");
-        }
-        if (backToTop) {
-          var show = y > 400;
-          backToTop.hidden = false;
-          backToTop.classList.toggle("is-visible", show);
-        }
-      }, { passive: true });
-
-      if (backToTop) {
-        backToTop.addEventListener("click", function () {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      }
-
-      // Render Markdown panels
-      function renderMarkdown() {
-        if (typeof marked !== "undefined") {
-          marked.use({ gfm: true, breaks: true });
-          document.querySelectorAll(".code-panel-md").forEach(function (panel) {
-            var rawScript = panel.querySelector('script[type="text/markdown"]');
-            var target = panel.querySelector(".markdown-rendered");
-            if (rawScript && target && !target.dataset.rendered) {
-              target.innerHTML = marked.parse(rawScript.textContent);
-              target.dataset.rendered = "true";
-            }
-          });
-        } else {
-          setTimeout(renderMarkdown, 50);
-        }
-      }
-      renderMarkdown();
-
-      // Code tabs switching
-      document.querySelectorAll(".code-tab").forEach(function (tab) {
-        tab.addEventListener("click", function () {
-          var viewer = tab.closest(".code-viewer");
-          if (!viewer) return;
-          viewer.querySelectorAll(".code-tab").forEach(function (t) {
-            t.classList.remove("is-active");
-            t.setAttribute("aria-selected", "false");
-          });
-          viewer.querySelectorAll(".code-panel").forEach(function (p) {
-            p.classList.remove("is-active");
-          });
-          tab.classList.add("is-active");
-          tab.setAttribute("aria-selected", "true");
-          var targetId = tab.getAttribute("aria-controls");
-          var targetPanel = viewer.querySelector("#" + targetId);
-          if (targetPanel) {
-            targetPanel.classList.add("is-active");
-            renderMarkdown();
-          }
-        });
-      });
-
-      // Copy code button
-      document.querySelectorAll(".copy-code-btn").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var panel = btn.closest(".code-panel");
-          if (!panel) return;
-          var textToCopy = "";
-          var rawScript = panel.querySelector('script[type="text/markdown"]');
-          if (rawScript) {
-            textToCopy = rawScript.textContent.trim();
-          } else {
-            var codeEl = panel.querySelector("code");
-            if (codeEl) textToCopy = codeEl.innerText || codeEl.textContent;
-          }
-
-          navigator.clipboard.writeText(textToCopy).then(function () {
-            var label = btn.querySelector(".copy-btn-text");
-            var originalText = label ? label.textContent : "Kopiuj";
-            if (label) label.textContent = "Skopiowano";
-            btn.classList.add("is-copied");
-            setTimeout(function () {
-              if (label) label.textContent = originalText;
-              btn.classList.remove("is-copied");
-            }, 2000);
-          }).catch(function (err) {
-            console.error("Błąd kopiowania:", err);
-          });
-        });
-      });
-    })();
-  </script>
+  <script src="/js/exam.js?v=1.4" defer></script>
 </body>
 </html>
 "@
