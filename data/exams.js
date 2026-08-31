@@ -230,6 +230,20 @@ var EXAMS_LIST = [
     "hasZasady": true
   },
   {
+    "id": "2016-05_PR_F2015",
+    "year": 2016,
+    "month": "05",
+    "type": "PR",
+    "formula": "F2015",
+    "parts": [
+      "Arkusz_cz1",
+      "Arkusz_cz2"
+    ],
+    "hasData": true,
+    "hasSolution": true,
+    "hasZasady": true
+  },
+  {
     "id": "2015-05_PR_F2015",
     "year": 2015,
     "month": "05",
