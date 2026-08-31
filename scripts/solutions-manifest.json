@@ -249,5 +249,22 @@
     "wyniki3.txt",
     "wyniki6.txt",
     "wyniki7.txt"
+  ],
+  "2016-05_PR_F2015": [
+    "1.py",
+    "1_1.md",
+    "1_2.py",
+    "2_1.py",
+    "4_1.py",
+    "4_2.py",
+    "4_3.py",
+    "6_1.py",
+    "6_2.py",
+    "6_3.py",
+    "wyniki4.txt",
+    "wyniki5.txt",
+    "wyniki_6_1.txt",
+    "wyniki_6_2.txt",
+    "wyniki_6_3.txt"
   ]
 }
