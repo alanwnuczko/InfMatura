@@ -1,4 +1,4 @@
-/* Pytania teoretyczne - style podstrony (/pytania-teoretyczne/) */
+﻿/* Pytania teoretyczne - style podstrony (/pytania-teoretyczne/) */
 
 .questions-hero {
   padding-bottom: 80px;
@@ -50,8 +50,6 @@ body:has(.questions-section[hidden]) .questions-hero {
   font-weight: 500;
   color: var(--text-secondary);
   background-color: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-line);
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-pill);
@@ -105,8 +103,6 @@ body:has(.questions-section[hidden]) .questions-hero {
   align-items: stretch;
   padding: 4px;
   background-color: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-line);
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-pill);
@@ -171,8 +167,6 @@ body:has(.questions-section[hidden]) .questions-hero {
   text-align: center;
   color: var(--text-secondary);
   background-color: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-line);
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-pill);
@@ -286,8 +280,6 @@ body:has(.questions-section[hidden]) .questions-hero {
   font-weight: 600;
   color: var(--text-primary);
   background-color: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-line);
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-pill);
