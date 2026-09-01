@@ -1,4 +1,4 @@
-$rootDir = (Get-Item $PSScriptRoot).Parent.FullName
+﻿$rootDir = (Get-Item $PSScriptRoot).Parent.FullName
 $examsPath = Join-Path $rootDir "data\exams.js"
 
 $raw = [System.IO.File]::ReadAllText($examsPath, [System.Text.Encoding]::UTF8)
