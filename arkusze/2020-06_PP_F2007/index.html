@@ -152,7 +152,7 @@
 
           <div class="code-viewer">
             <div class="code-tabs-bar" role="tablist" aria-label="Pliki z rozwiązaniami">
-              <button class="code-tab is-active" role="tab" aria-selected="true" aria-controls="panel-2020-06_PP_F2007-0" id="tab-2020-06_PP_F2007-0">1.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-1" id="tab-2020-06_PP_F2007-1">2_3.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-2" id="tab-2020-06_PP_F2007-2">2.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-3" id="tab-2020-06_PP_F2007-3">4_1.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-4" id="tab-2020-06_PP_F2007-4">4_2.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-5" id="tab-2020-06_PP_F2007-5">4_3.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-6" id="tab-2020-06_PP_F2007-6">3.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-7" id="tab-2020-06_PP_F2007-7">wyniki4.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-8" id="tab-2020-06_PP_F2007-8">wyniki5.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-9" id="tab-2020-06_PP_F2007-9">wyniki6.txt</button>
+              <button class="code-tab is-active" role="tab" aria-selected="true" aria-controls="panel-2020-06_PP_F2007-0" id="tab-2020-06_PP_F2007-0">1.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-1" id="tab-2020-06_PP_F2007-1">2.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-2" id="tab-2020-06_PP_F2007-2">2_3.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-3" id="tab-2020-06_PP_F2007-3">3.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-4" id="tab-2020-06_PP_F2007-4">4_1.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-5" id="tab-2020-06_PP_F2007-5">4_2.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-6" id="tab-2020-06_PP_F2007-6">4_3.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-7" id="tab-2020-06_PP_F2007-7">wyniki4.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-8" id="tab-2020-06_PP_F2007-8">wyniki5.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2020-06_PP_F2007-9" id="tab-2020-06_PP_F2007-9">wyniki6.txt</button>
             </div>
             <div class="code-panels-container">
               <div class="code-panel is-active" id="panel-2020-06_PP_F2007-0" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-0"><div class="code-panel-header"><span class="code-file-name">1.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 1.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def algorytm(a, n, T):
@@ -174,14 +174,7 @@ print(algorytm(6, 9, [1, 5, 4, 2, 6, 3, 2, 7, 3]))
 # Jeśli liczba a jest w tablicy - to s jest równie sumie elementów po liczbie a w tablicy
 
 # 1_3:
-print(algorytm(9, 10, [1, 2, 3, 4, 5, 6, 7, 8, 9, 2019]))</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-1" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-1"><div class="code-panel-header"><span class="code-file-name">2_3.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 2_3.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python"># k = cena biletów (cena w systemie pozycyjnym)
-# p = podstawa
-def algorytm(k, p):
-    k_dziesietnie = int(str(k), p)
-    wynik = oct(k_dziesietnie)
-    return wynik[2:]
-
-print(algorytm(2210, 3))</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-2" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-2"><div class="code-panel-header"><span class="code-file-name">2.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 2.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python"># 2_1:
+print(algorytm(9, 10, [1, 2, 3, 4, 5, 6, 7, 8, 9, 2019]))</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-1" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-1"><div class="code-panel-header"><span class="code-file-name">2.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 2.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python"># 2_1:
 bilet_tercja = int(&quot;2210&quot;, 3)
 bilet_kwinta = int(&quot;321&quot;, 5)
 
@@ -215,13 +208,25 @@ roznica_kwintolandia = na_piatkowy(roznica_cen)
 roznica_tercjolandia = na_trojkowy(roznica_cen)
 
 print(roznica_kwintolandia)
-print(roznica_tercjolandia)</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-3" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-3"><div class="code-panel-header"><span class="code-file-name">4_1.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 4_1.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">licznik_nieparzystych = 0
+print(roznica_tercjolandia)</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-2" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-2"><div class="code-panel-header"><span class="code-file-name">2_3.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 2_3.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python"># k = cena biletów (cena w systemie pozycyjnym)
+# p = podstawa
+def algorytm(k, p):
+    k_dziesietnie = int(str(k), p)
+    wynik = oct(k_dziesietnie)
+    return wynik[2:]
+
+print(algorytm(2210, 3))</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-3" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-3"><div class="code-panel-header"><span class="code-file-name">3.txt</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 3.txt"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-none">1) A
+2) B
+3) C
+4) C
+5) D
+6) D</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-4" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-4"><div class="code-panel-header"><span class="code-file-name">4_1.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 4_1.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">licznik_nieparzystych = 0
 with open(&quot;liczby.txt&quot;) as f:
     for line in f:
         if int(line) % 2 != 0:
             licznik_nieparzystych += 1
 
-print(licznik_nieparzystych)</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-4" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-4"><div class="code-panel-header"><span class="code-file-name">4_2.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 4_2.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">liczby_wynik = []
+print(licznik_nieparzystych)</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-5" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-5"><div class="code-panel-header"><span class="code-file-name">4_2.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 4_2.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">liczby_wynik = []
 with open(&quot;liczby.txt&quot;) as f:
     for line in f:
         line = line.strip()
@@ -231,7 +236,7 @@ with open(&quot;liczby.txt&quot;) as f:
         if sum(cyfry) == 11:
             liczby_wynik.append(int(line))
 
-print(liczby_wynik)</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-5" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-5"><div class="code-panel-header"><span class="code-file-name">4_3.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 4_3.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
+print(liczby_wynik)</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-6" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-6"><div class="code-panel-header"><span class="code-file-name">4_3.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 4_3.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
     if n &lt; 2:
         return False
     for i in range(2, n):
@@ -248,12 +253,7 @@ with open(&quot;liczby.txt&quot;) as f:
 
 
 print(liczby_wynik)
-</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-6" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-6"><div class="code-panel-header"><span class="code-file-name">3.txt</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 3.txt"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-none">1) A
-2) B
-3) C
-4) C
-5) D
-6) D</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-7" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-7"><div class="code-panel-header"><span class="code-file-name">wyniki4.txt</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość wyniki4.txt"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-none">4_1:
+</code></pre></div><div class="code-panel" id="panel-2020-06_PP_F2007-7" role="tabpanel" aria-labelledby="tab-2020-06_PP_F2007-7"><div class="code-panel-header"><span class="code-file-name">wyniki4.txt</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość wyniki4.txt"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-none">4_1:
 612
 
 4_2:

@@ -1,4 +1,4 @@
-﻿$rootDir = (Get-Item $PSScriptRoot).Parent.FullName
+$rootDir = (Get-Item $PSScriptRoot).Parent.FullName
 $examsPath = Join-Path $rootDir "data\exams.js"
 
 $raw = [System.IO.File]::ReadAllText($examsPath, [System.Text.Encoding]::UTF8)
@@ -141,17 +141,25 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
         }
 
         if ($displayFiles.Count -gt 0) {
-            # Sort: .py first, then .sql, .md, .txt
+            # Natural numeric sort: 1.py < 1_1.py < 1_2.py < 2.py < 2_1.py ... wyniki* last
             $displayFiles = $displayFiles | Sort-Object @{
                 Expression = {
-                    $ext = [System.IO.Path]::GetExtension($_).ToLower()
-                    if ($ext -eq ".py") { 1 }
-                    elseif ($ext -eq ".cpp" -or $ext -eq ".java") { 2 }
-                    elseif ($ext -eq ".sql") { 3 }
-                    elseif ($ext -eq ".md") { 4 }
-                    else { 5 }
+                    $base = [System.IO.Path]::GetFileNameWithoutExtension($_)
+                    # wyniki* always last (group 9)
+                    if ($base -match '^wyniki') { return [int]::MaxValue }
+                    # Parse primary and secondary numbers: "4_2" -> primary=4, secondary=2; "4" -> primary=4, secondary=0
+                    if ($base -match '^(\d+)_(\d+)') {
+                        [int]$pri = $Matches[1]; [int]$sec = $Matches[2]
+                    } elseif ($base -match '^(\d+)') {
+                        [int]$pri = $Matches[1]; [int]$sec = 0
+                    } else {
+                        # No leading number — sort after numbered files, before wyniki
+                        $pri = [int]::MaxValue - 1; $sec = 0
+                    }
+                    # Encode as single comparable integer: pri*1000 + sec
+                    $pri * 1000 + $sec
                 }
-            }, { $_ }
+            }
 
             $tabsHTML = ""
             $panelsHTML = ""
