@@ -152,71 +152,10 @@
 
           <div class="code-viewer">
             <div class="code-tabs-bar" role="tablist" aria-label="Pliki z rozwiązaniami">
-              <button class="code-tab is-active" role="tab" aria-selected="true" aria-controls="panel-2016-05_PP_F2007-0" id="tab-2016-05_PP_F2007-0">6_1.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-1" id="tab-2016-05_PP_F2007-1">6_2.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-2" id="tab-2016-05_PP_F2007-2">6_3.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-3" id="tab-2016-05_PP_F2007-3">1.md</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-4" id="tab-2016-05_PP_F2007-4">2.md</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-5" id="tab-2016-05_PP_F2007-5">3.md</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-6" id="tab-2016-05_PP_F2007-6">wyniki_4.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-7" id="tab-2016-05_PP_F2007-7">wyniki_5.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-8" id="tab-2016-05_PP_F2007-8">wyniki_6.txt</button>
+              <button class="code-tab is-active" role="tab" aria-selected="true" aria-controls="panel-2016-05_PP_F2007-0" id="tab-2016-05_PP_F2007-0">1.md</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-1" id="tab-2016-05_PP_F2007-1">2.md</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-2" id="tab-2016-05_PP_F2007-2">3.md</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-3" id="tab-2016-05_PP_F2007-3">6_1.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-4" id="tab-2016-05_PP_F2007-4">6_2.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-5" id="tab-2016-05_PP_F2007-5">6_3.py</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-6" id="tab-2016-05_PP_F2007-6">wyniki_4.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-7" id="tab-2016-05_PP_F2007-7">wyniki_5.txt</button><button class="code-tab" role="tab" aria-selected="false" aria-controls="panel-2016-05_PP_F2007-8" id="tab-2016-05_PP_F2007-8">wyniki_6.txt</button>
             </div>
             <div class="code-panels-container">
-              <div class="code-panel is-active" id="panel-2016-05_PP_F2007-0" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-0"><div class="code-panel-header"><span class="code-file-name">6_1.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 6_1.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
-    if n &lt; 2:
-        return False
-
-    for i in range(2, n):
-        if n % i == 0:
-            return False
-    return True
-
-licznik = 0
-
-with open(&quot;dane_6.txt&quot;) as f:
-    for line in f:
-        liczba = int(line.strip())
-        if czy_pierwsza(liczba):
-            licznik += 1
-
-print(licznik)</code></pre></div><div class="code-panel" id="panel-2016-05_PP_F2007-1" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-1"><div class="code-panel-header"><span class="code-file-name">6_2.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 6_2.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
-    if n &lt; 2:
-        return False
-
-    for i in range(2, n):
-        if n % i == 0:
-            return False
-
-    return True
-
-liczby_pierwsze = []
-
-with open(&quot;dane_6.txt&quot;) as f:
-    for line in f:
-        liczba = int(line.strip())
-
-        if czy_pierwsza(liczba):
-            liczby_pierwsze.append(liczba)
-
-print(min(liczby_pierwsze)) # Najmniejsza liczba
-print(max(liczby_pierwsze)) # Największa liczba</code></pre></div><div class="code-panel" id="panel-2016-05_PP_F2007-2" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-2"><div class="code-panel-header"><span class="code-file-name">6_3.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 6_3.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
-    if n &lt; 2:
-        return False
-
-    for i in range(2, n):
-        if n % i == 0:
-            return False
-    return True
-
-wszystkie_liczby = []
-
-with open(&quot;dane_6.txt&quot;) as f:
-    for line in f:
-        liczba = int(line.strip())
-        wszystkie_liczby.append(liczba)
-
-licznik = 0
-for i in range(len(wszystkie_liczby) - 1):
-    if (czy_pierwsza(wszystkie_liczby[i]) and czy_pierwsza(wszystkie_liczby[i+1]) and
-        abs(wszystkie_liczby[i] - wszystkie_liczby[i+1]) == 2):
-        licznik += 1
-
-        print((wszystkie_liczby[i], wszystkie_liczby[i+1]))
-
-print(licznik)</code></pre></div><div class="code-panel code-panel-md" id="panel-2016-05_PP_F2007-3" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-3"><div class="code-panel-header"><span class="code-file-name">1.md</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 1.md"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><script type="text/markdown">1_1:
+              <div class="code-panel is-active code-panel-md" id="panel-2016-05_PP_F2007-0" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-0"><div class="code-panel-header"><span class="code-file-name">1.md</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 1.md"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><script type="text/markdown">1_1:
 
 Skompresuj powyższym algorytmem tekst podany w tabeli, oblicz rozmiar tekstu przed kompresją i po kompresji.
 
@@ -253,7 +192,7 @@ def rozmiar_kompresji(T):
     return b
 
 print(rozmiar_kompresji(&quot;FFFYYYYYYYYYFFFHAAAAA&quot;))
-```</script><div class="markdown-rendered"></div></div><div class="code-panel code-panel-md" id="panel-2016-05_PP_F2007-4" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-4"><div class="code-panel-header"><span class="code-file-name">2.md</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 2.md"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><script type="text/markdown">2_1:
+```</script><div class="markdown-rendered"></div></div><div class="code-panel code-panel-md" id="panel-2016-05_PP_F2007-1" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-1"><div class="code-panel-header"><span class="code-file-name">2.md</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 2.md"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><script type="text/markdown">2_1:
 
 | n   | Rozkład liczby                    | k |
 |-----|-----------------------------------|---|
@@ -295,11 +234,72 @@ def oblicz_k(n):
     return k
 
 print(oblicz_k(375))
-```</script><div class="markdown-rendered"></div></div><div class="code-panel code-panel-md" id="panel-2016-05_PP_F2007-5" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-5"><div class="code-panel-header"><span class="code-file-name">3.md</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 3.md"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><script type="text/markdown">- **3.1:** `A`
+```</script><div class="markdown-rendered"></div></div><div class="code-panel code-panel-md" id="panel-2016-05_PP_F2007-2" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-2"><div class="code-panel-header"><span class="code-file-name">3.md</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 3.md"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><script type="text/markdown">- **3.1:** `A`
 - **3.2:** `A`
 - **3.3:** `B`
 - **3.4:** `C`
-- **3.5:** `B`</script><div class="markdown-rendered"></div></div><div class="code-panel" id="panel-2016-05_PP_F2007-6" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-6"><div class="code-panel-header"><span class="code-file-name">wyniki_4.txt</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość wyniki_4.txt"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-none">4_1:
+- **3.5:** `B`</script><div class="markdown-rendered"></div></div><div class="code-panel" id="panel-2016-05_PP_F2007-3" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-3"><div class="code-panel-header"><span class="code-file-name">6_1.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 6_1.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
+    if n &lt; 2:
+        return False
+
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+licznik = 0
+
+with open(&quot;dane_6.txt&quot;) as f:
+    for line in f:
+        liczba = int(line.strip())
+        if czy_pierwsza(liczba):
+            licznik += 1
+
+print(licznik)</code></pre></div><div class="code-panel" id="panel-2016-05_PP_F2007-4" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-4"><div class="code-panel-header"><span class="code-file-name">6_2.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 6_2.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
+    if n &lt; 2:
+        return False
+
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+
+    return True
+
+liczby_pierwsze = []
+
+with open(&quot;dane_6.txt&quot;) as f:
+    for line in f:
+        liczba = int(line.strip())
+
+        if czy_pierwsza(liczba):
+            liczby_pierwsze.append(liczba)
+
+print(min(liczby_pierwsze)) # Najmniejsza liczba
+print(max(liczby_pierwsze)) # Największa liczba</code></pre></div><div class="code-panel" id="panel-2016-05_PP_F2007-5" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-5"><div class="code-panel-header"><span class="code-file-name">6_3.py</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość 6_3.py"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-python">def czy_pierwsza(n):
+    if n &lt; 2:
+        return False
+
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+wszystkie_liczby = []
+
+with open(&quot;dane_6.txt&quot;) as f:
+    for line in f:
+        liczba = int(line.strip())
+        wszystkie_liczby.append(liczba)
+
+licznik = 0
+for i in range(len(wszystkie_liczby) - 1):
+    if (czy_pierwsza(wszystkie_liczby[i]) and czy_pierwsza(wszystkie_liczby[i+1]) and
+        abs(wszystkie_liczby[i] - wszystkie_liczby[i+1]) == 2):
+        licznik += 1
+
+        print((wszystkie_liczby[i], wszystkie_liczby[i+1]))
+
+print(licznik)</code></pre></div><div class="code-panel" id="panel-2016-05_PP_F2007-6" role="tabpanel" aria-labelledby="tab-2016-05_PP_F2007-6"><div class="code-panel-header"><span class="code-file-name">wyniki_4.txt</span><button class="copy-code-btn" type="button" aria-label="Kopiuj zawartość wyniki_4.txt"><svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg><span class="copy-btn-text">Kopiuj</span></button></div><pre class="code-pre"><code class="language-none">4_1:
 24
 
 4_2:
