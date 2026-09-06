@@ -2,6 +2,7 @@ const REPO_BASE = "https://github.com/alanwnuczko/matura-informatyka-rozszerzona
 const PDF_CDN_BASE = "https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze";
 
 const MONTHS = {
+  "03": "Marzec",
   "05": "Maj",
   "06": "Czerwiec",
   "12": "Grudzie\u0144"

@@ -117,6 +117,19 @@ var EXAMS_LIST = [
     "hasSolution": true,
     "hasZasady": true
   },
+  {
+    "id": "2022-03_PR_F2023",
+    "year": 2022,
+    "month": "03",
+    "type": "PR",
+    "formula": "F2023",
+    "parts": [
+      "Arkusz"
+    ],
+    "hasData": true,
+    "hasSolution": true,
+    "hasZasady": true
+  },
   // {
   //   "id": "2022-05_PR_F2015",
   //   "year": 2022,
