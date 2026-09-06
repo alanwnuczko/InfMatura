@@ -9,6 +9,7 @@ $cleanJson = [System.Text.RegularExpressions.Regex]::Replace($jsonOnly, "(?m)^\s
 $exams = ConvertFrom-Json $cleanJson
 
 $MONTHS = @{
+    "03" = "Marzec"
     "05" = "Maj"
     "06" = "Czerwiec"
     "12" = "Grudzień"
