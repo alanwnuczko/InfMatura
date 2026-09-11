@@ -189,8 +189,12 @@
     return decodeHtmlEntities(rawScript.textContent || "").trim();
   }
 
+  var markdownRetries = 0;
+  var MARKDOWN_MAX_RETRIES = 100;
+
   function renderMarkdown() {
     if (typeof marked === "undefined") {
+      if (++markdownRetries > MARKDOWN_MAX_RETRIES) return;
       window.setTimeout(renderMarkdown, 50);
       return;
     }
@@ -202,6 +206,7 @@
       target.dataset.rendered = "true";
     });
   }
+
 
   function initCodeTabs() {
     document.querySelectorAll(".code-tab").forEach(function (tab) {
