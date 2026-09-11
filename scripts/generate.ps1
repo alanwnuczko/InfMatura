@@ -39,6 +39,7 @@ $API_BASE = "https://api.github.com/repos/alanwnuczko/matura-informatyka-rozszer
 $arrowUp = '<svg class="link-arrow-svg" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 $arrowDown = '<svg class="link-arrow-svg" viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><path d="M8 3.5V12.5M8 12.5L4.5 9M8 12.5L11.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 $copySvg = '<svg class="copy-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 3H4C3.44772 3 3 3.44772 3 4V11" stroke="currentColor" stroke-width="1.5"/></svg>'
+$githubSvg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>'
 
 $headers = @{ "User-Agent" = "InfMatura-Generator" }
 
@@ -142,24 +143,52 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
         }
 
         if ($displayFiles.Count -gt 0) {
-            # Natural numeric sort: 1.py < 1_1.py < 1_2.py < 2.py < 2_1.py ... wyniki* last
+            # Natural numeric sort: 1.py < 1.md < 1_1.py < 1_2.py < 2.py < unnumbered < wyniki*
             $displayFiles = $displayFiles | Sort-Object @{
                 Expression = {
                     $base = [System.IO.Path]::GetFileNameWithoutExtension($_)
-                    # wyniki* always last (group 9)
-                    if ($base -match '^wyniki') { return [int]::MaxValue }
-                    # Parse primary and secondary numbers: "4_2" -> primary=4, secondary=2; "4" -> primary=4, secondary=0
-                    if ($base -match '^(\d+)_(\d+)') {
-                        [int]$pri = $Matches[1]; [int]$sec = $Matches[2]
-                    } elseif ($base -match '^(\d+)') {
-                        [int]$pri = $Matches[1]; [int]$sec = 0
-                    } else {
-                        # No leading number — sort after numbered files, before wyniki
-                        $pri = [int]::MaxValue - 1; $sec = 0
-                    }
-                    # Encode as single comparable integer: pri*1000 + sec
-                    $pri * 1000 + $sec
+                    if ($base -match '^wyniki') { 3 }
+                    elseif ($base -match '^\d+') { 1 }
+                    else { 2 }
                 }
+            }, @{
+                Expression = {
+                    $base = [System.IO.Path]::GetFileNameWithoutExtension($_)
+                    if ($base -match '^wyniki_?(\d+)') {
+                        [int]$Matches[1]
+                    } elseif ($base -match '^(\d+)') {
+                        [int]$Matches[1]
+                    } else {
+                        0
+                    }
+                }
+            }, @{
+                Expression = {
+                    $base = [System.IO.Path]::GetFileNameWithoutExtension($_)
+                    if ($base -match '^wyniki_?\d+_(\d+)') {
+                        [int]$Matches[1]
+                    } elseif ($base -match '^\d+_(\d+)') {
+                        [int]$Matches[1]
+                    } else {
+                        0
+                    }
+                }
+            }, @{
+                Expression = {
+                    $ext = [System.IO.Path]::GetExtension($_).ToLower()
+                    switch ($ext) {
+                        ".py"   { 1 }
+                        ".cpp"  { 2 }
+                        ".java" { 3 }
+                        ".pas"  { 4 }
+                        ".sql"  { 5 }
+                        ".md"   { 6 }
+                        ".txt"  { 7 }
+                        default { 8 }
+                    }
+                }
+            }, @{
+                Expression = { $_ }
             }
 
             $tabsHTML = ""
@@ -330,7 +359,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="/css/fonts.css?v=1.3">
-  <link rel="stylesheet" href="/css/style.css?v=2.7">
+  <link rel="stylesheet" href="/css/style.css?v=2.9">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <script type="application/ld+json">
