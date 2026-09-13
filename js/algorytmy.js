@@ -1104,6 +1104,13 @@
         '        args = eval(tc["input"])',
         '    except Exception as _e:',
         '        args = ()',
+        '    if isinstance(args, tuple):',
+        '        if len(args) == 1:',
+        '            _input_repr = repr(args[0])',
+        '        else:',
+        '            _input_repr = ", ".join(repr(a) for a in args)',
+        '    else:',
+        '        _input_repr = repr(args)',
         '    expected = tc["expected"]',
         '    t0 = time.perf_counter()',
         '    try:',
@@ -1112,7 +1119,7 @@
         '        passed = bool(got == expected)',
         '        _results.append({',
         '            "passed": passed,',
-        '            "input": str(tc["input"]),',
+        '            "input": _input_repr,',
         '            "got": repr(got),',
         '            "expected": repr(expected),',
         '            "timeMs": round((t1 - t0) * 1000, 2),',
@@ -1121,7 +1128,7 @@
         '    except Exception as _e:',
         '        _results.append({',
         '            "passed": False,',
-        '            "input": str(tc["input"]),',
+        '            "input": _input_repr,',
         '            "got": None,',
         '            "expected": repr(expected),',
         '            "timeMs": 0,',
@@ -1152,16 +1159,66 @@
       }
     }).catch(function (err) {
       if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
+      var cleanedErr = cleanPythonTraceback(err, userCode);
       consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
         + '<span>Błąd w kodzie lub brak definicji funkcji</span>'
         + '</div>'
-        + '<pre style="background:rgba(0,0,0,0.4);border:1px solid var(--border-line);padding:14px;border-radius:8px;font-family:ui-monospace,monospace;font-size:0.875rem;color:#f87171;overflow-x:auto">'
-        + escHtml(String(err))
+        + '<pre class="algo-error-pre">'
+        + escHtml(cleanedErr)
         + '</pre>';
     }).finally(function () {
       runBtn.disabled = false;
       if (runLabel) runLabel.textContent = 'Uruchom i sprawdź testy';
     });
+  }
+
+  function cleanPythonTraceback(err, userCode) {
+    if (!err) return 'Nieznany błąd wykonania.';
+    var str = String(err).trim();
+    // Usuń prefiks "PythonError: "
+    str = str.replace(/^PythonError:\s*/i, '');
+
+    var prefixLines = 2; // Liczba linii przed userCode w runnerScript ('import json, time\n\n')
+    var userLinesCount = userCode ? userCode.split('\n').length : 9999;
+
+    var lines = str.split('\n');
+    var cleaned = [];
+    var skipInternal = false;
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+
+      // Wykryj wewnętrzne moduły Pyodide / biblioteki standardowej WebAssembly
+      if (line.indexOf('/lib/python3') !== -1 || line.indexOf('_pyodide') !== -1) {
+        skipInternal = true;
+        continue;
+      }
+      if (skipInternal) {
+        if (/^\s*File\s+"/.test(line) || /^[A-Z][a-zA-Z0-9_]*(?:Error|Exception):/.test(line)) {
+          skipInternal = false;
+        } else {
+          continue;
+        }
+      }
+
+      // Zamień odwołanie do pliku wewnętrznego <exec> na solution.py i zmapuj numer linii
+      var execMatch = line.match(/^(\s*)File\s+"<exec>",\s+line\s+(\d+)(.*)/);
+      if (execMatch) {
+        var rawLineNum = parseInt(execMatch[2], 10);
+        var userLineNum = rawLineNum - prefixLines;
+        if (userLineNum > 0 && userLineNum <= userLinesCount) {
+          line = execMatch[1] + 'Plik "solution.py", linia ' + userLineNum + execMatch[3];
+        } else {
+          line = execMatch[1] + 'Plik "solution.py"' + execMatch[3];
+        }
+      }
+
+      cleaned.push(line);
+    }
+
+    var result = cleaned.join('\n').trim();
+    result = result.replace(/^Traceback\s*\(most recent call last\):/i, 'Ślad błędu (ostatnie wywołania):');
+    return result || str;
   }
 
   function displayTestResults(task, results) {
@@ -1176,6 +1233,7 @@
       + (allPassed ? checkmarkSvg() : crossSvg())
       + '<span>' + (allPassed ? 'Zaliczono wszystkie testy (' + passedCount + ' / ' + totalCount + ')' : 'Zaliczono ' + passedCount + ' z ' + totalCount + ' ' + (totalCount === 1 ? 'testu' : 'testów')) + '</span>'
       + '</div>'
+      + '<div class="algo-tests-table-wrapper">'
       + '<table class="algo-tests-table" aria-label="Tabela wyników testów">'
       + '<thead><tr>'
       + '<th>Test</th>'
@@ -1199,7 +1257,7 @@
         + '</tr>';
     });
 
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
 
     if (allPassed) {
       html += '<div style="margin-top:16px;padding:14px;background:rgba(34,197,94,0.06);border:1px solid rgba(74,222,128,0.25);border-radius:8px;font-size:0.875rem;color:#86efac">'
@@ -1234,7 +1292,10 @@
       } else {
         html += '<span class="breadcrumb-current" aria-current="page">' + escHtml(item.label) + '</span>';
       }
-      html += '<span class="breadcrumb-separator" aria-hidden="true">/</span></li>';
+      if (!isLast) {
+        html += '<span class="breadcrumb-separator" aria-hidden="true">/</span>';
+      }
+      html += '</li>';
     });
     html += '</ol></nav>';
     return html;
