@@ -1373,6 +1373,10 @@ button, input {
   user-select: none;
 }
 
+.breadcrumbs .breadcrumb-item:last-child .breadcrumb-separator {
+  display: none !important;
+}
+
 .breadcrumbs .breadcrumb-link {
   color: var(--text-secondary);
   text-decoration: none;
