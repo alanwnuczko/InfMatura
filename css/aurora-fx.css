@@ -1,0 +1,246 @@
+/* ==========================================================================
+   Aurora & Warp Effects
+   Gradient animations: animated traveling underline beam & 3D horizon loader
+   ========================================================================== */
+
+:root {
+  --aurora-c1: #6366f1; /* Electric indigo */
+  --aurora-c2: #8b5cf6; /* Deep purple */
+  --aurora-c3: #d946ef; /* Bright fuchsia */
+  --aurora-c4: #ec4899; /* Neon magenta */
+  --aurora-c5: #f43f5e; /* Rose crimson */
+  --aurora-c6: #ff6b00; /* Hot fiery orange */
+  --aurora-c7: #ffb703; /* Amber gold */
+
+  --aurora-gradient: linear-gradient(
+    90deg,
+    var(--aurora-c1) 0%,
+    var(--aurora-c2) 16%,
+    var(--aurora-c3) 33%,
+    var(--aurora-c4) 50%,
+    var(--aurora-c5) 67%,
+    var(--aurora-c6) 84%,
+    var(--aurora-c7) 100%
+  );
+
+  --aurora-beam-stream: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.2) 15%,
+    var(--aurora-c2) 30%,
+    var(--aurora-c4) 52%,
+    var(--aurora-c6) 74%,
+    var(--aurora-c7) 90%,
+    transparent 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   1. Animated Gradient Word Underline Beam (Screenshots 1 & 2)
+   -------------------------------------------------------------------------- */
+
+.aurora-word {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+/* The travelling gradient underline beam - crisp, no glow */
+.aurora-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2.5px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background-image: var(--aurora-beam-stream);
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  animation: aurora-sweep-cycle 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity, background-position;
+}
+
+/* Cyclical animation: appear -> beam sweep across -> glowing linger -> fade out -> pause */
+@keyframes aurora-sweep-cycle {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.2);
+    transform-origin: left center;
+    background-position: 100% 0%;
+  }
+  8% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left center;
+    background-position: 95% 0%;
+  }
+  30% {
+    opacity: 1;
+    background-position: 50% 0%;
+  }
+  55% {
+    opacity: 1;
+    background-position: 5% 0%;
+  }
+  70% {
+    opacity: 0.85;
+    background-position: 0% 0%;
+  }
+  82% {
+    opacity: 0;
+    transform: scaleX(1);
+    background-position: 0% 0%;
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0.2);
+    transform-origin: left center;
+    background-position: 100% 0%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. 3D Perspective Horizon Grid Loader (Screenshot 3)
+   -------------------------------------------------------------------------- */
+
+.warp-loader-container {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  background-color: #030305;
+  border-radius: var(--radius-md, 12px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.95);
+  user-select: none;
+}
+
+.warp-loader-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.warp-loader-status {
+  position: relative;
+  z-index: 5;
+  color: #F9FAFB;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  margin-bottom: 70px; /* Sits precisely above horizon vanishing point */
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.9);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warp-loader-status::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--aurora-c4);
+  box-shadow: 0 0 8px var(--aurora-c4), 0 0 14px var(--aurora-c6);
+  animation: warp-dot-pulse 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes warp-dot-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+/* Fullscreen / Modal Overlay for Warp Loader */
+.warp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(3, 3, 5, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.warp-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.warp-overlay-card {
+  position: relative;
+  width: min(92vw, 860px);
+  height: min(75vh, 480px);
+  background: #030305;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 25px 70px -15px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(139, 92, 246, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.warp-overlay-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E5E7EB;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.warp-overlay-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.06);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-beam,
+  .aurora-word {
+    animation: none !important;
+  }
+  .aurora-beam {
+    opacity: 1 !important;
+    background-position: 50% 0% !important;
+  }
+}

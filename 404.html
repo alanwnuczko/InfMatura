@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -16,6 +16,7 @@
 
   <link rel="stylesheet" href="/css/fonts.css?v=1.3">
   <link rel="stylesheet" href="/css/style.css?v=2.9">
+  <link rel="stylesheet" href="/css/aurora-fx.css?v=1.0">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 </head>
 <body>
@@ -51,7 +52,7 @@
             </ol>
           </nav>
           <p class="error-code" aria-hidden="true">404</p>
-          <h1 id="error-title" class="hero-title">Strona nie&nbsp;została znaleziona.</h1>
+          <h1 id="error-title" class="hero-title">Strona <span class="aurora-word">nie&nbsp;została<span class="aurora-beam" aria-hidden="true"></span></span> znaleziona.</h1>
           <p class="hero-description">
             Adres, na który wszedłeś, nie&nbsp;istnieje albo został przeniesiony.
             Możesz wrócić na stronę główną albo przejść do pytań teoretycznych.
@@ -105,5 +106,6 @@
       }, { passive: true });
     }
   </script>
+  <script src="/js/warp-loader.js?v=1.0" defer></script>
 </body>
 </html>

@@ -3,31 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfMatura - Pytania teoretyczne z matury z informatyki</title>
-  <meta name="description" content="Losuj pytania teoretyczne z informatyki maturalnej. Ćwicz systemy liczbowe, sieci, bezpieczeństwo i inne zagadnienia z formuły matury.">
+  <title>InfMatura - Algorytmy i zadania algorytmiczne z matury z informatyki</title>
+  <meta name="description" content="Ćwicz algorytmikę pod maturę rozszerzoną z informatyki. Zadania z analizy złożoności, sortowania, rekurencji, grafów i drzew – inspirowane arkuszami CKE.">
   <meta name="theme-color" content="#09090B">
   <meta name="robots" content="index, follow">
   <meta name="author" content="alanwnuczko">
 
-  <link rel="canonical" href="https://infmatura.dev/pytania-teoretyczne/">
+  <link rel="canonical" href="https://infmatura.dev/algorytmy/">
   <meta property="og:site_name" content="InfMatura">
-  <meta property="og:title" content="InfMatura - Pytania teoretyczne z matury z informatyki">
-  <meta property="og:description" content="Losuj pytania teoretyczne z informatyki maturalnej i ćwicz przed egzaminem.">
+  <meta property="og:title" content="InfMatura - Algorytmy i zadania algorytmiczne z matury z informatyki">
+  <meta property="og:description" content="Ćwicz algorytmikę pod maturę rozszerzoną. Zadania inspirowane arkuszami CKE: złożoność, sortowanie, rekurencja, grafy, drzewa.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://infmatura.dev/pytania-teoretyczne/">
+  <meta property="og:url" content="https://infmatura.dev/algorytmy/">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:image" content="https://infmatura.dev/assets/preview.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="InfMatura - Pytania teoretyczne z matury z informatyki">
-  <meta name="twitter:description" content="Losuj pytania teoretyczne z informatyki maturalnej i ćwicz przed egzaminem.">
+  <meta name="twitter:title" content="InfMatura - Algorytmy pod maturę z informatyki">
+  <meta name="twitter:description" content="Ćwicz algorytmikę pod maturę rozszerzoną. Inspirowane arkuszami CKE.">
   <meta name="twitter:image" content="https://infmatura.dev/assets/preview.png">
 
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="/css/fonts.css?v=1.3">
   <link rel="stylesheet" href="/css/style.css?v=3.0">
-  <link rel="stylesheet" href="/css/pytania.css?v=1.21">
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/algorytmy.css?v=1.3">
   <link rel="stylesheet" href="/css/aurora-fx.css?v=1.0">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <script type="application/ld+json">
   {
@@ -43,26 +45,26 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Pytania teoretyczne",
-        "item": "https://infmatura.dev/pytania-teoretyczne/"
+        "name": "Algorytmy",
+        "item": "https://infmatura.dev/algorytmy/"
       }
     ]
   }
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Przejdź do treści</a>
+  <a class="skip-link" href="#algo-main">Przejdź do treści</a>
 
   <header class="site-header" id="site-header">
     <div class="container header-inner">
       <a href="/" class="brand" aria-label="InfMatura - strona główna">
         <span class="brand-name">InfMatura</span>
       </a>
-      <nav style="display:flex;align-items:center;gap:4px" aria-label="Nawigacja główna">
-        <a href="/algorytmy/" class="header-link">
+      <nav class="header-nav" aria-label="Nawigacja główna">
+        <a href="/algorytmy/" class="header-link header-link--active" aria-current="page">
           <span>Algorytmy</span>
         </a>
-        <a href="/pytania-teoretyczne/" class="header-link header-link--active" aria-current="page">
+        <a href="/pytania-teoretyczne/" class="header-link">
           <span>Pytania</span>
         </a>
         <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona" target="_blank" rel="noopener noreferrer" class="header-link">
@@ -74,95 +76,9 @@
     </div>
   </header>
 
-  <main id="main-content" class="site-main">
-    <div class="js-app">
-      <section class="hero questions-hero has-breadcrumbs" aria-labelledby="questions-title">
-        <div class="container">
-          <div class="hero-content">
-            <nav class="breadcrumbs" aria-label="Ścieżka powrotu">
-              <ol class="breadcrumb-list">
-                <li class="breadcrumb-item">
-                  <a href="/" class="breadcrumb-link">Strona główna</a>
-                  <span class="breadcrumb-separator" aria-hidden="true">/</span>
-                </li>
-                <li class="breadcrumb-item">
-                  <span class="breadcrumb-current" aria-current="page">Pytania teoretyczne</span>
-                  <span class="breadcrumb-separator" aria-hidden="true">/</span>
-                </li>
-              </ol>
-            </nav>
-            <h1 id="questions-title" class="hero-title">Pytania <span class="aurora-word">teoretyczne.<span class="aurora-beam" aria-hidden="true"></span></span></h1>
-            <p class="hero-description questions-hero-desc">
-              Ćwicz teorię maturalną: systemy, sieci, SQL, algorytmy.
-              Wybierz temat i&nbsp;wylosuj zestaw.
-            </p>
-
-            <div class="questions-setup">
-              <div class="setup-field">
-                <span class="setup-label" id="topic-label">Temat</span>
-                <div
-                  class="category-filters"
-                  id="category-filters"
-                  role="group"
-                  aria-labelledby="topic-label"
-                ></div>
-              </div>
-
-              <div class="setup-field">
-                <span class="setup-label" id="count-label">Liczba pytań</span>
-                <div
-                  class="draw-count-seg"
-                  id="draw-count-seg"
-                  role="radiogroup"
-                  aria-labelledby="count-label"
-                ></div>
-              </div>
-
-              <div class="setup-actions" id="draw-controls">
-                <button type="button" class="btn-cta draw-btn" id="draw-btn" disabled>
-                  Losuj
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="questions-section"
-        id="questions-section"
-        aria-labelledby="results-heading"
-        hidden
-      >
-        <div class="container">
-          <div class="questions-toolbar">
-            <h2 id="results-heading" class="section-heading">Wylosowane pytania</h2>
-            <p class="draw-summary" id="draw-summary" hidden></p>
-          </div>
-
-          <div id="questions-results" class="questions-results" aria-live="polite"></div>
-
-          <div id="check-answers-bar" class="check-answers-bar" hidden>
-            <div class="check-answers-inner">
-              <button type="button" class="btn-cta check-answers-btn" id="check-answers-btn" data-action="check">
-                Sprawdź odpowiedzi
-              </button>
-              <button type="button" class="questions-redraw-btn" id="redraw-btn" data-action="redraw">
-                Wylosuj ponownie
-              </button>
-              <p class="check-answers-score" id="check-answers-score" hidden aria-live="polite"></p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
+  <main id="algo-main" class="site-main">
     <noscript>
       <style>
-        .js-app {
-          display: none !important;
-        }
-
         .site-main > noscript {
           flex: 1 0 auto;
           display: flex;
@@ -179,7 +95,7 @@
                   <span class="breadcrumb-separator" aria-hidden="true">/</span>
                 </li>
                 <li class="breadcrumb-item">
-                  <span class="breadcrumb-current" aria-current="page">Pytania teoretyczne</span>
+                  <span class="breadcrumb-current" aria-current="page">Algorytmy</span>
                   <span class="breadcrumb-separator" aria-hidden="true">/</span>
                 </li>
               </ol>
@@ -187,8 +103,8 @@
             <p class="error-code" aria-hidden="true">JS</p>
             <h1 id="noscript-title" class="hero-title">JavaScript jest&nbsp;wyłączony.</h1>
             <p class="hero-description">
-              Losowanie i&nbsp;sprawdzanie pytań teoretycznych działa w&nbsp;przeglądarce i&nbsp;wymaga JavaScriptu.
-              Włącz go w&nbsp;ustawieniach przeglądarki albo wróć do bazy arkuszy na stronie głównej.
+              Platforma algorytmiczna działa w&nbsp;przeglądarce i&nbsp;wymaga JavaScriptu.
+              Włącz JavaScript albo wróć do bazy arkuszy.
             </p>
             <div class="hero-cta-group error-cta-group">
               <a href="/" class="btn-cta">Wróć do strony głównej</a>
@@ -215,17 +131,19 @@
         </div>
       </div>
       <p class="footer-disclaimer">
-        Arkusze i&nbsp;zasady oceniania pochodzą z&nbsp;CKE. Rozwiązania w&nbsp;Pythonie są nieoficjalne i&nbsp;nie stanowią materiałów Centralnej Komisji Egzaminacyjnej.
+        Zadania algorytmiczne są inspirowane arkuszami CKE i&nbsp;nie stanowią oficjalnych materiałów Centralnej Komisji Egzaminacyjnej.
       </p>
     </div>
   </footer>
 
   <button type="button" class="btn-cta back-to-top" id="back-to-top" hidden aria-label="Wróć na górę strony">
-    ↑ Na górę
+    Wróć na górę
   </button>
 
-  <script src="/data/questions.js?v=1.6" defer></script>
-  <script src="/js/questions.js?v=1.18" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer></script>
+  <script src="/data/algorytmy.js?v=1.3" defer></script>
+  <script src="/js/algorytmy.js?v=1.3" defer></script>
   <script src="/js/warp-loader.js?v=1.0" defer></script>
 </body>
 </html>
