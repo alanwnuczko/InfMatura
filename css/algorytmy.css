@@ -1,0 +1,909 @@
+/* algorytmy.css - Style platformy zadan algorytmicznych dla matury rozszerzonej z informatyki
+   Zgodne z systemem InfMatura: ciemny motyw, glassmorphism, oszczedna paleta barw.
+*/
+
+/* --- Header navigation --- */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-link--active,
+.header-link[aria-current="page"] {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
+
+/* --- Sekcja glowna / Lista zadan --- */
+.algo-main-section {
+  padding: 0 0 96px;
+}
+
+.algo-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.algo-section-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.algo-section-summary {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.algo-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* --- Przyciski --- */
+.algo-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 20px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-line);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.algo-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-line-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.algo-btn-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Siatka kategorii --- */
+.algo-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.algo-cat-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-glow);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.algo-cat-card:hover {
+  background-color: var(--card-bg-hover);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-glow-hover);
+  transform: translateY(-3px);
+}
+
+.algo-cat-card .card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.algo-cat-card .card-title {
+  font-family: var(--font-card);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.algo-cat-desc {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1 0 auto;
+  margin-bottom: 20px;
+}
+
+.algo-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.algo-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.algo-progress-percent {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.algo-progress-track {
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.algo-progress-bar {
+  height: 100%;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-pill);
+  transition: width 0.35s ease;
+}
+
+.algo-cat-card .card-links {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-line);
+}
+
+.algo-cat-card:hover .link-arrow-svg {
+  transform: translate(2px, -2px);
+  color: var(--text-primary);
+}
+
+/* --- Filtry i lista zadan --- */
+.algo-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.algo-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 6px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--border-line);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.algo-filter-chip:hover {
+  color: var(--text-primary);
+  border-color: var(--border-line-hover);
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.algo-filter-chip.is-active {
+  color: #09090B;
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+}
+
+.algo-filter-chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.3rem;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: inherit;
+}
+
+.algo-filter-chip.is-active .algo-filter-chip-count {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.algo-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.algo-task-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 24px;
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-glow);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.18s ease;
+}
+
+.algo-task-row:hover {
+  background-color: var(--card-bg-hover);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-glow-hover);
+  transform: translateY(-2px);
+}
+
+.algo-task-row.is-completed {
+  border-color: rgba(74, 222, 128, 0.25);
+}
+
+.algo-task-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.algo-task-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.algo-task-row-title {
+  font-family: var(--font-card);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.algo-task-row-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.algo-task-row:hover .link-arrow-svg {
+  transform: translate(2px, -2px);
+  color: var(--text-primary);
+}
+
+/* Badges */
+.pill-badge--easy {
+  background-color: rgba(34, 197, 94, 0.12);
+  border-color: rgba(74, 222, 128, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(134, 239, 172, 0.15);
+  color: #4ade80;
+}
+
+.pill-badge--medium {
+  background-color: rgba(245, 158, 11, 0.12);
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(253, 224, 71, 0.15);
+  color: #fbbf24;
+}
+
+.pill-badge--hard {
+  background-color: rgba(239, 68, 68, 0.12);
+  border-color: rgba(248, 113, 113, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(252, 165, 165, 0.15);
+  color: #f87171;
+}
+
+.pill-badge--done {
+  background-color: rgba(74, 222, 128, 0.1);
+  border-color: rgba(74, 222, 128, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(134, 239, 172, 0.15);
+  color: #86efac;
+}
+
+/* ==========================================================================
+   UKŁAD EDYTORA I ZADANIA (ROZWIĄZYWANIE ZADANIA)
+   ========================================================================== */
+
+.algo-solver-section {
+  padding: 0 0 96px;
+}
+
+.algo-solver-header {
+  margin-bottom: 24px;
+}
+
+.algo-solver-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-line);
+}
+
+.algo-workspace-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* --- Lewy panel: Tresc zadania (Problem Pane) --- */
+.algo-problem-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.algo-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-glow);
+  border-radius: var(--radius-lg);
+  padding: 24px 26px;
+}
+
+.algo-problem-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+  line-height: 1.25;
+}
+
+.algo-section-subhead {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 18px 0 8px;
+}
+
+.algo-section-subhead:first-child {
+  margin-top: 0;
+}
+
+.algo-problem-desc {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.algo-problem-desc p {
+  margin-bottom: 12px;
+}
+
+.algo-problem-desc p:last-child {
+  margin-bottom: 0;
+}
+
+.algo-problem-desc :not(pre) > code,
+.algo-problem-pane :not(pre) > code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.875em;
+  padding: 2px 5px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-line);
+  border-radius: 4px;
+  color: var(--text-primary);
+}
+
+.algo-problem-desc pre {
+  margin: 14px 0;
+  padding: 16px 18px;
+  background-color: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.algo-problem-desc pre code,
+.algo-problem-pane pre code {
+  display: block;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: var(--text-primary) !important;
+}
+
+/* W tresci zadania zachowaj czytelny, spojny monochromatyczny kod CKE */
+.algo-problem-desc .token {
+  color: inherit !important;
+  background: transparent !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-shadow: none !important;
+}
+
+/* Specyfikacja wejscia / wyjscia */
+.algo-spec-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.algo-spec-item strong {
+  color: var(--text-primary);
+}
+
+.algo-spec-item span {
+  color: var(--text-secondary);
+}
+
+/* Przyklady */
+.algo-examples-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.algo-example-card {
+  padding: 14px 16px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.algo-example-line {
+  margin-bottom: 4px;
+}
+
+.algo-example-line:last-child {
+  margin-bottom: 0;
+}
+
+.algo-example-line strong {
+  color: var(--text-primary);
+}
+
+.algo-example-line code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color: var(--text-primary);
+}
+
+.algo-example-exp {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  margin-top: 4px;
+}
+
+/* Wskazowka */
+.algo-hint-card {
+  padding: 14px 16px;
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.algo-hint-card strong {
+  color: var(--text-primary);
+}
+
+/* --- Prawy panel: Edytor i konsola testow (Editor Pane) --- */
+.algo-editor-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 90px;
+}
+
+.algo-editor-card.code-viewer {
+  background: rgba(14, 14, 18, 0.78);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-glow);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.algo-editor-card .code-tabs-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--border-line);
+}
+
+.algo-editor-card .code-tab {
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.algo-py-status {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.algo-py-status.is-ready {
+  color: #86efac;
+}
+
+.algo-editor-wrapper {
+  position: relative;
+  background: rgba(14, 14, 18, 0.45);
+  min-height: 360px;
+}
+
+.algo-editor-pre,
+.algo-editor-textarea {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px 22px;
+  width: 100%;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  letter-spacing: normal;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  white-space: pre;
+  word-wrap: normal;
+  border: none;
+  border-radius: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.algo-editor-pre {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  background: transparent;
+  color: #F9FAFB;
+  z-index: 0;
+}
+
+.algo-editor-pre code {
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre;
+  tab-size: 4;
+  -moz-tab-size: 4;
+}
+
+.algo-editor-textarea {
+  position: relative;
+  display: block;
+  min-height: 360px;
+  background: transparent;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: #FFFFFF;
+  outline: none;
+  resize: vertical;
+  overflow: auto;
+  scrollbar-width: thin;
+  z-index: 1;
+}
+
+.algo-editor-textarea::selection {
+  background-color: rgba(96, 165, 250, 0.35);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.algo-editor-textarea.is-plain {
+  color: #F9FAFB;
+  -webkit-text-fill-color: #F9FAFB;
+}
+
+.algo-editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--border-line);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.algo-editor-actions .btn-cta,
+#algo-run-btn {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 48px;
+  height: 48px;
+  padding: 0 26px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  color: #09090B;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.7), 0 4px 20px rgba(255, 255, 255, 0.15);
+  transition: background-color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.algo-editor-actions .btn-cta:hover,
+#algo-run-btn:hover {
+  background-color: #F4F4F5;
+  color: #09090B;
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 8px 28px rgba(255, 255, 255, 0.25);
+}
+
+.algo-editor-actions .btn-cta:active,
+#algo-run-btn:active {
+  transform: translateY(0);
+}
+
+.algo-editor-actions .btn-cta:disabled,
+#algo-run-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Konsola wynikow testow */
+.algo-console-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-glow);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.algo-console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--border-line);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.algo-console-body {
+  padding: 16px 18px;
+}
+
+.algo-console-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.algo-console-banner.is-success {
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  color: #4ade80;
+}
+
+.algo-console-banner.is-failure {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: #f87171;
+}
+
+.algo-tests-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.algo-tests-table th,
+.algo-tests-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-line);
+}
+
+.algo-tests-table th {
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.algo-test-status--ok {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.algo-test-status--fail {
+  color: #f87171;
+  font-weight: 600;
+}
+
+/* Wzorcowe rozwiazanie */
+.algo-solution-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.algo-solution-viewer {
+  margin: 12px 0 16px;
+}
+
+.algo-problem-desc pre {
+  margin: 12px 0;
+  padding: 16px 18px;
+  background: rgba(14, 14, 18, 0.78);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #F9FAFB;
+  tab-size: 4;
+  -moz-tab-size: 4;
+}
+
+.algo-problem-desc pre code {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre;
+  tab-size: 4;
+  -moz-tab-size: 4;
+}
+
+/* Stan pusty */
+.algo-empty-state {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.algo-empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.algo-empty-text {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+/* --- RWD --- */
+@media (max-width: 1024px) {
+  .algo-workspace-layout {
+    grid-template-columns: 1fr;
+  }
+  .algo-editor-pane {
+    position: static;
+  }
+  .algo-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .algo-card {
+    padding: 18px;
+  }
+  .algo-task-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .algo-task-row-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .algo-solver-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .algo-solver-toolbar .algo-btn-secondary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .algo-category-grid {
+    grid-template-columns: 1fr;
+  }
+  .algo-actions-row {
+    width: 100%;
+  }
+  .algo-actions-row .algo-btn-secondary,
+  .algo-actions-row .btn-cta {
+    width: 100%;
+    text-align: center;
+  }
+}
