@@ -49,7 +49,7 @@ window.ALGO_TASKS = [
     "category": "zlozonosc",
     "difficulty": "easy",
     "ckeSource": "Zadanie 1. · Formuła 2023",
-    "description": "<p>W zadaniach maturalnych CKE często należy dokładnie określić, ile razy wykona się ciało pętli dla danej wartości <code>n</code>.</p><p>Przeanalizuj poniższy algorytm:</p><pre><code>krok = 0\nwhile n > 1:\n    krok += 1\n    n = n // 2</code></pre><p>Napisz funkcję <code>policz_kroki(n)</code>, która dla podanej dodatniej liczby całkowitej <code>n</code> zwraca liczbę wykonań ciała pętli.</p>",
+    "description": "<p>W zadaniach maturalnych CKE często należy dokładnie określić, ile razy wykona się ciało pętli dla danej wartości <code>n</code>.</p><p>Przeanalizuj poniższy algorytm:</p><pre><code>krok = 0\nwhile n &gt; 1:\n    krok += 1\n    n = n // 2</code></pre><p>Napisz funkcję <code>policz_kroki(n)</code>, która dla podanej dodatniej liczby całkowitej <code>n</code> zwraca liczbę wykonań ciała pętli.</p>",
     "inputDesc": "Liczba całkowita n (n >= 1).",
     "outputDesc": "Liczba całkowita oznaczająca dokładną liczbę wykonań ciała pętli.",
     "timeComplexity": "O(log n)",
@@ -212,7 +212,7 @@ window.ALGO_TASKS = [
     "category": "wyszukiwanie",
     "difficulty": "medium",
     "ckeSource": "Zadanie 2. · Formuła 2015",
-    "description": "<p>Dana jest posortowana rosnąco lista unikalnych liczb całkowitych <code>tab</code> oraz docelowa suma <code>cel</code>.</p><p>Napisz funkcję <code>znajdz_pare_sumy(tab, cel)</code>, która sprawdza, czy w tablicy istnieją dwa różne elementy o sumie równej <code>cel</code>. Jeśli tak, zwróć krotkę zawierającą te dwa elementy <code>(a, b)</code>, gdzie <code>a < b</code>. Jeśli taka para nie istnieje, zwróć <code>None</code>.</p><p>Algorytm powinien działać w czasie <strong>O(n)</strong> dzięki technice dwóch wskaźników.</p>",
+    "description": "<p>Dana jest posortowana rosnąco lista unikalnych liczb całkowitych <code>tab</code> oraz docelowa suma <code>cel</code>.</p><p>Napisz funkcję <code>znajdz_pare_sumy(tab, cel)</code>, która sprawdza, czy w tablicy istnieją dwa różne elementy o sumie równej <code>cel</code>. Jeśli tak, zwróć krotkę zawierającą te dwa elementy <code>(a, b)</code>, gdzie <code>a &lt; b</code>. Jeśli taka para nie istnieje, zwróć <code>None</code>.</p><p>Algorytm powinien działać w czasie <strong>O(n)</strong> dzięki technice dwóch wskaźników.</p>",
     "inputDesc": "Posortowana rosnąco lista unikalnych liczb całkowitych tab oraz liczba całkowita cel.",
     "outputDesc": "Krotka (a, b) dwóch liczb spełniających a + b == cel (gdzie a < b) lub None.",
     "timeComplexity": "O(n)",
@@ -371,7 +371,7 @@ window.ALGO_TASKS = [
       }
     ],
     "solution": "def partycjonuj(tab):\n    pivot = tab[-1]\n    i = -1\n    for j in range(len(tab) - 1):\n        if tab[j] <= pivot:\n            i += 1\n            tab[i], tab[j] = tab[j], tab[i]\n    tab[i + 1], tab[-1] = tab[-1], tab[i + 1]\n    return i + 1",
-    "explanation": "<p>Iteracja przez tablicę od początku do przedostatniego elementu. Za każdym razem, gdy napotkany zostanie element <code><= pivot</code>, następuje zwiększenie indeksu <code>i</code> oraz zamiana elementów. Na koniec pivot umieszczany jest pod indeksem <code>i + 1</code>. Złożoność czasowa: <strong>O(n)</strong>, pamięciowa: <strong>O(1)</strong>.</p>"
+    "explanation": "<p>Iteracja przez tablicę od początku do przedostatniego elementu. Za każdym razem, gdy napotkany zostanie element <code>&lt;= pivot</code>, następuje zwiększenie indeksu <code>i</code> oraz zamiana elementów. Na koniec pivot umieszczany jest pod indeksem <code>i + 1</code>. Złożoność czasowa: <strong>O(n)</strong>, pamięciowa: <strong>O(1)</strong>.</p>"
   },
   {
     "id": "rek-01",
@@ -424,7 +424,7 @@ window.ALGO_TASKS = [
     "category": "rekurencja",
     "difficulty": "easy",
     "ckeSource": "Zadanie 1. · Formuła 2015",
-    "description": "<p>W zadaniach maturalnych często pada pytanie o całkowitą liczbę wywołań funkcji rekurencyjnej dla danego argumentu.</p><p>Dana jest funkcja rekurencyjna zdefiniowana następująco:</p><pre><code>def f(n):\n    if n <= 1:\n        return 1\n    return f(n - 1) + f(n - 2)</code></pre><p>Napisz funkcję <code>liczba_wywolan(n)</code>, która oblicza, ile razy łącznie zostanie wywołana funkcja <code>f</code> (wliczając pierwsze wywołanie) dla zadanego argumentu <code>n</code>.</p>",
+    "description": "<p>W zadaniach maturalnych często pada pytanie o całkowitą liczbę wywołań funkcji rekurencyjnej dla danego argumentu.</p><p>Dana jest funkcja rekurencyjna zdefiniowana następująco:</p><pre><code>def f(n):\n    if n &lt;= 1:\n        return 1\n    return f(n - 1) + f(n - 2)</code></pre><p>Napisz funkcję <code>liczba_wywolan(n)</code>, która oblicza, ile razy łącznie zostanie wywołana funkcja <code>f</code> (wliczając pierwsze wywołanie) dla zadanego argumentu <code>n</code>.</p>",
     "inputDesc": "Liczba całkowita n (n >= 0).",
     "outputDesc": "Liczba całkowita oznaczająca sumaryczną liczbę wywołań.",
     "timeComplexity": "O(n)",
@@ -475,7 +475,7 @@ window.ALGO_TASKS = [
       }
     ],
     "solution": "def liczba_wywolan(n):\n    # Liczba wywołań tworzy relację: T(n) = 1 + T(n-1) + T(n-2)\n    if n <= 1:\n        return 1\n    dp = [0] * (n + 1)\n    dp[0] = 1\n    dp[1] = 1\n    for i in range(2, n + 1):\n        dp[i] = 1 + dp[i - 1] + dp[i - 2]\n    return dp[n]",
-    "explanation": "<p>Liczba wywołań spełnia równanie rekurencyjne: <code>T(0)=1</code>, <code>T(1)=1</code>, a dla <code>n >= 2</code>: <code>T(n) = 1 + T(n-1) + T(n-2)</code>. Wartości te można wyznaczyć w czasie <strong>O(n)</strong> za pomocą programowania dynamicznego.</p>"
+    "explanation": "<p>Liczba wywołań spełnia równanie rekurencyjne: <code>T(0)=1</code>, <code>T(1)=1</code>, a dla <code>n &gt;= 2</code>: <code>T(n) = 1 + T(n-1) + T(n-2)</code>. Wartości te można wyznaczyć w czasie <strong>O(n)</strong> za pomocą programowania dynamicznego.</p>"
   },
   {
     "id": "tab-01",
