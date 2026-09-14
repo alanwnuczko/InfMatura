@@ -8,6 +8,9 @@
   var STORAGE_PROGRESS_KEY = 'algo_progress_v1';
   var STORAGE_CODE_PREFIX  = 'algo_code_';
   var PYODIDE_CDN          = 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js';
+  var PYODIDE_INDEX_URL    = 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/';
+  var PYODIDE_RUN_TIMEOUT_MS = 5000;
+  var PYODIDE_MAX_CODE_LENGTH = 100000;
 
   var DIFFICULTY_LABELS = {
     easy:   'Łatwe',
@@ -32,9 +35,11 @@
     currentCat:     null,
     currentTaskId:  null,
     currentFilter:  'all',
-    pyodide:        null,
+    pyodideWorker:  null,
+    pyodideWorkerUrl: null,
     pyodideState:   'idle', // 'idle' | 'loading' | 'ready' | 'error'
-    pyodidePromise: null
+    pyodidePromise: null,
+    runRequestId:   0
   };
 
   var elements = {};
@@ -1109,44 +1114,157 @@
   }
 
   // --- Silnik Pyodide i uruchamianie testow ---
+  function createPyodideWorker() {
+    var workerSource = [
+      "'use strict';",
+      "var pyodidePromise = null;",
+      "function getPyodide() {",
+      "  if (!pyodidePromise) {",
+      "    importScripts(" + JSON.stringify(PYODIDE_CDN) + ");",
+      "    pyodidePromise = loadPyodide({ indexURL: " + JSON.stringify(PYODIDE_INDEX_URL) + " });",
+      "  }",
+      "  return pyodidePromise;",
+      "}",
+      "function executeTests(data) {",
+      "  return getPyodide().then(function (py) {",
+      "    if (data.userCode.length > " + PYODIDE_MAX_CODE_LENGTH + ") {",
+      "      throw new Error('Kod przekracza limit rozmiaru.');",
+      "    }",
+      "    var testCasesJson = JSON.stringify(data.testCases);",
+      "    var fnNameJson = JSON.stringify(data.functionName);",
+      "    var runnerScript = [",
+      "      'import json, time',",
+      "      '',",
+      "      '_scope = {}',",
+      "      'exec(compile(' + JSON.stringify(data.userCode) + ', \"<user_code>\", \"exec\"), _scope)',",
+      "      '',",
+      "      '_results = []',",
+      "      '_fn = _scope.get(' + fnNameJson + ')',",
+      "      'if _fn is None:',",
+      "      '    raise NameError(\"Nie zdefiniowano funkcji o nazwie: \" + ' + fnNameJson + ')',",
+      "      '',",
+      "      '_test_cases = json.loads(' + JSON.stringify(testCasesJson) + ')',",
+      "      'for tc in _test_cases:',",
+      "      '    try:',",
+      "      '        args = eval(tc[\"input\"], _scope)',",
+      "      '    except Exception as _e:',",
+      "      '        args = ()',",
+      "      '    if isinstance(args, tuple):',",
+      "      '        if len(args) == 1:',",
+      "      '            _input_repr = repr(args[0])',",
+      "      '        else:',",
+      "      '            _input_repr = \", \".join(repr(a) for a in args)',",
+      "      '    else:',",
+      "      '        _input_repr = repr(args)',",
+      "      '    expected = tc[\"expected\"]',",
+      "      '    t0 = time.perf_counter()',",
+      "      '    try:',",
+      "      '        got = _fn(*args)',",
+      "      '        t1 = time.perf_counter()',",
+      "      '        passed = bool(got == expected)',",
+      "      '        _results.append({',",
+      "      '            \"passed\": passed,',",
+      "      '            \"input\": _input_repr,',",
+      "      '            \"got\": repr(got),',",
+      "      '            \"expected\": repr(expected),',",
+      "      '            \"timeMs\": round((t1 - t0) * 1000, 2),',",
+      "      '            \"error\": None',",
+      "      '        })',",
+      "      '    except Exception as _e:',",
+      "      '        _results.append({',",
+      "      '            \"passed\": False,',",
+      "      '            \"input\": _input_repr,',",
+      "      '            \"got\": None,',",
+      "      '            \"expected\": repr(expected),',",
+      "      '            \"timeMs\": 0,',",
+      "      '            \"error\": str(_e)',",
+      "      '        })',",
+      "      '',",
+      "      'del _scope',",
+      "      '_out_json = json.dumps(_results)'",
+      "    ].join('\\n');",
+      "    py.runPython(runnerScript);",
+      "    var jsonProxy = py.globals.get('_out_json');",
+      "    var jsonStr = String(jsonProxy);",
+      "    jsonProxy.destroy();",
+      "    if (jsonStr.length > 200000) {",
+      "      throw new Error('Wynik testów przekroczył limit rozmiaru.');",
+      "    }",
+      "    self.postMessage({ type: 'result', requestId: data.requestId, results: JSON.parse(jsonStr) });",
+      "  });",
+      "}",
+      "self.onmessage = function (event) {",
+      "  var data = event.data || {};",
+      "  if (data.type === 'load') {",
+      "    getPyodide().then(function () {",
+      "      self.postMessage({ type: 'ready' });",
+      "    }).catch(function (err) {",
+      "      self.postMessage({ type: 'error', message: String(err) });",
+      "    });",
+      "    return;",
+      "  }",
+      "  if (data.type === 'run') {",
+      "    executeTests(data).catch(function (err) {",
+      "      self.postMessage({ type: 'error', requestId: data.requestId, message: String(err) });",
+      "    });",
+      "  }",
+      "};"
+    ].join('\n');
+    var blob = new Blob([workerSource], { type: 'application/javascript' });
+    var url = URL.createObjectURL(blob);
+    return {
+      worker: new Worker(url),
+      url: url
+    };
+  }
+
+  function terminatePyodideWorker(nextState) {
+    if (state.pyodideWorker) {
+      state.pyodideWorker.terminate();
+    }
+    if (state.pyodideWorkerUrl) {
+      URL.revokeObjectURL(state.pyodideWorkerUrl);
+    }
+    state.pyodideWorker = null;
+    state.pyodideWorkerUrl = null;
+    state.pyodidePromise = null;
+    state.pyodideState = nextState;
+    updatePyodideStatusDisplay();
+  }
+
   function loadPyodide() {
-    if (state.pyodideState === 'ready') return Promise.resolve(state.pyodide);
+    if (state.pyodideState === 'ready') return Promise.resolve(state.pyodideWorker);
     if (state.pyodideState === 'loading') return state.pyodidePromise;
 
     state.pyodideState = 'loading';
     updatePyodideStatusDisplay();
 
+    var created = createPyodideWorker();
+    state.pyodideWorker = created.worker;
+    state.pyodideWorkerUrl = created.url;
     state.pyodidePromise = new Promise(function (resolve, reject) {
-      var existing = document.getElementById('pyodide-script');
-      function onScriptLoaded() {
-        window.loadPyodide({
-          indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/'
-        }).then(function (py) {
-          state.pyodide      = py;
+      function onMessage(event) {
+        var data = event.data || {};
+        if (data.type === 'ready') {
           state.pyodideState = 'ready';
+          state.pyodideWorker.removeEventListener('message', onMessage);
+          state.pyodideWorker.removeEventListener('error', onError);
           updatePyodideStatusDisplay();
-          resolve(py);
-        }).catch(function (err) {
-          state.pyodideState = 'error';
-          updatePyodideStatusDisplay();
-          reject(err);
-        });
+          resolve(state.pyodideWorker);
+        } else if (data.type === 'error') {
+          onError(new Error(data.message || 'Nie udało się uruchomić środowiska Python.'));
+        }
       }
-
-      if (!existing) {
-        var script = document.createElement('script');
-        script.id  = 'pyodide-script';
-        script.src = PYODIDE_CDN;
-        script.onload = onScriptLoaded;
-        script.onerror = function () {
-          state.pyodideState = 'error';
-          updatePyodideStatusDisplay();
-          reject(new Error('Nie udało się załadować biblioteki Pyodide z CDN'));
-        };
-        document.head.appendChild(script);
-      } else if (window.loadPyodide) {
-        onScriptLoaded();
+      function onError(err) {
+        state.pyodideState = 'error';
+        state.pyodideWorker.removeEventListener('message', onMessage);
+        state.pyodideWorker.removeEventListener('error', onError);
+        terminatePyodideWorker('error');
+        reject(err instanceof Error ? err : new Error('Nie udało się uruchomić środowiska Python.'));
       }
+      state.pyodideWorker.addEventListener('message', onMessage);
+      state.pyodideWorker.addEventListener('error', onError);
+      state.pyodideWorker.postMessage({ type: 'load' });
     });
 
     return state.pyodidePromise;
@@ -1204,65 +1322,48 @@
       });
     }
 
-    loadPyodide().then(function (py) {
-      // Skonstruuj skrypt ewaluacyjny Pythona
-      var testCasesJson = JSON.stringify(task.testCases);
-      var fnNameJson    = JSON.stringify(task.functionName);
-
-      var runnerScript = [
-        'import json, time',
-        '',
-        userCode,
-        '',
-        '_results = []',
-        '_fn = globals().get(' + fnNameJson + ')',
-        'if _fn is None:',
-        '    raise NameError("Nie zdefiniowano funkcji o nazwie: " + ' + fnNameJson + ')',
-        '',
-        '_test_cases = json.loads(' + JSON.stringify(testCasesJson) + ')',
-        'for tc in _test_cases:',
-        '    try:',
-        '        args = eval(tc["input"])',
-        '    except Exception as _e:',
-        '        args = ()',
-        '    if isinstance(args, tuple):',
-        '        if len(args) == 1:',
-        '            _input_repr = repr(args[0])',
-        '        else:',
-        '            _input_repr = ", ".join(repr(a) for a in args)',
-        '    else:',
-        '        _input_repr = repr(args)',
-        '    expected = tc["expected"]',
-        '    t0 = time.perf_counter()',
-        '    try:',
-        '        got = _fn(*args)',
-        '        t1 = time.perf_counter()',
-        '        passed = bool(got == expected)',
-        '        _results.append({',
-        '            "passed": passed,',
-        '            "input": _input_repr,',
-        '            "got": repr(got),',
-        '            "expected": repr(expected),',
-        '            "timeMs": round((t1 - t0) * 1000, 2),',
-        '            "error": None',
-        '        })',
-        '    except Exception as _e:',
-        '        _results.append({',
-        '            "passed": False,',
-        '            "input": _input_repr,',
-        '            "got": None,',
-        '            "expected": repr(expected),',
-        '            "timeMs": 0,',
-        '            "error": str(_e)',
-        '        })',
-        '',
-        '_out_json = json.dumps(_results)'
-      ].join('\n');
-
-      py.runPython(runnerScript);
-      var jsonStr = py.globals.get('_out_json');
-      var results = JSON.parse(jsonStr);
-
+    var requestId = ++state.runRequestId;
+    loadPyodide().then(function (worker) {
+      return new Promise(function (resolve, reject) {
+        var timeoutId;
+        function cleanup() {
+          clearTimeout(timeoutId);
+          worker.removeEventListener('message', onMessage);
+          worker.removeEventListener('error', onError);
+        }
+        function onMessage(event) {
+          var data = event.data || {};
+          if (data.requestId !== requestId) return;
+          cleanup();
+          if (data.type === 'result') {
+            resolve(data.results);
+          } else {
+            reject(new Error(data.message || 'Nie udało się wykonać testów.'));
+          }
+        }
+        function onError(err) {
+          cleanup();
+          terminatePyodideWorker('error');
+          reject(err instanceof Error ? err : new Error('Nie udało się wykonać testów.'));
+        }
+        timeoutId = setTimeout(function () {
+          cleanup();
+          terminatePyodideWorker('idle');
+          var timeoutError = new Error('Przekroczono limit czasu wykonania testów.');
+          timeoutError.code = 'PYODIDE_TIMEOUT';
+          reject(timeoutError);
+        }, PYODIDE_RUN_TIMEOUT_MS);
+        worker.addEventListener('message', onMessage);
+        worker.addEventListener('error', onError);
+        worker.postMessage({
+          type: 'run',
+          requestId: requestId,
+          userCode: userCode,
+          testCases: task.testCases,
+          functionName: task.functionName
+        });
+      });
+    }).then(function (results) {
       if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       displayTestResults(task, results);
 
@@ -1286,7 +1387,9 @@
       if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       var cleanedErr = cleanPythonTraceback(err, userCode);
       consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
-        + '<span>Błąd w kodzie lub brak definicji funkcji</span>'
+        + '<span>' + (err && err.code === 'PYODIDE_TIMEOUT'
+          ? 'Przekroczono limit czasu wykonania testów'
+          : 'Błąd w kodzie lub brak definicji funkcji') + '</span>'
         + '</div>'
         + '<pre class="algo-error-pre">'
         + escHtml(cleanedErr)
@@ -1324,6 +1427,11 @@
         } else {
           continue;
         }
+      }
+
+      var userCodeMatch = line.match(/^(\s*)File\s+"<user_code>",\s+line\s+(\d+)(.*)/);
+      if (userCodeMatch) {
+        line = userCodeMatch[1] + 'File "solution.py", line ' + userCodeMatch[2] + userCodeMatch[3];
       }
 
       // Zamień odwołanie do pliku wewnętrznego <exec> na solution.py i zmapuj numer linii
