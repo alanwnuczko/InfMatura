@@ -1,5 +1,6 @@
 const REPO_BASE = "https://github.com/alanwnuczko/matura-informatyka-rozszerzona";
-const PDF_CDN_BASE = "https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze";
+const UPSTREAM_COMMIT = "de4fd08559f82002c7e4dfd73f07edc1a11f71d6";
+const PDF_CDN_BASE = "https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@" + UPSTREAM_COMMIT + "/Arkusze";
 
 const MONTHS = {
   "03": "Marzec",
@@ -43,17 +44,17 @@ function getArkuszLinks(exam) {
 
 function getDaneLink(exam) {
   if (!exam.hasData) return null;
-  return REPO_BASE + "/raw/main/Arkusze/" + exam.id + "/Dane.zip";
+  return REPO_BASE + "/raw/" + UPSTREAM_COMMIT + "/Arkusze/" + exam.id + "/Dane.zip";
 }
 
 function getSolutionLink(exam) {
   if (!exam.hasSolution) return null;
-  return REPO_BASE + "/tree/main/Arkusze/" + exam.id + "/Rozwiazanie";
+  return REPO_BASE + "/tree/" + UPSTREAM_COMMIT + "/Arkusze/" + exam.id + "/Rozwiazanie";
 }
 
 function getSolutionZipLink(exam) {
   if (!exam.hasSolution) return null;
-  return REPO_BASE + "/raw/main/Arkusze/" + exam.id + "/Rozwiazanie.zip";
+  return REPO_BASE + "/raw/" + UPSTREAM_COMMIT + "/Arkusze/" + exam.id + "/Rozwiazanie.zip";
 }
 
 function getZasadyLink(exam) {

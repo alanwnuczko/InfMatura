@@ -32,7 +32,8 @@ $EXAM_TYPES = @{
     "PR" = "Poziom rozszerzony"
 }
 
-$PDF_CDN = "https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@main/Arkusze"
+$UPSTREAM_COMMIT = "de4fd08559f82002c7e4dfd73f07edc1a11f71d6"
+$PDF_CDN = "https://cdn.jsdelivr.net/gh/alanwnuczko/matura-informatyka-rozszerzona@$UPSTREAM_COMMIT/Arkusze"
 $REPO_BASE = "https://github.com/alanwnuczko/matura-informatyka-rozszerzona"
 $API_BASE = "https://api.github.com/repos/alanwnuczko/matura-informatyka-rozszerzona/contents/Arkusze"
 
@@ -102,7 +103,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
     }
 
     if ($e.hasData) {
-        $daneUrl = "$REPO_BASE/raw/main/Arkusze/$($e.id)/Dane.zip"
+        $daneUrl = "$REPO_BASE/raw/$UPSTREAM_COMMIT/Arkusze/$($e.id)/Dane.zip"
         $actionsHTML += "<a href=""$daneUrl"" download class=""card-link""><span>Dane ZIP</span>$arrowDown</a>"
     }
 
@@ -114,8 +115,8 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
     # Fetch Solution Files from GitHub
     $codeViewerHTML = ""
     if ($e.hasSolution) {
-        $solUrl = "$REPO_BASE/tree/main/Arkusze/$($e.id)/Rozwiazanie"
-        $solZipUrl = "$REPO_BASE/raw/main/Arkusze/$($e.id)/Rozwiazanie.zip"
+        $solUrl = "$REPO_BASE/tree/$UPSTREAM_COMMIT/Arkusze/$($e.id)/Rozwiazanie"
+        $solZipUrl = "$REPO_BASE/raw/$UPSTREAM_COMMIT/Arkusze/$($e.id)/Rozwiazanie.zip"
 
         $manifestPath = Join-Path $PSScriptRoot "solutions-manifest.json"
         $manifest = if ([System.IO.File]::Exists($manifestPath)) {
@@ -126,7 +127,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
         if ($manifest -and $manifest.PSObject.Properties[$e.id]) {
             $displayFiles = $manifest.$($e.id)
         } else {
-            $apiUri = "$API_BASE/$($e.id)/Rozwiazanie"
+            $apiUri = "$API_BASE/$($e.id)/Rozwiazanie?ref=$UPSTREAM_COMMIT"
             try {
                 $fileList = Invoke-RestMethod -Uri $apiUri -Headers $headers
                 foreach ($item in $fileList) {
@@ -199,7 +200,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
                 $fName = $displayFiles[$fIdx]
                 $ext = [System.IO.Path]::GetExtension($fName).ToLower()
 
-                $rawUrl = "https://raw.githubusercontent.com/alanwnuczko/matura-informatyka-rozszerzona/main/Arkusze/$($e.id)/Rozwiazanie/$fName"
+                $rawUrl = "https://raw.githubusercontent.com/alanwnuczko/matura-informatyka-rozszerzona/$UPSTREAM_COMMIT/Arkusze/$($e.id)/Rozwiazanie/$fName"
                 $fContent = ""
                 try {
                     $wc = [System.Net.WebClient]::new()
@@ -456,10 +457,10 @@ $codeViewerHTML
     ↑ Na górę
   </button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js" integrity="sha384-/MKWdycCDliku23mP5sYXbZNuXrzgmQO/jsVxwPFn99dVOaXRyKsqDjarqpueGAp" crossorigin="anonymous" defer></script>
   <script src="/js/exam.js?v=1.4" defer></script>
 </body>
 </html>

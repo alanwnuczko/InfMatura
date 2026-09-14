@@ -609,6 +609,7 @@
   pointer-events: none;
   user-select: none;
   z-index: 20;
+  transition: top 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 .algo-orb-svg {
@@ -651,18 +652,23 @@
   transform-origin: 31.5px 34px;
 }
 
-/* 2. Stan: Typing (Patrzy w lewo bezpośrednio na bieżącą linię kodu) */
+/* 2. Stan: Typing (Patrzy w lewo na bieżącą linię; JS doregulowuje kąt i top) */
 .algo-companion-orb.is-typing .orb-eyes-group {
-  transform: translate(-2px, 0) rotate(-15deg);
+  transform: translate(-3px, 0) rotate(-18deg);
 }
 
 .algo-companion-orb.is-typing .orb-eyes-normal {
   animation: orb-typing-jitter 0.35s ease-in-out infinite alternate;
 }
 
-/* 3. Stan: Paused (Zastanawia się - spojrzenie w górę / w dal) */
+/* 3. Stan: Paused (Zostaje przy linii, mruga, czyta kod) */
 .algo-companion-orb.is-paused .orb-eyes-group {
-  transform: translate(4px, -5px) rotate(8deg);
+  transform: translate(-2px, 0) rotate(-16deg);
+}
+
+.algo-companion-orb.is-paused .orb-eyes-normal {
+  animation: orb-blink 3.4s infinite;
+  transform-origin: 31.5px 34px;
 }
 
 /* 4. Stan: Error (Zaciska oczy w > < i lekko drży ze zmartwienia) */
