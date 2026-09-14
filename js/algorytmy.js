@@ -668,7 +668,6 @@
     }
 
     var cat = getCategoryMeta(task.category);
-    var adj = getAdjacentTask(taskId);
     var completed = isDone(taskId);
     var initialCode = loadUserCode(task.id, task.starterCode);
 
@@ -682,14 +681,11 @@
       + '<div class="card-meta" style="margin-top:14px">'
         + difficultyBadge(task.difficulty)
         + (cat ? '<span class="pill-badge">' + escHtml(cat.label) + '</span>' : '')
-        + (task.ckeSource ? '<span class="pill-badge">' + escHtml(task.ckeSource) + '</span>' : '')
         + (completed ? '<span class="pill-badge pill-badge--done">Ukończono</span>' : '')
       + '</div>'
       + '<div class="algo-solver-toolbar">'
         + '<div class="algo-actions-row">'
           + '<a href="#category-' + task.category + '" class="algo-btn-secondary">Wróć do kategorii</a>'
-          + (adj.prev ? '<a href="#task-' + adj.prev.id + '" class="algo-btn-secondary">Poprzednie</a>' : '')
-          + (adj.next ? '<a href="#task-' + adj.next.id + '" class="algo-btn-secondary">Następne</a>' : '')
           + (completed ? '<button type="button" class="algo-btn-secondary" id="algo-uncomplete-btn">Wyczyść postęp zadania</button>' : '')
         + '</div>'
         + '<button type="button" class="algo-btn-secondary" id="algo-random-any">'
