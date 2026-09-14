@@ -352,6 +352,7 @@ window.ALGO_TASKS = [
     ],
     "starterCode": "def partycjonuj(tab):\n    # Zmodyfikuj tab w miejscu i zwróć końcowy indeks pivota\n    pass\n",
     "functionName": "partycjonuj",
+    "inPlaceArg": 0,
     "testCases": [
       {
         "input": "([3, 8, 2, 5, 1, 4],)",
@@ -547,6 +548,7 @@ window.ALGO_TASKS = [
     ],
     "starterCode": "def rotuj_tablice(tab, k):\n    # Twoje rozwiązanie w O(n) i O(1) pamięci\n    pass\n",
     "functionName": "rotuj_tablice",
+    "inPlaceArg": 0,
     "testCases": [
       {
         "input": "([1, 2, 3, 4, 5], 2)",

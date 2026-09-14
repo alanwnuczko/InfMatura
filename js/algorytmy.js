@@ -1365,9 +1365,12 @@
     // Skonstruuj skrypt ewaluacyjny Pythona
     var testCasesJson = JSON.stringify(task.testCases);
     var fnNameJson    = JSON.stringify(task.functionName);
+    var requirementsJson = JSON.stringify({
+      inPlaceArg: Number.isInteger(task.inPlaceArg) ? task.inPlaceArg : null
+    });
 
     var runnerScript = [
-      'import json, time',
+      'import copy, json, time',
       '',
       userCode,
       '',
@@ -1376,6 +1379,7 @@
       'if _fn is None:',
       '    raise NameError("Nie zdefiniowano funkcji o nazwie: " + ' + fnNameJson + ')',
       '',
+      '_requirements = json.loads(' + JSON.stringify(requirementsJson) + ')',
       '_test_cases = json.loads(' + JSON.stringify(testCasesJson) + ')',
       'for tc in _test_cases:',
       '    try:',
@@ -1392,26 +1396,49 @@
       '    expected = tc["expected"]',
       '    t0 = time.perf_counter()',
       '    try:',
+      '        _in_place_target = None',
+      '        _in_place_before = None',
+      '        if _requirements["inPlaceArg"] is not None:',
+      '            _in_place_target = args[_requirements["inPlaceArg"]]',
+      '            _in_place_before = copy.deepcopy(_in_place_target)',
       '        got = _fn(*args)',
       '        t1 = time.perf_counter()',
-      '        passed = bool(got == expected)',
+      '        output_passed = bool(got == expected)',
+      '        requirements_passed = True',
+      '        requirement_error = None',
+      '        in_place_observed = _in_place_target is not None and _in_place_target != _in_place_before',
+      '        passed = output_passed and requirements_passed',
       '        _results.append({',
       '            "passed": passed,',
+      '            "outputPassed": output_passed,',
+      '            "requirementsPassed": requirements_passed,',
+      '            "inPlaceObserved": in_place_observed,',
       '            "input": _input_repr,',
       '            "got": repr(got),',
       '            "expected": repr(expected),',
       '            "timeMs": round((t1 - t0) * 1000, 2),',
-      '            "error": None',
+      '            "error": None,',
+      '            "requirementError": requirement_error',
       '        })',
       '    except Exception as _e:',
       '        _results.append({',
       '            "passed": False,',
+      '            "outputPassed": False,',
+      '            "requirementsPassed": False,',
       '            "input": _input_repr,',
       '            "got": None,',
       '            "expected": repr(expected),',
       '            "timeMs": 0,',
-      '            "error": str(_e)',
+      '            "error": str(_e),',
+      '            "requirementError": None,',
+      '            "inPlaceObserved": False',
       '        })',
+      '',
+      'if _requirements["inPlaceArg"] is not None and not any(r["inPlaceObserved"] for r in _results):',
+      '    for r in _results:',
+      '        r["requirementsPassed"] = False',
+      '        r["passed"] = False',
+      '        r["requirementError"] = "Funkcja musi modyfikować przekazany argument w miejscu (in-place)."',
       '',
       '_out_json = json.dumps(_results)'
     ].join('\n');
@@ -1548,13 +1575,23 @@
     var consoleBody = document.getElementById('algo-console-body');
     if (!consoleBody) return;
 
-    var passedCount = results.filter(function (r) { return r.passed; }).length;
+    var passedCount = results.filter(function (r) { return r.outputPassed; }).length;
     var totalCount  = results.length;
-    var allPassed   = passedCount === totalCount;
+    var allOutputsPassed = passedCount === totalCount;
+    var allRequirementsPassed = results.every(function (r) { return r.requirementsPassed; });
+    var allPassed = allOutputsPassed && allRequirementsPassed;
+    var bannerText;
+    if (allPassed) {
+      bannerText = 'Zaliczono wszystkie testy (' + passedCount + ' / ' + totalCount + ')';
+    } else if (allOutputsPassed && !allRequirementsPassed) {
+      bannerText = 'Testy wyników zaliczone, ale nie spełniono wymagań algorytmu';
+    } else {
+      bannerText = 'Zaliczono ' + passedCount + ' z ' + totalCount + ' ' + (totalCount === 1 ? 'testu' : 'testów');
+    }
 
     var html = '<div class="algo-console-banner ' + (allPassed ? 'is-success' : 'is-failure') + '">'
       + (allPassed ? checkmarkSvg() : crossSvg())
-      + '<span>' + (allPassed ? 'Zaliczono wszystkie testy (' + passedCount + ' / ' + totalCount + ')' : 'Zaliczono ' + passedCount + ' z ' + totalCount + ' ' + (totalCount === 1 ? 'testu' : 'testów')) + '</span>'
+      + '<span>' + bannerText + '</span>'
       + '</div>'
       + '<div class="algo-tests-table-wrapper">'
       + '<table class="algo-tests-table" aria-label="Tabela wyników testów">'
@@ -1575,7 +1612,11 @@
         + '</td>'
         + '<td><code>' + escHtml(r.input) + '</code></td>'
         + '<td><code>' + escHtml(r.expected) + '</code></td>'
-        + '<td><code>' + (r.error ? ('Błąd: ' + escHtml(r.error)) : escHtml(r.got)) + '</code></td>'
+        + '<td><code>' + (r.error
+          ? ('Błąd: ' + escHtml(r.error))
+          : (r.requirementError
+            ? escHtml(r.requirementError)
+            : escHtml(r.got))) + '</code></td>'
         + '<td>' + r.timeMs + ' ms</td>'
         + '</tr>';
     });
@@ -1584,7 +1625,10 @@
 
     if (allPassed) {
       html += '<div style="margin-top:16px;padding:14px;background:rgba(34,197,94,0.06);border:1px solid rgba(74,222,128,0.25);border-radius:8px;font-size:0.875rem;color:#86efac">'
-        + 'Rozwiązanie spełnia wymagania CKE. Poniżej możesz przejrzeć wzorcowe rozwiązanie i analizę złożoności.'
+        + (task.inPlaceArg !== undefined
+          ? 'Wszystkie testy i jawne wymagania wykonania w miejscu zostały zaliczone. '
+          : 'Wszystkie testy zostały zaliczone. ')
+        + 'Złożoność czasowa i pamięciowa nie jest automatycznie weryfikowana.'
         + '</div>';
 
       // Automatycznie odsłoń wzorcowe rozwiązanie
