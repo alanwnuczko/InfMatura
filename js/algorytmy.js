@@ -1362,18 +1362,6 @@
     if (companionPauseTimer) clearTimeout(companionPauseTimer);
     setCompanionState('typing');
 
-    if (window.WarpLoader && consoleBody) {
-      WarpLoader.mount(consoleBody, {
-        phrases: [
-          'Kreślenie mgławicy',
-          'Inicjalizacja środowiska Python...',
-          'Wykonywanie testów jednostkowych...',
-          'Weryfikacja przypadków brzegowych...',
-          'Analizowanie złożoności kodu...'
-        ]
-      });
-    }
-
     // Skonstruuj skrypt ewaluacyjny Pythona
     var testCasesJson = JSON.stringify(task.testCases);
     var fnNameJson    = JSON.stringify(task.functionName);
@@ -1468,7 +1456,6 @@
         });
       });
     }).then(function (results) {
-      if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       displayTestResults(task, results);
 
       var allPassed = results.every(function (r) { return r.passed; });
@@ -1488,7 +1475,6 @@
       }
     }).catch(function (err) {
       setCompanionState('error');
-      if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       var cleanedErr = cleanPythonTraceback(err, userCode);
       consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
         + '<span>' + (err && err.code === 'PYODIDE_TIMEOUT'
