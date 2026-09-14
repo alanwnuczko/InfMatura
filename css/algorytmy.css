@@ -595,6 +595,186 @@
   color: #86efac;
 }
 
+/* --- Ultra-minimalistyczny asystent kodu (Mochi Companion) --- */
+.algo-companion-orb {
+  position: absolute;
+  right: -66px;
+  top: 318px;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  z-index: 20;
+}
+
+.algo-orb-svg {
+  display: block;
+  width: 54px;
+  height: 54px;
+  overflow: visible;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.orb-body {
+  fill: url(#mochiGradBody);
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1.2;
+}
+
+.orb-eyes-group {
+  transform-origin: 31.5px 34px;
+  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.orb-eye {
+  fill: #11141d;
+  transition: opacity 0.2s ease;
+}
+
+.orb-eyes-error,
+.orb-eyes-success {
+  display: none;
+}
+
+/* 1. Stan: Idle */
+.algo-companion-orb.is-idle .orb-eyes-group {
+  transform: rotate(-15deg);
+  animation: orb-idle-drift 4s ease-in-out infinite;
+}
+
+.algo-companion-orb.is-idle .orb-eyes-normal {
+  animation: orb-blink 4.2s infinite;
+  transform-origin: 31.5px 34px;
+}
+
+/* 2. Stan: Typing (Patrzy w lewo bezpośrednio na bieżącą linię kodu) */
+.algo-companion-orb.is-typing .orb-eyes-group {
+  transform: translate(-2px, 0) rotate(-15deg);
+}
+
+.algo-companion-orb.is-typing .orb-eyes-normal {
+  animation: orb-typing-jitter 0.35s ease-in-out infinite alternate;
+}
+
+/* 3. Stan: Paused (Zastanawia się - spojrzenie w górę / w dal) */
+.algo-companion-orb.is-paused .orb-eyes-group {
+  transform: translate(4px, -5px) rotate(8deg);
+}
+
+/* 4. Stan: Error (Zaciska oczy w > < i lekko drży ze zmartwienia) */
+.algo-companion-orb.is-error .orb-eyes-normal {
+  display: none;
+}
+
+.algo-companion-orb.is-error .orb-eyes-error {
+  display: inline;
+  color: #11141d;
+}
+
+.algo-companion-orb.is-error .algo-orb-svg {
+  animation: orb-error-shake 0.45s ease-in-out;
+}
+
+/* 5. Stan: Success (Cieszy się: radosne oczy ^ ^ i sprężysty podskok w górę) */
+.algo-companion-orb.is-success .orb-eyes-normal {
+  display: none;
+}
+
+.algo-companion-orb.is-success .orb-eyes-success {
+  display: inline;
+  color: #11141d;
+}
+
+.algo-companion-orb.is-success .algo-orb-svg {
+  animation: orb-success-bounce 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animacje klatek kluczowych */
+@keyframes orb-idle-drift {
+  0%, 100% {
+    transform: rotate(-15deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-12deg) translateY(-2px);
+  }
+}
+
+@keyframes orb-blink {
+  0%, 93%, 100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes orb-typing-jitter {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(1.2px);
+  }
+}
+
+@keyframes orb-error-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-3px) rotate(-3deg);
+  }
+  40% {
+    transform: translateX(3px) rotate(3deg);
+  }
+  60% {
+    transform: translateX(-2px) rotate(-1.5deg);
+  }
+  80% {
+    transform: translateX(2px) rotate(1.5deg);
+  }
+}
+
+@keyframes orb-success-bounce {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  20% {
+    transform: translateY(5px) scale(1.18, 0.82);
+  }
+  45% {
+    transform: translateY(-18px) scale(0.88, 1.12);
+  }
+  65% {
+    transform: translateY(3px) scale(1.08, 0.92);
+  }
+  80% {
+    transform: translateY(-6px) scale(0.96, 1.04);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+/* RWD dla wąskich ekranów */
+@media (max-width: 1060px) {
+  .algo-companion-orb {
+    right: 12px;
+    top: 8px !important;
+    width: 40px;
+    height: 40px;
+    transform: none !important;
+  }
+  .algo-orb-svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .algo-editor-wrapper {
   position: relative;
   background: rgba(14, 14, 18, 0.45);

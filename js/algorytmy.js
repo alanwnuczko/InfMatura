@@ -544,9 +544,120 @@
   }
 
   // ==========================================================================
+  // ASYSTENT KODU (INTERAKTYWNY COMPANION)
+  // ==========================================================================
+  var companionState = 'idle'; // 'idle' | 'typing' | 'paused' | 'error' | 'success'
+  var companionTypingTimer = null;
+  var companionPauseTimer = null;
+
+  function renderCompanion() {
+    return '<div class="algo-companion-orb is-idle" id="algo-companion" aria-hidden="true">'
+      + '<svg class="algo-orb-svg" viewBox="0 0 100 100" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<defs>'
+      + '<filter id="mochiGlow" x="-20%" y="-20%" width="140%" height="140%">'
+      + '<feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.45)"/>'
+      + '</filter>'
+      + '<radialGradient id="mochiGradBody" cx="45%" cy="38%" r="62%">'
+      + '<stop offset="0%" stop-color="#FAF8F5"/>'
+      + '<stop offset="75%" stop-color="#F1EFE9"/>'
+      + '<stop offset="100%" stop-color="#E4E0D6"/>'
+      + '</radialGradient>'
+      + '</defs>'
+      + '<path class="orb-body" filter="url(#mochiGlow)" d="M 4.62 50.00 C 5.35 54.66, 7.19 59.22, 9.20 63.26 C 11.20 67.30, 13.83 70.97, 16.66 74.23 C 19.49 77.48, 22.70 80.41, 26.17 82.80 C 29.64 85.18, 33.50 87.28, 37.47 88.55 C 41.44 89.83, 45.82 90.41, 50.00 90.43 C 54.18 90.44, 58.50 89.81, 62.56 88.66 C 66.62 87.51, 70.68 85.78, 74.36 83.53 C 78.03 81.27, 81.61 78.44, 84.62 75.15 C 87.63 71.86, 90.52 67.97, 92.41 63.78 C 94.30 59.59, 95.78 54.65, 95.94 50.00 C 96.10 45.35, 95.16 40.18, 93.37 35.91 C 91.59 31.64, 88.48 27.55, 85.26 24.38 C 82.03 21.22, 77.90 18.84, 74.03 16.93 C 70.16 15.02, 66.04 14.04, 62.04 12.94 C 58.04 11.85, 54.19 10.90, 50.00 10.36 C 45.81 9.83, 41.39 9.29, 36.92 9.73 C 32.44 10.17, 27.38 10.98, 23.13 13.01 C 18.87 15.05, 14.43 18.22, 11.37 21.94 C 8.32 25.65, 5.93 30.64, 4.81 35.32 C 3.68 39.99, 3.89 45.34, 4.62 50.00 Z"/>'
+      + '<g class="orb-eyes-group">'
+      + '<g class="orb-eyes-normal">'
+      + '<rect class="orb-eye" x="22" y="26" width="6.2" height="16" rx="3.1"/>'
+      + '<rect class="orb-eye" x="35" y="26" width="6.2" height="16" rx="3.1"/>'
+      + '</g>'
+      + '<g class="orb-eyes-error">'
+      + '<path d="M 21 29 L 28 34 L 21 39" stroke="#11141d" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+      + '<path d="M 42 29 L 35 34 L 42 39" stroke="#11141d" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+      + '</g>'
+      + '<g class="orb-eyes-success">'
+      + '<path d="M 20 37 C 22 29, 29 29, 31 37" stroke="#11141d" stroke-width="3.2" stroke-linecap="round" fill="none"/>'
+      + '<path d="M 33 37 C 35 29, 42 29, 44 37" stroke="#11141d" stroke-width="3.2" stroke-linecap="round" fill="none"/>'
+      + '</g>'
+      + '</g>'
+      + '</svg>'
+      + '</div>';
+  }
+
+  function updateCompanionGaze() {
+    var comp = document.getElementById('algo-companion');
+    var editor = document.getElementById('algo-editor');
+    if (!comp || !editor) return;
+
+    var eyesGroup = comp.querySelector('.orb-eyes-group');
+    if (!eyesGroup) return;
+
+    if (companionState !== 'typing') {
+      eyesGroup.style.transform = '';
+      return;
+    }
+
+    var start = editor.selectionStart || 0;
+    var textBefore = editor.value.substring(0, start);
+    var lineIndex = textBefore.split('\n').length - 1;
+
+    var lineHeight = 24.75;
+    var paddingTop = 20;
+    var tabsBarHeight = 42;
+
+    var lineCenterY = tabsBarHeight + paddingTop + (lineIndex * lineHeight) + (lineHeight / 2) - editor.scrollTop;
+    // Środek oczu maskotki przy stałym top: 318px wynosi ok. 318 + 20 = 338px
+    var orbCenterY = 338;
+    var dy = lineCenterY - orbCenterY;
+
+    // Subtelne, zgrane nachylenie oczu ku edytowanej linii (baza: -15deg)
+    var angleOffset = Math.max(-12, Math.min(12, (dy / 200) * 14));
+    var yOffset = Math.max(-2.5, Math.min(2.5, (dy / 200) * 3));
+    var baseAngle = -15;
+    var totalAngle = Math.round(baseAngle + angleOffset);
+    var totalY = Math.round(yOffset);
+
+    eyesGroup.style.transform = 'translate(-2px, ' + totalY + 'px) rotate(' + totalAngle + 'deg)';
+  }
+
+  function setCompanionState(newState) {
+    companionState = newState;
+    var el = document.getElementById('algo-companion');
+    if (!el) return;
+    el.classList.remove('is-idle', 'is-typing', 'is-paused', 'is-error', 'is-success');
+    el.classList.add('is-' + newState);
+    if (newState !== 'typing') {
+      var eyesGroup = el.querySelector('.orb-eyes-group');
+      if (eyesGroup) eyesGroup.style.transform = '';
+    }
+  }
+
+  function notifyCompanionTyping() {
+    if (companionTypingTimer) clearTimeout(companionTypingTimer);
+    if (companionPauseTimer) clearTimeout(companionPauseTimer);
+
+    if (companionState !== 'typing') {
+      setCompanionState('typing');
+    }
+    updateCompanionGaze();
+
+    // Po 1400ms braku pisania stan 'paused' (zastanawianie sie nad kodem)
+    companionTypingTimer = setTimeout(function () {
+      setCompanionState('paused');
+
+      // Po kolejnych 8s braku aktywnosci lagodny powrot do 'idle'
+      companionPauseTimer = setTimeout(function () {
+        setCompanionState('idle');
+      }, 8000);
+    }, 1400);
+  }
+
+  // ==========================================================================
   // WIDOK ROZWIĄZYWANIA ZADANIA
   // ==========================================================================
   function renderTaskView(taskId) {
+    if (companionTypingTimer) clearTimeout(companionTypingTimer);
+    if (companionPauseTimer) clearTimeout(companionPauseTimer);
+    companionState = 'idle';
+
     state.view          = 'task';
     state.currentTaskId = taskId;
 
@@ -635,6 +746,7 @@
 
       // --- PRAWA KOLUMNA: Edytor kodu i konsola testów (Editor Pane) ---
       + '<div class="algo-editor-pane">'
+        + renderCompanion()
         + '<div class="code-viewer algo-editor-card">'
           + '<div class="code-tabs-bar" role="tablist">'
             + '<div style="display:flex;align-items:center;gap:6px">'
@@ -765,6 +877,13 @@
       });
 
       editor.addEventListener('keydown', function (e) {
+        if (!['Control', 'Alt', 'Shift', 'Meta', 'CapsLock', 'Escape'].includes(e.key)) {
+          if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            notifyCompanionTyping();
+          }
+          setTimeout(updateCompanionGaze, 0);
+        }
+
         var start = editor.selectionStart;
         var end   = editor.selectionEnd;
         var val   = editor.value;
@@ -912,11 +1031,19 @@
       editor.addEventListener('input', function () {
         updateEditorHighlighting(editor);
         saveUserCode(task.id, editor.value);
+        notifyCompanionTyping();
+        updateCompanionGaze();
       });
 
       editor.addEventListener('scroll', function () {
         syncEditorScroll(editor);
+        updateCompanionGaze();
       }, { passive: true });
+
+      editor.addEventListener('click', updateCompanionGaze);
+      editor.addEventListener('keyup', updateCompanionGaze);
+      window.addEventListener('resize', updateCompanionGaze);
+      setTimeout(updateCompanionGaze, 60);
     }
 
     // Reset kodu do szablonu
@@ -928,6 +1055,8 @@
           clearUserCode(task.id);
           updateEditorHighlighting(editor);
           syncEditorScroll(editor);
+          setCompanionState('idle');
+          setTimeout(updateCompanionGaze, 0);
         }
       });
     }
@@ -1023,6 +1152,9 @@
 
     runBtn.disabled = true;
     if (runLabel) runLabel.textContent = 'Testowanie...';
+    if (companionTypingTimer) clearTimeout(companionTypingTimer);
+    if (companionPauseTimer) clearTimeout(companionPauseTimer);
+    setCompanionState('typing');
 
     if (window.WarpLoader && consoleBody) {
       WarpLoader.mount(consoleBody, {
@@ -1100,6 +1232,7 @@
 
       var allPassed = results.every(function (r) { return r.passed; });
       if (allPassed) {
+        setCompanionState('success');
         saveProgress(task.id);
         // Zaktualizuj nagłówek jeśli trzeba
         var meta = document.querySelector('.card-meta');
@@ -1109,8 +1242,11 @@
           badge.textContent = 'Ukończono';
           meta.appendChild(badge);
         }
+      } else {
+        setCompanionState('error');
       }
     }).catch(function (err) {
+      setCompanionState('error');
       if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       var cleanedErr = cleanPythonTraceback(err, userCode);
       consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
