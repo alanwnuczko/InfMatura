@@ -1114,7 +1114,7 @@
   }
 
   // --- Silnik Pyodide i uruchamianie testow ---
-  function createPyodideWorker() {
+  function createLegacyPyodideWorker() {
     var workerSource = [
       "'use strict';",
       "var pyodidePromise = null;",
@@ -1186,7 +1186,9 @@
       "    py.runPython(runnerScript);",
       "    var jsonProxy = py.globals.get('_out_json');",
       "    var jsonStr = String(jsonProxy);",
-      "    jsonProxy.destroy();",
+      "    if (jsonProxy && typeof jsonProxy.destroy === 'function') {",
+      "      jsonProxy.destroy();",
+      "    }",
       "    if (jsonStr.length > 200000) {",
       "      throw new Error('Wynik testów przekroczył limit rozmiaru.');",
       "    }",
@@ -1205,6 +1207,56 @@
       "  }",
       "  if (data.type === 'run') {",
       "    executeTests(data).catch(function (err) {",
+      "      self.postMessage({ type: 'error', requestId: data.requestId, message: String(err) });",
+      "    });",
+      "  }",
+      "};"
+    ].join('\n');
+    var blob = new Blob([workerSource], { type: 'application/javascript' });
+    var url = URL.createObjectURL(blob);
+    return {
+      worker: new Worker(url),
+      url: url
+    };
+  }
+
+  function createPyodideWorker() {
+    var workerSource = [
+      "'use strict';",
+      "var pyodidePromise = null;",
+      "function getPyodide() {",
+      "  if (!pyodidePromise) {",
+      "    importScripts(" + JSON.stringify(PYODIDE_CDN) + ");",
+      "    pyodidePromise = loadPyodide({ indexURL: " + JSON.stringify(PYODIDE_INDEX_URL) + " });",
+      "  }",
+      "  return pyodidePromise;",
+      "}",
+      "self.onmessage = function (event) {",
+      "  var data = event.data || {};",
+      "  if (data.type === 'load') {",
+      "    getPyodide().then(function () {",
+      "      self.postMessage({ type: 'ready' });",
+      "    }).catch(function (err) {",
+      "      self.postMessage({ type: 'error', message: String(err) });",
+      "    });",
+      "    return;",
+      "  }",
+      "  if (data.type === 'run') {",
+      "    getPyodide().then(function (py) {",
+      "      if (data.runnerScript.length > " + PYODIDE_MAX_CODE_LENGTH + ") {",
+      "        throw new Error('Kod przekracza limit rozmiaru.');",
+      "      }",
+      "      py.runPython(data.runnerScript);",
+      "      var jsonProxy = py.globals.get('_out_json');",
+      "      var jsonStr = String(jsonProxy);",
+      "      if (jsonProxy && typeof jsonProxy.destroy === 'function') {",
+      "        jsonProxy.destroy();",
+      "      }",
+      "      if (jsonStr.length > 200000) {",
+      "        throw new Error('Wynik testów przekroczył limit rozmiaru.');",
+      "      }",
+      "      self.postMessage({ type: 'result', requestId: data.requestId, results: JSON.parse(jsonStr) });",
+      "    }).catch(function (err) {",
       "      self.postMessage({ type: 'error', requestId: data.requestId, message: String(err) });",
       "    });",
       "  }",
@@ -1310,17 +1362,59 @@
     if (companionPauseTimer) clearTimeout(companionPauseTimer);
     setCompanionState('typing');
 
-    if (window.WarpLoader && consoleBody) {
-      WarpLoader.mount(consoleBody, {
-        phrases: [
-          'Kreślenie mgławicy',
-          'Inicjalizacja środowiska Python...',
-          'Wykonywanie testów jednostkowych...',
-          'Weryfikacja przypadków brzegowych...',
-          'Analizowanie złożoności kodu...'
-        ]
-      });
-    }
+    // Skonstruuj skrypt ewaluacyjny Pythona
+    var testCasesJson = JSON.stringify(task.testCases);
+    var fnNameJson    = JSON.stringify(task.functionName);
+
+    var runnerScript = [
+      'import json, time',
+      '',
+      userCode,
+      '',
+      '_results = []',
+      '_fn = globals().get(' + fnNameJson + ')',
+      'if _fn is None:',
+      '    raise NameError("Nie zdefiniowano funkcji o nazwie: " + ' + fnNameJson + ')',
+      '',
+      '_test_cases = json.loads(' + JSON.stringify(testCasesJson) + ')',
+      'for tc in _test_cases:',
+      '    try:',
+      '        args = eval(tc["input"])',
+      '    except Exception as _e:',
+      '        args = ()',
+      '    if isinstance(args, tuple):',
+      '        if len(args) == 1:',
+      '            _input_repr = repr(args[0])',
+      '        else:',
+      '            _input_repr = ", ".join(repr(a) for a in args)',
+      '    else:',
+      '        _input_repr = repr(args)',
+      '    expected = tc["expected"]',
+      '    t0 = time.perf_counter()',
+      '    try:',
+      '        got = _fn(*args)',
+      '        t1 = time.perf_counter()',
+      '        passed = bool(got == expected)',
+      '        _results.append({',
+      '            "passed": passed,',
+      '            "input": _input_repr,',
+      '            "got": repr(got),',
+      '            "expected": repr(expected),',
+      '            "timeMs": round((t1 - t0) * 1000, 2),',
+      '            "error": None',
+      '        })',
+      '    except Exception as _e:',
+      '        _results.append({',
+      '            "passed": False,',
+      '            "input": _input_repr,',
+      '            "got": None,',
+      '            "expected": repr(expected),',
+      '            "timeMs": 0,',
+      '            "error": str(_e)',
+      '        })',
+      '',
+      '_out_json = json.dumps(_results)'
+    ].join('\n');
 
     var requestId = ++state.runRequestId;
     loadPyodide().then(function (worker) {
@@ -1358,13 +1452,10 @@
         worker.postMessage({
           type: 'run',
           requestId: requestId,
-          userCode: userCode,
-          testCases: task.testCases,
-          functionName: task.functionName
+          runnerScript: runnerScript
         });
       });
     }).then(function (results) {
-      if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       displayTestResults(task, results);
 
       var allPassed = results.every(function (r) { return r.passed; });
@@ -1384,7 +1475,6 @@
       }
     }).catch(function (err) {
       setCompanionState('error');
-      if (window.WarpLoader && consoleBody) WarpLoader.unmount(consoleBody);
       var cleanedErr = cleanPythonTraceback(err, userCode);
       consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
         + '<span>' + (err && err.code === 'PYODIDE_TIMEOUT'
