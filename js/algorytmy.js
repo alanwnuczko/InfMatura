@@ -923,32 +923,32 @@
           e.preventDefault();
 
           if (e.shiftKey) {
-            // Shift + Tab: cofniecie wciecia o maksymalnie 4 spacje
+            // Shift + Tab: cofnij wcięcie o maksymalnie jeden poziom na każdej linii.
             var lineStart = val.lastIndexOf('\n', start - 1) + 1;
             var lineEnd = val.indexOf('\n', end);
             if (lineEnd === -1) lineEnd = val.length;
 
             var lines = val.substring(lineStart, lineEnd).split('\n');
             var unindented = [];
-            var removedFirstLine = 0;
-            var totalRemoved = 0;
+            var removedBeforeStart = 0;
+            var removedBeforeEnd = 0;
+            var offset = lineStart;
 
             for (var i = 0; i < lines.length; i++) {
               var l = lines[i];
               var match = l.match(/^( {1,4}|\t)/);
-              if (match) {
-                var removeLen = match[0].length;
-                unindented.push(l.substring(removeLen));
-                if (i === 0) removedFirstLine = removeLen;
-                totalRemoved += removeLen;
-              } else {
-                unindented.push(l);
-              }
+              var removeLen = match ? match[0].length : 0;
+              unindented.push(l.substring(removeLen));
+
+              // Only characters before a selection endpoint affect that endpoint.
+              if (offset + removeLen <= start) removedBeforeStart += removeLen;
+              if (offset + removeLen <= end) removedBeforeEnd += removeLen;
+              offset += l.length + 1;
             }
 
             editor.value = val.substring(0, lineStart) + unindented.join('\n') + val.substring(lineEnd);
-            var newStart = Math.max(lineStart, start - removedFirstLine);
-            var newEnd = Math.max(newStart, end - totalRemoved);
+            var newStart = Math.max(lineStart, start - removedBeforeStart);
+            var newEnd = Math.max(newStart, end - removedBeforeEnd);
             editor.selectionStart = newStart;
             editor.selectionEnd = newEnd;
           } else {
@@ -1008,15 +1008,20 @@
           return;
         }
 
-        // 3. Backspace: inteligentne usuwanie 4 spacji wciecia
+        // 3. Backspace: usuń wcięcie do poprzedniego poziomu (także przy 1–3 spacjach).
         if (e.key === 'Backspace') {
-          if (start === end && start >= 4) {
+          if (start === end) {
             var lineStart = val.lastIndexOf('\n', start - 1) + 1;
             var lineBeforeCursor = val.substring(lineStart, start);
-            if (/^ +$/.test(lineBeforeCursor) && lineBeforeCursor.length % 4 === 0) {
+            if (/^[ \t]+$/.test(lineBeforeCursor)) {
+              var indentColumns = lineBeforeCursor.replace(/\t/g, '    ').length;
+              var removeLen = lineBeforeCursor.charAt(lineBeforeCursor.length - 1) === '\t'
+                ? 1
+                : (indentColumns % 4 || 4);
+              removeLen = Math.min(removeLen, lineBeforeCursor.length);
               e.preventDefault();
-              editor.value = val.substring(0, start - 4) + val.substring(end);
-              editor.selectionStart = editor.selectionEnd = start - 4;
+              editor.value = val.substring(0, start - removeLen) + val.substring(end);
+              editor.selectionStart = editor.selectionEnd = start - removeLen;
               updateEditorHighlighting(editor);
               saveUserCode(task.id, editor.value);
               syncEditorScroll(editor);
