@@ -590,32 +590,61 @@
     var eyesGroup = comp.querySelector('.orb-eyes-group');
     if (!eyesGroup) return;
 
-    if (companionState !== 'typing') {
+    var following = companionState === 'typing' || companionState === 'paused';
+    if (!following) {
       eyesGroup.style.transform = '';
+      comp.style.top = '';
       return;
     }
 
+    var pane = editor.closest('.algo-editor-pane');
+    var card = editor.closest('.algo-editor-card');
+    if (!pane || !card) return;
+
+    var cs = window.getComputedStyle(editor);
+    var lineHeight = parseFloat(cs.lineHeight);
+    if (!isFinite(lineHeight) || lineHeight <= 0) {
+      lineHeight = (parseFloat(cs.fontSize) || 15) * 1.65;
+    }
+    var paddingTop = parseFloat(cs.paddingTop);
+    if (!isFinite(paddingTop)) paddingTop = 20;
+
     var start = editor.selectionStart || 0;
-    var textBefore = editor.value.substring(0, start);
-    var lineIndex = textBefore.split('\n').length - 1;
+    var lineIndex = editor.value.substring(0, start).split('\n').length - 1;
+    var lineCenterInEditor = paddingTop + lineIndex * lineHeight + lineHeight / 2 - editor.scrollTop;
 
-    var lineHeight = 24.75;
-    var paddingTop = 20;
-    var tabsBarHeight = 42;
+    var paneRect = pane.getBoundingClientRect();
+    var editorRect = editor.getBoundingClientRect();
+    var cardRect = card.getBoundingClientRect();
+    var lineCenterY = (editorRect.top - paneRect.top) + lineCenterInEditor;
+    var orbH = comp.offsetHeight || 54;
+    var mobile = window.matchMedia('(max-width: 1060px)').matches;
 
-    var lineCenterY = tabsBarHeight + paddingTop + (lineIndex * lineHeight) + (lineHeight / 2) - editor.scrollTop;
-    // Środek oczu maskotki przy stałym top: 318px wynosi ok. 318 + 20 = 338px
-    var orbCenterY = 338;
-    var dy = lineCenterY - orbCenterY;
+    if (!mobile) {
+      var tabsBar = card.querySelector('.code-tabs-bar');
+      var actions = card.querySelector('.algo-editor-actions');
+      var tabsH = tabsBar ? tabsBar.offsetHeight : 42;
+      var actionsH = actions ? actions.offsetHeight : 52;
+      var minTop = Math.max(tabsH + 6, (editorRect.top - paneRect.top) + 4);
+      var maxTop = Math.min(
+        (cardRect.bottom - paneRect.top) - actionsH - orbH - 6,
+        (editorRect.bottom - paneRect.top) - orbH - 4
+      );
+      if (maxTop < minTop) maxTop = minTop;
 
-    // Subtelne, zgrane nachylenie oczu ku edytowanej linii (baza: -15deg)
-    var angleOffset = Math.max(-12, Math.min(12, (dy / 200) * 14));
-    var yOffset = Math.max(-2.5, Math.min(2.5, (dy / 200) * 3));
-    var baseAngle = -15;
-    var totalAngle = Math.round(baseAngle + angleOffset);
-    var totalY = Math.round(yOffset);
+      var targetTop = Math.max(minTop, Math.min(maxTop, lineCenterY - orbH / 2));
+      comp.style.top = Math.round(targetTop) + 'px';
 
-    eyesGroup.style.transform = 'translate(-2px, ' + totalY + 'px) rotate(' + totalAngle + 'deg)';
+      var dy = lineCenterY - (targetTop + orbH / 2);
+      var angleOffset = Math.max(-8, Math.min(8, dy * 0.12));
+      var yOffset = Math.max(-3, Math.min(3, dy * 0.05));
+      eyesGroup.style.transform = 'translate(-3px, ' + (Math.round(yOffset * 10) / 10) + 'px) rotate(' + Math.round(-18 + angleOffset) + 'deg)';
+    } else {
+      var dy = lineCenterY - (8 + orbH / 2);
+      var angleOffset = Math.max(-10, Math.min(10, dy * 0.06));
+      var yOffset = Math.max(-3, Math.min(3, dy * 0.03));
+      eyesGroup.style.transform = 'translate(-2px, ' + (Math.round(yOffset * 10) / 10) + 'px) rotate(' + Math.round(-16 + angleOffset) + 'deg)';
+    }
   }
 
   function setCompanionState(newState) {
@@ -624,9 +653,15 @@
     if (!el) return;
     el.classList.remove('is-idle', 'is-typing', 'is-paused', 'is-error', 'is-success');
     el.classList.add('is-' + newState);
-    if (newState !== 'typing') {
-      var eyesGroup = el.querySelector('.orb-eyes-group');
-      if (eyesGroup) eyesGroup.style.transform = '';
+    if (newState === 'typing' || newState === 'paused') {
+      updateCompanionGaze();
+    } else if (newState === 'idle') {
+      var idleEyes = el.querySelector('.orb-eyes-group');
+      if (idleEyes) idleEyes.style.transform = '';
+      el.style.top = '';
+    } else {
+      var faceEyes = el.querySelector('.orb-eyes-group');
+      if (faceEyes) faceEyes.style.transform = '';
     }
   }
 
@@ -639,11 +674,10 @@
     }
     updateCompanionGaze();
 
-    // Po 1400ms braku pisania stan 'paused' (zastanawianie sie nad kodem)
+    // Po 1400ms braku pisania zostaje przy linii (paused), potem wraca do idle
     companionTypingTimer = setTimeout(function () {
       setCompanionState('paused');
 
-      // Po kolejnych 8s braku aktywnosci lagodny powrot do 'idle'
       companionPauseTimer = setTimeout(function () {
         setCompanionState('idle');
       }, 8000);
@@ -1038,6 +1072,7 @@
 
       editor.addEventListener('click', updateCompanionGaze);
       editor.addEventListener('keyup', updateCompanionGaze);
+      editor.addEventListener('select', updateCompanionGaze);
       window.addEventListener('resize', updateCompanionGaze);
       setTimeout(updateCompanionGaze, 60);
     }
