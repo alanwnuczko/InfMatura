@@ -101,10 +101,6 @@
       }
       return;
     }
-    if (hash === 'wszystkie') {
-      renderAllTasksList();
-      return;
-    }
     if (hash.startsWith('category-')) {
       var catId = hash.slice('category-'.length);
       renderTaskList(catId);
@@ -246,7 +242,6 @@
       + '</p>'
       + '<div class="hero-cta-group">'
       + '<a href="#task-losowe" class="btn-cta">Rozwiąż losowe zadanie</a>'
-      + '<a href="#wszystkie" class="algo-btn-secondary">Wszystkie zadania (' + allTasks.length + ')</a>'
       + '<span class="pill-badge" style="padding:10px 18px;font-size:0.875rem">Ukończono ' + totalDone + ' z ' + allTasks.length + ' ' + (allTasks.length === 1 ? 'zadania' : 'zadań') + '</span>'
       + '</div>'
       + '</div></div></section>'
@@ -323,48 +318,6 @@
     }
   }
 
-  // --- Widok: Wszystkie zadania ---
-  function renderAllTasksList() {
-    state.view = 'tasklist';
-    state.currentCat = null;
-    var allTasks = window.ALGO_TASKS || [];
-    var doneCount = getTotalDoneCount();
-
-    var html = '<section class="hero has-breadcrumbs" aria-labelledby="algo-all-title">'
-      + '<div class="container"><div class="hero-content">'
-      + breadcrumbs([
-          { label: 'Algorytmy', href: '#' },
-          { label: 'Wszystkie zadania', href: null }
-        ])
-      + '<h1 id="algo-all-title" class="hero-title">Wszystkie zadania.</h1>'
-      + '<p class="hero-description">Zestawienie wszystkich problemów programistycznych wzorowanych na zadaniach z matury rozszerzonej.</p>'
-      + '<div class="hero-cta-group">'
-      + '<button type="button" class="btn-cta" id="algo-all-random-btn">Rozwiąż losowe zadanie</button>'
-      + '<a href="#" class="algo-btn-secondary">Widok kategorii</a>'
-      + '</div>'
-      + '</div></div></section>'
-
-      + '<section class="algo-main-section" aria-labelledby="algo-all-heading">'
-      + '<div class="container">'
-      + '<div class="algo-section-header">'
-      + '<div>'
-      + '<h2 id="algo-all-heading" class="algo-section-heading">Baza zadań (' + allTasks.length + ')</h2>'
-      + '<span class="algo-section-summary">Ukończono ' + doneCount + ' z ' + allTasks.length + ' ' + (allTasks.length === 1 ? 'zadania' : 'zadań') + '</span>'
-      + '</div>'
-      + '</div>'
-
-      // Filtry
-      + renderFilterPills(allTasks)
-
-      + '<div class="algo-task-list" id="algo-task-items-container">'
-      + renderTaskRows(allTasks, 'all')
-      + '</div>'
-      + '</div></section>';
-
-    setContent(html);
-    bindListEvents(allTasks, null);
-  }
-
   // --- Widok: Lista zadań w kategorii ---
   function renderTaskList(catId) {
     state.view       = 'tasklist';
@@ -438,7 +391,7 @@
   }
 
   function bindListEvents(tasks, cat) {
-    var catRandomBtn = document.getElementById('algo-cat-random-btn') || document.getElementById('algo-all-random-btn');
+    var catRandomBtn = document.getElementById('algo-cat-random-btn');
     if (catRandomBtn) {
       catRandomBtn.addEventListener('click', function () {
         var t = getRandomTask(cat ? cat.id : null);
