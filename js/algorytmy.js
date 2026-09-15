@@ -44,14 +44,38 @@
 
   var elements = {};
 
+  function scrollToTopInstant() {
+    var root = document.documentElement;
+    var prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = prev;
+  }
+
+  function blurEditorIfFocused() {
+    var editor = document.getElementById('algo-editor');
+    if (editor && document.activeElement === editor) {
+      editor.blur();
+    }
+  }
+
   // --- Inicjalizacja ---
   function init() {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
     document.documentElement.setAttribute('data-theme', 'dark');
     cacheElements();
     setCurrentYear();
     initScrollHeader();
     bindHashRoute();
     routeFromHash();
+    blurEditorIfFocused();
+    scrollToTopInstant();
+    window.addEventListener('load', function () {
+      blurEditorIfFocused();
+      scrollToTopInstant();
+    });
   }
 
   function cacheElements() {
@@ -119,7 +143,7 @@
 
   function navigate(hash) {
     window.location.hash = hash;
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTopInstant();
   }
 
   // --- Zarzadzanie postepem i kodem (localStorage) ---
@@ -783,18 +807,13 @@
       + '<div class="algo-editor-pane">'
         + renderCompanion()
         + '<div class="code-viewer algo-editor-card">'
-          + '<div class="code-tabs-bar" role="tablist">'
-            + '<div style="display:flex;align-items:center;gap:6px">'
-              + '<span class="code-tab is-active" role="tab" aria-selected="true">'
-                + '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="opacity:0.8;margin-right:4px"><path d="M4 1h8l3 3v10a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1zm7 1v3h3"/></svg>'
-                + 'solution.py'
-              + '</span>'
-            + '</div>'
+          + '<div class="code-tabs-bar">'
+            + '<span class="code-file-name">rozwiazanie.py</span>'
             + '<span class="algo-py-status" id="algo-py-status">Środowisko Python: ładowanie...</span>'
           + '</div>'
           + '<div class="algo-editor-wrapper" id="algo-editor-wrapper">'
             + '<pre class="algo-editor-pre code-pre" aria-hidden="true"><code class="language-python" id="algo-editor-highlight"></code></pre>'
-            + '<textarea class="algo-editor-textarea" id="algo-editor" spellcheck="false" autocorrect="off" autocapitalize="off" aria-label="Edytor kodu Python">'
+            + '<textarea class="algo-editor-textarea" id="algo-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Edytor kodu Python">'
               + escHtml(initialCode)
             + '</textarea>'
           + '</div>'
@@ -1548,18 +1567,18 @@
 
       var userCodeMatch = line.match(/^(\s*)File\s+"<user_code>",\s+line\s+(\d+)(.*)/);
       if (userCodeMatch) {
-        line = userCodeMatch[1] + 'File "solution.py", line ' + userCodeMatch[2] + userCodeMatch[3];
+        line = userCodeMatch[1] + 'File "rozwiazanie.py", line ' + userCodeMatch[2] + userCodeMatch[3];
       }
 
-      // Zamień odwołanie do pliku wewnętrznego <exec> na solution.py i zmapuj numer linii
+      // Zamień odwołanie do pliku wewnętrznego <exec> na rozwiazanie.py i zmapuj numer linii
       var execMatch = line.match(/^(\s*)File\s+"<exec>",\s+line\s+(\d+)(.*)/);
       if (execMatch) {
         var rawLineNum = parseInt(execMatch[2], 10);
         var userLineNum = rawLineNum - prefixLines;
         if (userLineNum > 0 && userLineNum <= userLinesCount) {
-          line = execMatch[1] + 'Plik "solution.py", linia ' + userLineNum + execMatch[3];
+          line = execMatch[1] + 'Plik "rozwiazanie.py", linia ' + userLineNum + execMatch[3];
         } else {
-          line = execMatch[1] + 'Plik "solution.py"' + execMatch[3];
+          line = execMatch[1] + 'Plik "rozwiazanie.py"' + execMatch[3];
         }
       }
 
@@ -1645,6 +1664,8 @@
   function setContent(html) {
     if (!elements.main) return;
     elements.main.innerHTML = html;
+    blurEditorIfFocused();
+    scrollToTopInstant();
   }
 
   function breadcrumbs(items) {

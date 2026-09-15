@@ -1,5 +1,5 @@
 // data/algorytmy.js - Baza zadań programistycznych CKE dla matury rozszerzonej
-window.ALGO_CATEGORIES = [
+var ALGO_DATA = [
   {
     "id": "zlozonosc",
     "label": "Złożoność i analiza",
@@ -39,10 +39,297 @@ window.ALGO_CATEGORIES = [
     "id": "grafy",
     "label": "Grafy i stos",
     "description": "Przeszukiwanie wszerz BFS, najkrótsza ścieżka oraz obsługa stosu."
+  },
+  {
+    "id": "zloz-03",
+    "title": "Liczba porównań w sortowaniu przez wybieranie",
+    "category": "zlozonosc",
+    "difficulty": "easy",
+    "ckeSource": "CKE maj 2018 · PP F2007, zadanie 2",
+    "description": "<p>W jednej iteracji sortowania przez wybieranie wyszukiwany jest największy element w nieposortowanej części tablicy. Dla tablicy długości <code>n</code> algorytm wykonuje kolejno <code>n - 1</code>, <code>n - 2</code>, aż do <code>1</code> porównań.</p><p>Napisz funkcję <code>liczba_porownan_wybierania(n)</code>, która zwraca łączną liczbę porównań elementów wykonywanych przez ten algorytm dla tablicy długości <code>n</code>.</p>",
+    "inputDesc": "Dodatnia liczba całkowita n oznaczająca długość tablicy.",
+    "outputDesc": "Łączna liczba porównań jako liczba całkowita.",
+    "timeComplexity": "O(1)",
+    "spaceComplexity": "O(1)",
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "3",
+        "explanation": "Algorytm wykonuje 2 + 1 porównania."
+      },
+      {
+        "input": "n = 6",
+        "output": "15",
+        "explanation": "Algorytm wykonuje 5 + 4 + 3 + 2 + 1 porównań."
+      }
+    ],
+    "starterCode": "def liczba_porownan_wybierania(n):\n    # Oblicz wynik bez wykonywania sortowania\n    pass\n",
+    "functionName": "liczba_porownan_wybierania",
+    "testCases": [
+      {
+        "input": "(1,)",
+        "expected": 0
+      },
+      {
+        "input": "(2,)",
+        "expected": 1
+      },
+      {
+        "input": "(3,)",
+        "expected": 3
+      },
+      {
+        "input": "(6,)",
+        "expected": 15
+      },
+      {
+        "input": "(10,)",
+        "expected": 45
+      }
+    ],
+    "solution": "def liczba_porownan_wybierania(n):\n    return n * (n - 1) // 2",
+    "explanation": "<p>Suma porównań ma postać <code>(n - 1) + (n - 2) + ... + 1</code>. Jest to suma pierwszych <code>n - 1</code> liczb naturalnych, więc wynik można obliczyć bez pętli ze wzoru <code>n * (n - 1) // 2</code>. Samo sortowanie przez wybieranie ma złożoność <strong>O(n²)</strong>, ale obliczenie liczby porównań ze wzoru działa w czasie <strong>O(1)</strong>.</p>"
+  },
+  {
+    "id": "wysz-03",
+    "title": "Pierwsza liczba parzysta w uporządkowanym ciągu",
+    "category": "wyszukiwanie",
+    "difficulty": "medium",
+    "ckeSource": "CKE maj 2019 · PR F2015, zadanie 1",
+    "description": "<p>Dana jest lista <code>tab</code>, w której wszystkie liczby nieparzyste występują przed liczbami parzystymi. Napisz funkcję <code>pierwsza_parzysta(tab)</code>, która za pomocą wyszukiwania binarnego zwraca indeks pierwszej liczby parzystej.</p><p>Jeżeli w tablicy nie ma liczb parzystych, zwróć <code>-1</code>. Nie przeglądaj tablicy liniowo.</p>",
+    "inputDesc": "Lista liczb całkowitych, w której najpierw występują liczby nieparzyste, a następnie parzyste.",
+    "outputDesc": "Indeks pierwszej liczby parzystej albo -1, jeśli taka liczba nie występuje.",
+    "timeComplexity": "O(log n)",
+    "spaceComplexity": "O(1)",
+    "examples": [
+      {
+        "input": "tab = [5, 99, 3, 7, 111, 13, 4, 24, 4, 8]",
+        "output": "6",
+        "explanation": "Pierwsza liczba parzysta to 4 pod indeksem 6."
+      },
+      {
+        "input": "tab = [1, 3, 5, 7]",
+        "output": "-1",
+        "explanation": "W tablicy nie ma liczby parzystej."
+      }
+    ],
+    "starterCode": "def pierwsza_parzysta(tab):\n    # Wyszukiwanie binarne w O(log n)\n    pass\n",
+    "functionName": "pierwsza_parzysta",
+    "testCases": [
+      {
+        "input": "([5, 99, 3, 7, 111, 13, 4, 24, 4, 8],)",
+        "expected": 6
+      },
+      {
+        "input": "([1, 3, 5, 7],)",
+        "expected": -1
+      },
+      {
+        "input": "([2, 4, 6],)",
+        "expected": 0
+      },
+      {
+        "input": "([],)",
+        "expected": -1
+      },
+      {
+        "input": "([1, 3, 5, 8],)",
+        "expected": 3
+      }
+    ],
+    "solution": "def pierwsza_parzysta(tab):\n    lewy = 0\n    prawy = len(tab) - 1\n    wynik = -1\n    while lewy <= prawy:\n        srodek = (lewy + prawy) // 2\n        if tab[srodek] % 2 == 0:\n            wynik = srodek\n            prawy = srodek - 1\n        else:\n            lewy = srodek + 1\n    return wynik",
+    "explanation": "<p>Jeżeli środkowy element jest parzysty, zapamiętujemy jego indeks i szukamy jeszcze wcześniej, zmniejszając prawe ograniczenie. Jeżeli jest nieparzysty, pierwsza liczba parzysta może znajdować się wyłącznie po jego prawej stronie. Każdy krok zmniejsza obszar poszukiwań o połowę, dlatego złożoność wynosi <strong>O(log n)</strong>.</p>"
+  },
+  {
+    "id": "sort-03",
+    "title": "Sortowanie przez wybieranie malejąco",
+    "category": "sortowanie",
+    "difficulty": "medium",
+    "ckeSource": "CKE maj 2018 · PP F2007, zadanie 2",
+    "description": "<p>Zaimplementuj sortowanie przez wybieranie w wersji malejącej. W każdej iteracji znajdź największy element w nieposortowanej części tablicy i zamień go z elementem na jej początku.</p><p>Napisz funkcję <code>sortuj_wybieraniem(tab)</code>, która zmodyfikuje listę <code>tab</code> w miejscu i zwróci tę samą listę posortowaną od największego do najmniejszego elementu. Nie używaj <code>sort()</code> ani <code>sorted()</code>.</p>",
+    "inputDesc": "Lista liczb całkowitych tab.",
+    "outputDesc": "Zmodyfikowana lista tab posortowana malejąco.",
+    "timeComplexity": "O(n²)",
+    "spaceComplexity": "O(1)",
+    "examples": [
+      {
+        "input": "tab = [1, 2, 3, 7, 8, 6, 7]",
+        "output": "[8, 7, 7, 6, 3, 2, 1]",
+        "explanation": "W każdej iteracji na początku nieposortowanej części umieszczany jest jej największy element."
+      },
+      {
+        "input": "tab = [4, 4, 4, 4, 2]",
+        "output": "[4, 4, 4, 4, 2]",
+        "explanation": "Równe elementy mogą pozostać na swoich miejscach."
+      }
+    ],
+    "starterCode": "def sortuj_wybieraniem(tab):\n    # Zmodyfikuj tab w miejscu bez sort() i sorted()\n    pass\n",
+    "functionName": "sortuj_wybieraniem",
+    "inPlaceArg": 0,
+    "testCases": [
+      {
+        "input": "([1, 2, 3, 7, 8, 6, 7],)",
+        "expected": [
+          8,
+          7,
+          7,
+          6,
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "input": "([4, 4, 4, 4, 2],)",
+        "expected": [
+          4,
+          4,
+          4,
+          4,
+          2
+        ]
+      },
+      {
+        "input": "([1],)",
+        "expected": [
+          1
+        ]
+      },
+      {
+        "input": "([],)",
+        "expected": []
+      },
+      {
+        "input": "([3, 1, 2],)",
+        "expected": [
+          3,
+          2,
+          1
+        ]
+      }
+    ],
+    "solution": "def sortuj_wybieraniem(tab):\n    n = len(tab)\n    for i in range(n - 1):\n        indeks_max = i\n        for j in range(i + 1, n):\n            if tab[j] > tab[indeks_max]:\n                indeks_max = j\n        if indeks_max != i:\n            tab[i], tab[indeks_max] = tab[indeks_max], tab[i]\n    return tab",
+    "explanation": "<p>Algorytm przechodzi po kolejnych pozycjach tablicy i wyszukuje maksimum w pozostałym fragmencie. Po jednej iteracji jedna pozycja jest już ustalona, ale znalezienie maksimum wymaga dalszych porównań. Łącznie jest ich <code>(n - 1) + ... + 1</code>, więc czas wynosi <strong>O(n²)</strong>, a pamięć dodatkowa <strong>O(1)</strong>.</p>"
+  },
+  {
+    "id": "rek-03",
+    "title": "Iteracyjne szybkie potęgowanie modularne",
+    "category": "rekurencja",
+    "difficulty": "medium",
+    "ckeSource": "CKE marzec 2022 · PR F2023, zadanie 3",
+    "description": "<p>Dana jest liczba <code>a</code>, wykładnik <code>x</code> oraz moduł <code>m</code>. Napisz funkcję <code>potega_mod_iteracyjnie(a, x, m)</code>, która oblicza <code>(a<sup>x</sup>) mod m</code> metodą szybkiego potęgowania.</p><p>W rozwiązaniu wykładnik powinien być w każdym kroku dzielony całkowicie przez 2. Nie używaj operatora potęgowania <code>**</code>. Algorytm powinien działać w czasie <strong>O(log x)</strong>.</p>",
+    "inputDesc": "Liczby całkowite a >= 0, x >= 0 oraz m >= 1.",
+    "outputDesc": "Reszta z dzielenia a do potęgi x przez m.",
+    "timeComplexity": "O(log x)",
+    "spaceComplexity": "O(1)",
+    "examples": [
+      {
+        "input": "a = 5, x = 2, m = 31",
+        "output": "25",
+        "explanation": "5² mod 31 = 25."
+      },
+      {
+        "input": "a = 2, x = 10, m = 1000",
+        "output": "24",
+        "explanation": "2¹⁰ = 1024, a 1024 mod 1000 = 24."
+      }
+    ],
+    "starterCode": "def potega_mod_iteracyjnie(a, x, m):\n    # Szybkie potęgowanie w O(log x), bez **\n    pass\n",
+    "functionName": "potega_mod_iteracyjnie",
+    "testCases": [
+      {
+        "input": "(5, 2, 31)",
+        "expected": 25
+      },
+      {
+        "input": "(2, 10, 1000)",
+        "expected": 24
+      },
+      {
+        "input": "(3, 0, 7)",
+        "expected": 1
+      },
+      {
+        "input": "(9, 2, 80)",
+        "expected": 1
+      },
+      {
+        "input": "(7, 5, 13)",
+        "expected": 11
+      }
+    ],
+    "solution": "def potega_mod_iteracyjnie(a, x, m):\n    wynik = 1 % m\n    a %= m\n    while x > 0:\n        if x % 2 == 1:\n            wynik = (wynik * a) % m\n        a = (a * a) % m\n        x //= 2\n    return wynik",
+    "explanation": "<p>Gdy najmłodszy bit wykładnika jest równy 1, bieżąca potęga podstawy jest dopisywana do wyniku. Następnie podstawa jest podnoszona do kwadratu, a wykładnik dzielony przez 2. To dokładnie idea szybkiego potęgowania z arkusza CKE i daje <strong>O(log x)</strong> operacji.</p>"
+  },
+  {
+    "id": "rek-04",
+    "title": "Generowanie napisów z alfabetu cyfr",
+    "category": "rekurencja",
+    "difficulty": "medium",
+    "ckeSource": "CKE maj 2019 · PR F2015, zadanie 2",
+    "description": "<p>Dla danych liczb <code>n</code> i <code>k</code> wygeneruj wszystkie napisy długości <code>n</code> złożone z cyfr od <code>0</code> do <code>k - 1</code>. Napisz funkcję <code>generuj_napisy(n, k)</code>, która zwraca listę napisów w kolejności uzyskiwanej przez rekurencyjne wywołania od cyfry <code>0</code> do cyfry <code>k - 1</code>.</p><p>Dla <code>n = 0</code> jedynym wynikiem jest pusty napis. Wykorzystaj rekurencję i nie używaj <code>itertools</code>.</p>",
+    "inputDesc": "Liczby całkowite n >= 0 i k >= 1.",
+    "outputDesc": "Lista wszystkich napisów długości n z cyfr 0, 1, ..., k - 1.",
+    "timeComplexity": "O(k^n)",
+    "spaceComplexity": "O(n · k^n)",
+    "examples": [
+      {
+        "input": "n = 2, k = 2",
+        "output": "['00', '01', '10', '11']",
+        "explanation": "Powstają wszystkie dwucyfrowe napisy z cyfr 0 i 1."
+      },
+      {
+        "input": "n = 2, k = 3",
+        "output": "['00', '01', '02', '10', '11', '12', '20', '21', '22']",
+        "explanation": "Każda pozycja może zawierać 0, 1 albo 2."
+      }
+    ],
+    "starterCode": "def generuj_napisy(n, k):\n    # Rozwiązanie rekurencyjne\n    pass\n",
+    "functionName": "generuj_napisy",
+    "testCases": [
+      {
+        "input": "(0, 3)",
+        "expected": [
+          ""
+        ]
+      },
+      {
+        "input": "(1, 1)",
+        "expected": [
+          "0"
+        ]
+      },
+      {
+        "input": "(2, 2)",
+        "expected": [
+          "00",
+          "01",
+          "10",
+          "11"
+        ]
+      },
+      {
+        "input": "(2, 3)",
+        "expected": [
+          "00",
+          "01",
+          "02",
+          "10",
+          "11",
+          "12",
+          "20",
+          "21",
+          "22"
+        ]
+      }
+    ],
+    "solution": "def generuj_napisy(n, k):\n    wynik = []\n    def generuj(prefiks):\n        if len(prefiks) == n:\n            wynik.append(prefiks)\n            return\n        for cyfra in range(k):\n            generuj(prefiks + str(cyfra))\n    generuj('')\n    return wynik",
+    "explanation": "<p>Każde wywołanie rekurencyjne dopisuje jedną z <code>k</code> możliwych cyfr. Gdy długość prefiksu osiągnie <code>n</code>, prefiks jest gotowym wynikiem. Drzewo wywołań ma <code>k^n</code> liści, dlatego liczba wygenerowanych napisów determinuje złożoność czasową.</p>"
   }
 ];
 
-window.ALGO_TASKS = [
+window.ALGO_CATEGORIES = ALGO_DATA.filter(function (item) { return !item.category; });
+window.ALGO_TASKS = ALGO_DATA.filter(function (item) { return item.category; }).concat([
   {
     "id": "zloz-01",
     "title": "Liczba operacji w pętli z dzieleniem",
@@ -876,4 +1163,4 @@ window.ALGO_TASKS = [
     "solution": "def poprawne_nawiasy(napis):\n    stos = []\n    pary = {')': '(', ']': '[', '}': '{'}\n    for c in napis:\n        if c in '([{':\n            stos.append(c)\n        elif c in pary:\n            if not stos or stos[-1] != pary[c]:\n                return False\n            stos.pop()\n    return len(stos) == 0",
     "explanation": "<p>Wykorzystanie listy w roli stosu LIFO. Każdy nawias otwierający trafia na stos. Przy napotkaniu nawiasu zamykającego następuje sprawdzenie, czy na wierzchu stosu znajduje się pasujący nawias otwierający. Złożoność czasowa: <strong>O(n)</strong>.</p>"
   }
-];
+]);
