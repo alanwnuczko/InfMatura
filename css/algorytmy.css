@@ -576,11 +576,8 @@
   border-bottom: 1px solid var(--border-line);
 }
 
-.algo-editor-card .code-tab {
+.algo-editor-card .code-file-name {
   cursor: default;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .algo-py-status {
