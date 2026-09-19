@@ -71,7 +71,7 @@
           </ol>
         </nav>
         <h1 class="legal-title">Polityka prywatności</h1>
-        <p class="legal-updated">Ostatnia aktualizacja: 16 lipca 2026&nbsp;r.</p>
+        <p class="legal-updated">Ostatnia aktualizacja: 19 września 2026&nbsp;r.</p>
 
         <p>
           Niniejsza polityka prywatności opisuje zasady przetwarzania danych w serwisie
@@ -93,7 +93,7 @@
         <ul>
           <li>
             <strong>Dane techniczne hostingu i CDN</strong> - podczas wizyty dostawcy infrastruktury
-            (GitHub Pages oraz sieć jsDelivr) automatycznie rejestrują standardowe logi
+            (GitHub Pages, sieci jsDelivr i cdnjs) automatycznie rejestrują standardowe logi
             serwera (m.in. adres IP, data i godzina żądania, typ przeglądarki, adres odsyłający).
             Przetwarzanie tych danych jest niezbędne do prawidłowego i bezpiecznego przesyłania plików oraz obrony przed cyberatakami.
           </li>
@@ -105,24 +105,36 @@
           (brak Google Analytics, pikseli reklamowych i zewnętrznych skryptów analizujących).
         </p>
         <p>
-          W celu zapewnienia wygody interfejsu Serwis <strong>zapisuje</strong> w pamięci Twojej przeglądarki
-          (<code>localStorage</code>) wyłącznie jeden klucz techniczny: <code>archive_view_mode</code>
-          (zapamiętujący wybór widoku siatki kart lub listy). Zapis ten ma charakter niezbędny do działania wybranej
-          funkcji interfejsu, nie śledzi Cię na innych stronach i możesz go w każdej chwili wyczyścić w ustawieniach przeglądarki.
+          W celu działania wybranych funkcji Serwis <strong>zapisuje</strong> w pamięci Twojej przeglądarki
+          (<code>localStorage</code>) następujące dane:
+        </p>
+        <ul>
+          <li><code>archive_view_mode</code> - wybór widoku siatki kart lub listy w bazie arkuszy;</li>
+          <li><code>algo_progress_v1</code> - informację o zaliczonych zadaniach algorytmicznych;</li>
+          <li><code>algo_code_*</code> - kod wpisany przez Ciebie w edytorze konkretnego zadania algorytmicznego.</li>
+        </ul>
+        <p>
+          Dane te pozostają wyłącznie w Twojej przeglądarce i nie są przesyłane przez Serwis do administratora.
+          Nie służą do śledzenia Cię na innych stronach. Możesz je w każdej chwili usunąć w ustawieniach przeglądarki.
         </p>
 
         <h2>4. Zasoby zewnętrzne</h2>
-        <p>Po kliknięciu linku Serwis może przekierować Cię do:</p>
+        <p>Serwis korzysta z następujących zasobów zewnętrznych:</p>
         <ul>
           <li>
             <strong>GitHub</strong> - repozytorium z arkuszami i rozwiązaniami
             (<a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona" target="_blank" rel="noopener noreferrer">matura-informatyka-rozszerzona</a>);
           </li>
           <li>
-            <strong>jsDelivr CDN</strong> - dostarczanie plików PDF arkuszy i zasad oceniania.
+            <strong>jsDelivr CDN</strong> - dostarczanie plików PDF arkuszy, zasad oceniania oraz środowiska Pyodide
+            wykorzystywanego do uruchamiania kodu Python w przeglądarce;
+          </li>
+          <li>
+            <strong>cdnjs</strong> - dostarczanie biblioteki Prism używanej do kolorowania składni kodu.
           </li>
         </ul>
         <p>
+          Kod wpisany w edytorze zadań algorytmicznych jest wykonywany lokalnie w przeglądarce za pomocą Pyodide.
           Korzystanie z tych serwisów podlega ich własnym politykom prywatności.
           Serwis InfMatura nie kontroluje cookies ani danych przetwarzanych przez te strony.
         </p>
@@ -135,7 +147,7 @@
             oraz Twoja dobrowolna wizyta w Serwisie;
           </li>
           <li>
-            zapamiętanie preferencji widoku - niezbędność do świadczenia wybranej funkcji
+            zapamiętanie preferencji widoku, postępu i kodu w edytorze - niezbędność do świadczenia wybranych funkcji
             interfejsu (art. 6 ust. 1 lit. f RODO).
           </li>
         </ul>
@@ -146,8 +158,8 @@
 
         <h2>6. Okres przechowywania</h2>
         <p>
-          Preferencja widoku w localStorage pozostaje do czasu jej usunięcia przez Ciebie
-          lub wyczyszczenia danych przeglądarki. Logi hostingu są przechowywane zgodnie
+          Dane zapisane w localStorage pozostają do czasu ich usunięcia przez Ciebie
+          lub wyczyszczenia danych przeglądarki. Logi hostingu i CDN są przechowywane zgodnie
           z polityką dostawcy infrastruktury.
         </p>
 
@@ -170,7 +182,7 @@
         <h2>8. Odbiorcy danych</h2>
         <p>
           Dane techniczne związane z hostingiem i CDN mogą być przetwarzane przez
-          dostawców infrastruktury IT (np. GitHub, jsDelivr) w zakresie niezbędnym
+          dostawców infrastruktury IT (np. GitHub, jsDelivr i cdnjs) w zakresie niezbędnym
           do działania Serwisu i dostarczania plików.
         </p>
 
