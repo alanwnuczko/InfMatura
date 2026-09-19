@@ -1,6 +1,8 @@
 // js/algorytmy.js - Logika platformy zadań algorytmicznych dla matury rozszerzonej z informatyki
 // Pełne środowisko programistyczne w przeglądarce (Pyodide), testy jednostkowe, postęp w localStorage
 
+declare const Prism: any;
+
 (function () {
   'use strict';
 
@@ -18,7 +20,7 @@
     hard:   'Trudne'
   };
 
-  function polishPlural(n, one, few, many) {
+  function polishPlural(n: number, one: string, few: string, many: string): string {
     var abs = Math.abs(n);
     if (abs === 1) return one;
     var mod10 = abs % 10;
@@ -30,7 +32,19 @@
   }
 
   // --- Stan aplikacji ---
-  var state = {
+  interface AlgoAppState {
+    view: "categories" | "tasklist" | "task";
+    currentCat: string | null;
+    currentTaskId: string | null;
+    currentFilter: string;
+    pyodideWorker: Worker | null;
+    pyodideWorkerUrl: string | null;
+    pyodideState: "idle" | "loading" | "ready" | "error";
+    pyodidePromise: Promise<Worker> | null;
+    runRequestId: number;
+  }
+
+  var state: AlgoAppState = {
     view:           'categories', // 'categories' | 'tasklist' | 'task'
     currentCat:     null,
     currentTaskId:  null,
@@ -42,7 +56,7 @@
     runRequestId:   0
   };
 
-  var elements = {};
+  var elements: { [key: string]: any } = {};
 
   function scrollToTopInstant() {
     var root = document.documentElement;
@@ -141,13 +155,17 @@
     }
   }
 
-  function navigate(hash) {
+  function navigate(hash: string) {
     window.location.hash = hash;
     scrollToTopInstant();
   }
 
   // --- Zarzadzanie postepem i kodem (localStorage) ---
-  function loadProgress() {
+  interface AlgoProgress {
+    done?: { [taskId: string]: boolean };
+  }
+
+  function loadProgress(): AlgoProgress {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_PROGRESS_KEY) || '{}');
     } catch (e) {
@@ -155,7 +173,7 @@
     }
   }
 
-  function saveProgress(taskId) {
+  function saveProgress(taskId: string) {
     var p = loadProgress();
     if (!p.done) p.done = {};
     p.done[taskId] = true;
@@ -164,30 +182,30 @@
     } catch (e) {}
   }
 
-  function isDone(taskId) {
+  function isDone(taskId: string): boolean {
     var p = loadProgress();
     return !!(p.done && p.done[taskId]);
   }
 
-  function getDoneCountForCat(catId) {
+  function getDoneCountForCat(catId: string): number {
     var p = loadProgress();
     if (!p.done) return 0;
     var tasks = getTasksForCat(catId);
-    return tasks.filter(function (t) { return p.done[t.id]; }).length;
+    return tasks.filter(function (t) { return p.done![t.id]; }).length;
   }
 
-  function getTotalDoneCount() {
+  function getTotalDoneCount(): number {
     var p = loadProgress();
     return p.done ? Object.keys(p.done).length : 0;
   }
 
-  function saveUserCode(taskId, code) {
+  function saveUserCode(taskId: string, code: string) {
     try {
       localStorage.setItem(STORAGE_CODE_PREFIX + taskId, code);
     } catch (e) {}
   }
 
-  function loadUserCode(taskId, fallback) {
+  function loadUserCode(taskId: string, fallback: string): string {
     try {
       var saved = localStorage.getItem(STORAGE_CODE_PREFIX + taskId);
       return (saved !== null && saved !== undefined) ? saved : fallback;
@@ -196,7 +214,7 @@
     }
   }
 
-  function clearUserCode(taskId) {
+  function clearUserCode(taskId: string) {
     try {
       localStorage.removeItem(STORAGE_CODE_PREFIX + taskId);
     } catch (e) {}
@@ -204,7 +222,7 @@
 
   function clearAllUserCode() {
     try {
-      var toRemove = [];
+      var toRemove: string[] = [];
       for (var i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
         if (key && key.indexOf(STORAGE_CODE_PREFIX) === 0) {
@@ -218,12 +236,12 @@
   }
 
   // --- Pobieranie danych ---
-  function getTasksForCat(catId) {
+  function getTasksForCat(catId: string | null): AlgoTask[] {
     if (!window.ALGO_TASKS) return [];
     return window.ALGO_TASKS.filter(function (t) { return t.category === catId; });
   }
 
-  function getTaskById(taskId) {
+  function getTaskById(taskId: string): AlgoTask | null {
     if (!window.ALGO_TASKS) return null;
     for (var i = 0; i < window.ALGO_TASKS.length; i++) {
       if (window.ALGO_TASKS[i].id === taskId) return window.ALGO_TASKS[i];
@@ -231,7 +249,7 @@
     return null;
   }
 
-  function getCategoryMeta(catId) {
+  function getCategoryMeta(catId: string): AlgoCategory | null {
     if (!window.ALGO_CATEGORIES) return null;
     for (var i = 0; i < window.ALGO_CATEGORIES.length; i++) {
       if (window.ALGO_CATEGORIES[i].id === catId) return window.ALGO_CATEGORIES[i];
@@ -239,13 +257,13 @@
     return null;
   }
 
-  function getRandomTask(catId) {
+  function getRandomTask(catId: string | null): AlgoTask | null {
     var pool = catId ? getTasksForCat(catId) : (window.ALGO_TASKS || []);
     if (!pool.length) return null;
     return pool[Math.floor(Math.random() * pool.length)];
   }
 
-  function getAdjacentTask(taskId) {
+  function getAdjacentTask(taskId: string): { prev: AlgoTask | null; next: AlgoTask | null } {
     var tasks = window.ALGO_TASKS || [];
     var idx   = tasks.findIndex(function (t) { return t.id === taskId; });
     return {
@@ -348,7 +366,7 @@
   }
 
   // --- Widok: Lista zadań w kategorii ---
-  function renderTaskList(catId) {
+  function renderTaskList(catId: string) {
     state.view       = 'tasklist';
     state.currentCat = catId;
 
@@ -398,7 +416,7 @@
     bindListEvents(tasks, cat);
   }
 
-  function renderFilterPills(tasks) {
+  function renderFilterPills(tasks: AlgoTask[]): string {
     return '<div class="algo-filter-pills" role="radiogroup" aria-label="Filtruj według trudności">'
       + '<button type="button" class="algo-filter-chip is-active" data-filter="all" role="radio" aria-checked="true">'
       + 'Wszystkie'
@@ -419,7 +437,7 @@
       + '</div>';
   }
 
-  function bindListEvents(tasks, cat) {
+  function bindListEvents(tasks: AlgoTask[], cat: AlgoCategory | null) {
     var catRandomBtn = document.getElementById('algo-cat-random-btn');
     if (catRandomBtn) {
       catRandomBtn.addEventListener('click', function () {
@@ -467,11 +485,11 @@
     });
   }
 
-  function countByDiff(tasks, diff) {
+  function countByDiff(tasks: AlgoTask[], diff: string): number {
     return tasks.filter(function (t) { return t.difficulty === diff; }).length;
   }
 
-  function renderTaskRows(tasks, filter) {
+  function renderTaskRows(tasks: AlgoTask[], filter: string): string {
     var filtered = tasks;
     if (filter && filter !== 'all') {
       filtered = tasks.filter(function (t) { return t.difficulty === filter; });
@@ -507,7 +525,7 @@
   }
 
   // --- Kolorowanie skladni (Prism.js) i obsluga edytora ---
-  function highlightPython(code) {
+  function highlightPython(code: string): string {
     if (!code) return '';
     if (window.Prism && window.Prism.languages && window.Prism.languages.python) {
       try {
@@ -519,7 +537,7 @@
     return escHtml(code);
   }
 
-  function updateEditorHighlighting(editorEl) {
+  function updateEditorHighlighting(editorEl: HTMLTextAreaElement | null) {
     if (!editorEl) return;
     var codeEl = document.getElementById('algo-editor-highlight');
     if (!codeEl) return;
@@ -543,7 +561,7 @@
     }
   }
 
-  function syncEditorScroll(editorEl) {
+  function syncEditorScroll(editorEl: HTMLTextAreaElement | null) {
     var pre = document.querySelector('.algo-editor-pre');
     if (pre && editorEl) {
       pre.scrollTop = editorEl.scrollTop;
@@ -551,7 +569,7 @@
     }
   }
 
-  function ensurePrismLoaded(callback) {
+  function ensurePrismLoaded(callback?: () => void) {
     if (window.Prism && window.Prism.languages && window.Prism.languages.python) {
       if (callback) callback();
       return;
@@ -613,10 +631,10 @@
 
   function updateCompanionGaze() {
     var comp = document.getElementById('algo-companion');
-    var editor = document.getElementById('algo-editor');
+    var editor = document.getElementById('algo-editor') as HTMLTextAreaElement;
     if (!comp || !editor) return;
 
-    var eyesGroup = comp.querySelector('.orb-eyes-group');
+    var eyesGroup = comp.querySelector('.orb-eyes-group') as HTMLElement;
     if (!eyesGroup) return;
 
     var following = companionState === 'typing' || companionState === 'paused';
@@ -650,8 +668,8 @@
     var mobile = window.matchMedia('(max-width: 1060px)').matches;
 
     if (!mobile) {
-      var tabsBar = card.querySelector('.code-tabs-bar');
-      var actions = card.querySelector('.algo-editor-actions');
+      var tabsBar = card.querySelector('.code-tabs-bar') as HTMLElement;
+      var actions = card.querySelector('.algo-editor-actions') as HTMLElement;
       var tabsH = tabsBar ? tabsBar.offsetHeight : 42;
       var actionsH = actions ? actions.offsetHeight : 52;
       var minTop = Math.max(tabsH + 6, (editorRect.top - paneRect.top) + 4);
@@ -676,7 +694,7 @@
     }
   }
 
-  function setCompanionState(newState) {
+  function setCompanionState(newState: string) {
     companionState = newState;
     var el = document.getElementById('algo-companion');
     if (!el) return;
@@ -685,11 +703,11 @@
     if (newState === 'typing' || newState === 'paused') {
       updateCompanionGaze();
     } else if (newState === 'idle') {
-      var idleEyes = el.querySelector('.orb-eyes-group');
+      var idleEyes = el.querySelector('.orb-eyes-group') as HTMLElement;
       if (idleEyes) idleEyes.style.transform = '';
       el.style.top = '';
     } else {
-      var faceEyes = el.querySelector('.orb-eyes-group');
+      var faceEyes = el.querySelector('.orb-eyes-group') as HTMLElement;
       if (faceEyes) faceEyes.style.transform = '';
     }
   }
@@ -716,7 +734,7 @@
   // ==========================================================================
   // WIDOK ROZWIĄZYWANIA ZADANIA
   // ==========================================================================
-  function renderTaskView(taskId) {
+  function renderTaskView(taskId: string) {
     if (companionTypingTimer) clearTimeout(companionTypingTimer);
     if (companionPauseTimer) clearTimeout(companionPauseTimer);
     companionState = 'idle';
@@ -847,7 +865,7 @@
     loadPyodide();
   }
 
-  function renderExamples(examples) {
+  function renderExamples(examples: AlgoExample[] | undefined): string {
     if (!examples || !examples.length) return '';
     var html = '';
     examples.forEach(function (ex, i) {
@@ -862,7 +880,7 @@
   }
 
   // --- Zdarzenia w widoku zadania ---
-  function bindTaskEvents(task) {
+  function bindTaskEvents(task: AlgoTask) {
     var rBtn = document.getElementById('algo-random-any');
     if (rBtn) {
       rBtn.addEventListener('click', function () {
@@ -916,7 +934,7 @@
     }
 
     // Edytor: kolorowanie skladni, smart indent, taby i autozapis
-    var editor = document.getElementById('algo-editor');
+    var editor = document.getElementById('algo-editor') as HTMLTextAreaElement;
     if (editor) {
       updateEditorHighlighting(editor);
       syncEditorScroll(editor);
@@ -1289,7 +1307,7 @@
     };
   }
 
-  function terminatePyodideWorker(nextState) {
+  function terminatePyodideWorker(nextState: "idle" | "loading" | "ready" | "error") {
     if (state.pyodideWorker) {
       state.pyodideWorker.terminate();
     }
@@ -1303,7 +1321,7 @@
     updatePyodideStatusDisplay();
   }
 
-  function loadPyodide() {
+  function loadPyodide(): Promise<Worker> {
     if (state.pyodideState === 'ready') return Promise.resolve(state.pyodideWorker);
     if (state.pyodideState === 'loading') return state.pyodidePromise;
 
@@ -1365,9 +1383,9 @@
     }
   }
 
-  function runTaskTests(task) {
-    var editor = document.getElementById('algo-editor');
-    var runBtn = document.getElementById('algo-run-btn');
+  function runTaskTests(task: AlgoTask) {
+    var editor = document.getElementById('algo-editor') as HTMLTextAreaElement;
+    var runBtn = document.getElementById('algo-run-btn') as HTMLButtonElement;
     var consoleBody = document.getElementById('algo-console-body');
     var runLabel = document.getElementById('algo-run-label');
 
@@ -1464,7 +1482,7 @@
 
     var requestId = ++state.runRequestId;
     loadPyodide().then(function (worker) {
-      return new Promise(function (resolve, reject) {
+      return new Promise<any[]>(function (resolve, reject) {
         var timeoutId;
         function cleanup() {
           clearTimeout(timeoutId);
@@ -1489,7 +1507,7 @@
         timeoutId = setTimeout(function () {
           cleanup();
           terminatePyodideWorker('idle');
-          var timeoutError = new Error('Przekroczono limit czasu wykonania testów.');
+          var timeoutError: any = new Error('Przekroczono limit czasu wykonania testów.');
           timeoutError.code = 'PYODIDE_TIMEOUT';
           reject(timeoutError);
         }, PYODIDE_RUN_TIMEOUT_MS);
@@ -1536,7 +1554,7 @@
     });
   }
 
-  function cleanPythonTraceback(err, userCode) {
+  function cleanPythonTraceback(err: unknown, userCode: string): string {
     if (!err) return 'Nieznany błąd wykonania.';
     var str = String(err).trim();
     // Usuń prefiks "PythonError: "
@@ -1590,7 +1608,7 @@
     return result || str;
   }
 
-  function displayTestResults(task, results) {
+  function displayTestResults(task: AlgoTask, results: any[]) {
     var consoleBody = document.getElementById('algo-console-body');
     if (!consoleBody) return;
 
@@ -1661,14 +1679,14 @@
   }
 
   // --- UI Helpers ---
-  function setContent(html) {
+  function setContent(html: string) {
     if (!elements.main) return;
     elements.main.innerHTML = html;
     blurEditorIfFocused();
     scrollToTopInstant();
   }
 
-  function breadcrumbs(items) {
+  function breadcrumbs(items: { label: string; href: string | null }[]): string {
     var html = '<nav class="breadcrumbs" aria-label="Ścieżka powrotu"><ol class="breadcrumb-list">'
       + '<li class="breadcrumb-item"><a href="/" class="breadcrumb-link">Strona główna</a>'
         + '<span class="breadcrumb-separator" aria-hidden="true">/</span></li>';
@@ -1689,7 +1707,7 @@
     return html;
   }
 
-  function difficultyBadge(diff) {
+  function difficultyBadge(diff: string): string {
     var label = DIFFICULTY_LABELS[diff] || diff;
     return '<span class="pill-badge pill-badge--' + escAttr(diff) + '">' + escHtml(label) + '</span>';
   }
@@ -1720,7 +1738,7 @@
       + '</svg>';
   }
 
-  function escHtml(s) {
+  function escHtml(s: unknown): string {
     if (s === null || s === undefined) return '';
     return String(s)
       .split('&').join('&amp;')
@@ -1729,7 +1747,7 @@
       .split('"').join('&quot;');
   }
 
-  function escAttr(s) {
+  function escAttr(s: unknown): string {
     return escHtml(s);
   }
 
