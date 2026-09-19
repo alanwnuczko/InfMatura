@@ -1,7 +1,9 @@
+declare const marked: any;
+
 (function () {
   "use strict";
 
-  var ALLOWED_TAGS = {
+  var ALLOWED_TAGS: Record<string, string[]> = {
     a: ["href", "title"],
     p: [],
     br: [],
@@ -40,7 +42,7 @@
   };
 
   var FORBIDDEN_TAGS = /^(script|iframe|object|embed|form|link|meta|base|svg|math|style|textarea|input|button|select|option|video|audio|source|track|frame|frameset|applet|html|head|body|template)$/;
-  var VOID_TAGS = { br: 1, hr: 1, img: 1 };
+  var VOID_TAGS: Record<string, number> = { br: 1, hr: 1, img: 1 };
   var markedConfigured = false;
 
   function init() {
@@ -83,21 +85,21 @@
     });
   }
 
-  function decodeHtmlEntities(str) {
+  function decodeHtmlEntities(str: string): string {
     if (!str || str.indexOf("&") === -1) return str;
     var ta = document.createElement("textarea");
     ta.innerHTML = str;
     return ta.value;
   }
 
-  function escapeText(value) {
+  function escapeText(value: unknown): string {
     return String(value)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
   }
 
-  function escapeAttr(value) {
+  function escapeAttr(value: unknown): string {
     return String(value)
       .replace(/&/g, "&amp;")
       .replace(/"/g, "&quot;")
@@ -105,7 +107,7 @@
       .replace(/>/g, "&gt;");
   }
 
-  function isSafeUrl(url, attr) {
+  function isSafeUrl(url: string | null, attr?: string): boolean {
     var u = String(url || "").trim();
     if (!u) return false;
     if (/^\s*(javascript|vbscript|data):/i.test(u)) return false;
@@ -116,11 +118,12 @@
     return !/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(u);
   }
 
-  function sanitizeToString(node) {
+  function sanitizeToString(node: Node): string {
     if (node.nodeType === 3) return escapeText(node.nodeValue);
     if (node.nodeType !== 1) return "";
 
-    var tag = node.tagName.toLowerCase();
+    var el = node as Element;
+    var tag = el.tagName.toLowerCase();
     if (FORBIDDEN_TAGS.test(tag)) return "";
 
     var allowed = ALLOWED_TAGS[tag];
@@ -135,8 +138,8 @@
     var attrs = "";
     for (var a = 0; a < allowed.length; a++) {
       var name = allowed[a];
-      if (!node.hasAttribute(name)) continue;
-      var val = node.getAttribute(name);
+      if (!el.hasAttribute(name)) continue;
+      var val = el.getAttribute(name);
       if ((name === "href" || name === "src") && !isSafeUrl(val, name)) continue;
       attrs += " " + name + '="' + escapeAttr(val) + '"';
     }
@@ -150,7 +153,7 @@
     return "<" + tag + attrs + ">" + inner + "</" + tag + ">";
   }
 
-  function sanitizeHtml(dirty) {
+  function sanitizeHtml(dirty: string | null | undefined): string {
     var template = document.createElement("template");
     template.innerHTML = String(dirty == null ? "" : dirty);
     var out = "";
@@ -176,14 +179,14 @@
     markedConfigured = true;
   }
 
-  function parseMarkdown(src) {
+  function parseMarkdown(src: string): string {
     if (typeof marked === "undefined") return "";
     configureMarked();
     var html = marked.parse(src);
     return sanitizeHtml(html);
   }
 
-  function getMarkdownSource(panel) {
+  function getMarkdownSource(panel: Element): string {
     var rawScript = panel.querySelector('script[type="text/markdown"]');
     if (!rawScript) return "";
     return decodeHtmlEntities(rawScript.textContent || "").trim();
@@ -200,7 +203,7 @@
     }
 
     document.querySelectorAll(".code-panel-md").forEach(function (panel) {
-      var target = panel.querySelector(".markdown-rendered");
+      var target = panel.querySelector(".markdown-rendered") as HTMLElement | null;
       if (!target || target.dataset.rendered) return;
       target.innerHTML = parseMarkdown(getMarkdownSource(panel));
       target.dataset.rendered = "true";
@@ -241,7 +244,7 @@
         if (panel.classList.contains("code-panel-md")) {
           textToCopy = getMarkdownSource(panel);
         } else {
-          var codeEl = panel.querySelector("code");
+          var codeEl = panel.querySelector("code") as HTMLElement | null;
           if (codeEl) textToCopy = codeEl.innerText || codeEl.textContent || "";
         }
 
@@ -261,10 +264,10 @@
     });
   }
 
-  function getExamPdfLinks() {
+  function getExamPdfLinks(): { url: string; label: string }[] {
     var bar = document.querySelector(".exam-actions-bar");
     if (!bar) return [];
-    var out = [];
+    var out: { url: string; label: string }[] = [];
     var links = bar.querySelectorAll("a[href]");
     for (var i = 0; i < links.length; i++) {
       var href = links[i].getAttribute("href") || "";
@@ -278,27 +281,27 @@
     return out;
   }
 
-  function pdfFrameSrc(url) {
+  function pdfFrameSrc(url: string): string {
     var base = String(url || "").split("#")[0];
     return base + "#view=FitH";
   }
 
   var PDF_PREVIEW_MQ = "(min-width: 769px)";
 
-  function canShowPdfPreview() {
+  function canShowPdfPreview(): boolean {
     return window.matchMedia(PDF_PREVIEW_MQ).matches;
   }
 
-  function whenPdfPreviewAllowed(callback) {
+  function whenPdfPreviewAllowed(callback: () => void) {
     var mq = window.matchMedia(PDF_PREVIEW_MQ);
-    var onChange = function (e) {
+    var onChange = function (e: MediaQueryListEvent) {
       if (!e.matches) return;
       if (mq.removeEventListener) mq.removeEventListener("change", onChange);
-      else if (mq.removeListener) mq.removeListener(onChange);
+      else if ((mq as any).removeListener) (mq as any).removeListener(onChange);
       callback();
     };
     if (mq.addEventListener) mq.addEventListener("change", onChange);
-    else if (mq.addListener) mq.addListener(onChange);
+    else if ((mq as any).addListener) (mq as any).addListener(onChange);
   }
 
   function initPdfViewer() {
@@ -308,7 +311,7 @@
     }
 
     if (document.getElementById("pdf-viewer-section")) {
-      bindPdfViewer(document.getElementById("pdf-viewer-section"));
+      bindPdfViewer(document.getElementById("pdf-viewer-section") as HTMLElement);
       return;
     }
 
@@ -410,8 +413,8 @@
     bindPdfViewer(section);
   }
 
-  function setPdfExpanded(section, expanded) {
-    var wrap = section.querySelector(".pdf-frame-wrap");
+  function setPdfExpanded(section: Element, expanded: boolean) {
+    var wrap = section.querySelector(".pdf-frame-wrap") as HTMLElement | null;
     var btn = section.querySelector(".pdf-expand-btn");
     if (wrap) wrap.style.height = "";
     section.classList.toggle("is-expanded", expanded);
@@ -420,18 +423,18 @@
       var label = btn.querySelector("span") || btn;
       label.textContent = expanded ? "Zwiń" : "Rozwiń";
     }
-    if (expanded && section.scrollIntoView) {
+    if ((section as HTMLElement).scrollIntoView) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
 
-  function bindPdfViewer(section) {
-    var iframe = section.querySelector(".pdf-frame");
-    var fallbackLink = section.querySelector(".pdf-fallback-link");
+  function bindPdfViewer(section: HTMLElement) {
+    var iframe = section.querySelector(".pdf-frame") as HTMLIFrameElement | null;
+    var fallbackLink = section.querySelector(".pdf-fallback-link") as HTMLAnchorElement | null;
     var tabs = section.querySelectorAll(".pdf-tab");
     var expandBtn = section.querySelector(".pdf-expand-btn");
-    var wrap = section.querySelector(".pdf-frame-wrap");
-    var handle = section.querySelector(".pdf-resize-handle");
+    var wrap = section.querySelector(".pdf-frame-wrap") as HTMLElement | null;
+    var handle = section.querySelector(".pdf-resize-handle") as HTMLElement | null;
 
     if (iframe && tabs.length) {
       tabs.forEach(function (tab) {
@@ -462,13 +465,13 @@
     var startY = 0;
     var startH = 0;
 
-    function clampHeight(next) {
+    function clampHeight(next: number): number {
       var min = 240;
       var max = Math.max(min, window.innerHeight - 120);
       return Math.round(Math.min(max, Math.max(min, next)));
     }
 
-    handle.addEventListener("pointerdown", function (e) {
+    handle.addEventListener("pointerdown", function (e: PointerEvent) {
       dragging = true;
       startY = e.clientY;
       startH = wrap.getBoundingClientRect().height;
@@ -484,7 +487,7 @@
       e.preventDefault();
     });
 
-    handle.addEventListener("pointermove", function (e) {
+    handle.addEventListener("pointermove", function (e: PointerEvent) {
       if (!dragging) return;
       wrap.style.height = clampHeight(startH + (e.clientY - startY)) + "px";
     });
@@ -497,7 +500,7 @@
     handle.addEventListener("pointerup", stopDrag);
     handle.addEventListener("pointercancel", stopDrag);
 
-    handle.addEventListener("keydown", function (e) {
+    handle.addEventListener("keydown", function (e: KeyboardEvent) {
       var step = e.shiftKey ? 48 : 24;
       var h = wrap.getBoundingClientRect().height;
       if (e.key === "ArrowUp") {

@@ -1,15 +1,38 @@
+interface AppState {
+  searchQuery: string;
+  formulaFilter: string;
+  levelFilter: string;
+  yearFilter: string;
+}
+
+interface AppElements {
+  grid: HTMLElement;
+  searchInput: HTMLInputElement;
+  formulaFilter: HTMLElement;
+  levelFilter: HTMLElement;
+  yearFilter: HTMLElement;
+  resultCount: HTMLElement;
+  clearBtn: HTMLElement;
+  noResultsClear: HTMLElement;
+  header: HTMLElement;
+  currentYear: HTMLElement;
+  noResults: HTMLElement;
+  viewSwitcher: HTMLElement;
+  backToTop: HTMLElement;
+}
+
 (function () {
   "use strict";
 
-  var state = {
+  var state: AppState = {
     searchQuery: "",
     formulaFilter: "all",
     levelFilter: "all",
     yearFilter: "all"
   };
 
-  var elements = {};
-  var activeSelect = null;
+  var elements = {} as AppElements;
+  var activeSelect: Element | null = null;
 
   async function init() {
     if ("scrollRestoration" in history) {
@@ -53,19 +76,19 @@
   }
 
   function cacheElements() {
-    elements.grid = document.getElementById("exam-grid");
-    elements.searchInput = document.getElementById("search-input");
-    elements.formulaFilter = document.getElementById("formula-filter");
-    elements.levelFilter = document.getElementById("level-filter");
-    elements.yearFilter = document.getElementById("year-filter");
-    elements.resultCount = document.getElementById("result-count");
-    elements.clearBtn = document.getElementById("clear-filters");
-    elements.noResultsClear = document.getElementById("no-results-clear");
-    elements.header = document.getElementById("site-header");
-    elements.currentYear = document.getElementById("current-year");
-    elements.noResults = document.getElementById("no-results");
-    elements.viewSwitcher = document.getElementById("view-switcher");
-    elements.backToTop = document.getElementById("back-to-top");
+    elements.grid = document.getElementById("exam-grid") as HTMLElement;
+    elements.searchInput = document.getElementById("search-input") as HTMLInputElement;
+    elements.formulaFilter = document.getElementById("formula-filter") as HTMLElement;
+    elements.levelFilter = document.getElementById("level-filter") as HTMLElement;
+    elements.yearFilter = document.getElementById("year-filter") as HTMLElement;
+    elements.resultCount = document.getElementById("result-count") as HTMLElement;
+    elements.clearBtn = document.getElementById("clear-filters") as HTMLElement;
+    elements.noResultsClear = document.getElementById("no-results-clear") as HTMLElement;
+    elements.header = document.getElementById("site-header") as HTMLElement;
+    elements.currentYear = document.getElementById("current-year") as HTMLElement;
+    elements.noResults = document.getElementById("no-results") as HTMLElement;
+    elements.viewSwitcher = document.getElementById("view-switcher") as HTMLElement;
+    elements.backToTop = document.getElementById("back-to-top") as HTMLElement;
   }
 
   function clearFilters() {
@@ -80,7 +103,7 @@
     render();
   }
 
-  function closeAllSelects(except) {
+  function closeAllSelects(except?: Element | null) {
     document.querySelectorAll(".custom-select").forEach(function (select) {
       if (except && select === except) return;
       select.classList.remove("open");
@@ -91,17 +114,17 @@
     if (!except) activeSelect = null;
   }
 
-  function getOptions(select) {
+  function getOptions(select: Element): Element[] {
     return Array.prototype.slice.call(select.querySelectorAll(".custom-select-option"));
   }
 
-  function clearActiveOption(select) {
+  function clearActiveOption(select: Element) {
     getOptions(select).forEach(function (opt) {
       opt.classList.remove("is-active");
     });
   }
 
-  function setActiveOption(select, option) {
+  function setActiveOption(select: Element, option: Element | null) {
     clearActiveOption(select);
     if (!option) return;
     option.classList.add("is-active");
@@ -109,12 +132,12 @@
     if (trigger && option.id) {
       trigger.setAttribute("aria-activedescendant", option.id);
     }
-    if (option.scrollIntoView) {
+    if ((option as HTMLElement).scrollIntoView) {
       option.scrollIntoView({ block: "nearest" });
     }
   }
 
-  function openSelect(select) {
+  function openSelect(select: Element) {
     closeAllSelects(select);
     select.classList.add("open");
     activeSelect = select;
@@ -124,9 +147,9 @@
     setActiveOption(select, selected);
   }
 
-  function closeSelect(select, restoreFocus) {
+  function closeSelect(select: Element, restoreFocus?: boolean) {
     select.classList.remove("open");
-    var trigger = select.querySelector(".custom-select-trigger");
+    var trigger = select.querySelector(".custom-select-trigger") as HTMLElement | null;
     if (trigger) {
       trigger.setAttribute("aria-expanded", "false");
       trigger.removeAttribute("aria-activedescendant");
@@ -153,11 +176,11 @@
       });
 
       trigger.addEventListener("keydown", function (e) {
-        handleSelectKeydown(select, e);
+        handleSelectKeydown(select, e as KeyboardEvent);
       });
 
       select.addEventListener("click", function (e) {
-        var option = e.target.closest(".custom-select-option");
+        var option = (e.target as Element).closest(".custom-select-option");
         if (!option || !select.contains(option)) return;
         e.stopPropagation();
         selectOption(select, option);
@@ -175,7 +198,7 @@
     });
   }
 
-  function handleSelectKeydown(select, e) {
+  function handleSelectKeydown(select: Element, e: KeyboardEvent) {
     var options = getOptions(select);
     if (!options.length) return;
 
@@ -226,7 +249,7 @@
     }
   }
 
-  function selectOption(selectEl, optionEl) {
+  function selectOption(selectEl: Element, optionEl: Element) {
     var valueDisplay = selectEl.querySelector(".custom-select-value");
     var allOptions = selectEl.querySelectorAll(".custom-select-option");
     var trigger = selectEl.querySelector(".custom-select-trigger");
@@ -246,17 +269,17 @@
 
     var value = optionEl.getAttribute("data-value");
     if (selectEl.id === "formula-filter") {
-      state.formulaFilter = value;
+      state.formulaFilter = value as string;
     } else if (selectEl.id === "level-filter") {
-      state.levelFilter = value;
+      state.levelFilter = value as string;
     } else if (selectEl.id === "year-filter") {
-      state.yearFilter = value;
+      state.yearFilter = value as string;
     }
 
     render();
   }
 
-  function setSelectValue(selectEl, value) {
+  function setSelectValue(selectEl: Element | null, value: string | number): boolean | undefined {
     if (!selectEl) return;
     var options = selectEl.querySelectorAll(".custom-select-option");
     var valueDisplay = selectEl.querySelector(".custom-select-value");
@@ -278,7 +301,7 @@
   function bindEvents() {
     if (elements.searchInput) {
       elements.searchInput.addEventListener("input", function (e) {
-        state.searchQuery = e.target.value.trim().toLowerCase();
+        state.searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
         render();
       });
 
@@ -307,8 +330,8 @@
       if (
         e.key === "/" &&
         document.activeElement !== elements.searchInput &&
-        !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName) &&
-        !document.activeElement.isContentEditable
+        !["INPUT", "TEXTAREA", "SELECT"].includes((document.activeElement as HTMLElement).tagName) &&
+        !(document.activeElement as HTMLElement).isContentEditable
       ) {
         e.preventDefault();
         if (elements.searchInput) elements.searchInput.focus();
@@ -317,10 +340,10 @@
 
     if (elements.grid) {
       elements.grid.addEventListener("click", function (e) {
-        if (e.target.closest("a, button")) {
+        if ((e.target as Element).closest("a, button")) {
           return;
         }
-        var card = e.target.closest(".exam-card");
+        var card = (e.target as Element).closest(".exam-card") as HTMLElement | null;
         if (card && card.dataset.examUrl) {
           window.location.href = card.dataset.examUrl;
         }
@@ -348,7 +371,7 @@
 
   function populateYearFilter() {
     if (!elements.yearFilter) return;
-    var years = [];
+    var years: number[] = [];
     examData.forEach(function (exam) {
       if (years.indexOf(exam.year) === -1) years.push(exam.year);
     });
@@ -360,11 +383,11 @@
     years.forEach(function (year) {
       var opt = document.createElement("div");
       opt.className = "custom-select-option";
-      opt.setAttribute("data-value", year);
+      opt.setAttribute("data-value", String(year));
       opt.setAttribute("role", "option");
       opt.setAttribute("aria-selected", "false");
       opt.id = "year-opt-" + year;
-      opt.textContent = year;
+      opt.textContent = String(year);
       dropdown.appendChild(opt);
     });
   }
@@ -379,21 +402,21 @@
     }
 
     if (params.has("formula")) {
-      var formula = params.get("formula");
+      var formula = params.get("formula") as string;
       if (setSelectValue(elements.formulaFilter, formula)) {
         state.formulaFilter = formula;
       }
     }
 
     if (params.has("level")) {
-      var level = params.get("level");
+      var level = params.get("level") as string;
       if (setSelectValue(elements.levelFilter, level)) {
         state.levelFilter = level;
       }
     }
 
     if (params.has("year")) {
-      var year = params.get("year");
+      var year = params.get("year") as string;
       if (setSelectValue(elements.yearFilter, year)) {
         state.yearFilter = year;
       }
@@ -422,7 +445,7 @@
     }
   }
 
-  function getFilteredData() {
+  function getFilteredData(): Exam[] {
     return examData.filter(function (exam) {
       if (state.formulaFilter !== "all") {
         if (state.formulaFilter === "2023") {
@@ -507,7 +530,7 @@
     updateBackToTop();
   }
 
-  function buildCard(exam) {
+  function buildCard(exam: Exam): HTMLElement {
     var card = document.createElement("article");
     card.className = "exam-card";
     card.id = exam.id;
@@ -582,7 +605,7 @@
     return card;
   }
 
-  function scrollToExam(examId) {
+  function scrollToExam(examId: string) {
     if (!examId) return;
     requestAnimationFrame(function () {
       var el = document.getElementById(examId);
@@ -657,7 +680,7 @@
       currentView = "grid";
     }
 
-    function setView(viewMode) {
+    function setView(viewMode: string) {
       currentView = viewMode;
       if (viewMode === "list") {
         elements.grid.classList.add("view-list");

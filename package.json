@@ -1,0 +1,19 @@
+{
+  "name": "infmatura",
+  "version": "1.0.0",
+  "private": true,
+  "description": "InfMatura - baza arkuszy maturalnych, pytan teoretycznych i platforma algorytmiczna z informatyki",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

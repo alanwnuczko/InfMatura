@@ -22,9 +22,9 @@ Wyszukiwarka arkuszy maturalnych z informatyki rozszerzonej z podgladem rozwiąz
 
 <br>
 
-[![Tech Stack](https://skillicons.dev/icons?i=html,css,js,github,md&theme=dark)](https://skillicons.dev)
+[![Tech Stack](https://skillicons.dev/icons?i=html,css,ts,vite,github,md&theme=dark)](https://skillicons.dev)
 
-**HTML5, CSS3, JavaScript** bez frameworków, hostowany na **GitHub Pages**. Kolorowanie składni kodu przez **Prism.js**, renderowanie Markdown przez **Marked.js**, pliki z repozytorium danych serwowane przez **jsDelivr CDN**. Podstrony generowane skryptem **PowerShell** (`scripts/generate.ps1`).
+**HTML5, CSS3, TypeScript** bez frameworków, zbudowane przez **Vite** i hostowane na **GitHub Pages**. Kolorowanie składni kodu przez **Prism.js**, renderowanie Markdown przez **Marked.js**, pliki z repozytorium danych serwowane przez **jsDelivr CDN**. Podstrony generowane skryptem **PowerShell** (`scripts/generate.ps1`).
 
 
 ## Dane i rozwiązania
@@ -40,15 +40,19 @@ Podstrony arkuszy generowane są skryptem PowerShell (`scripts/generate.ps1`), k
 ```bash
 git clone https://github.com/alanwnuczko/InfMatura.git
 cd InfMatura
+npm install
+npm run dev
 ```
 
-Otwórz `index.html` w przeglądarce lub uruchom lokalny serwer:
+Strona będzie dostępna pod adresem wskazanym przez Vite (domyślnie `http://localhost:5173`).
+
+Pozostałe polecenia:
 
 ```bash
-python -m http.server 8000
+npm run build     # produkcyjny build do dist/
+npm run preview   # podgląd builda produkcyjnego
+npm run typecheck # sprawdzenie typów TypeScript (tsc --noEmit)
 ```
-
-Strona będzie dostępna pod adresem `http://localhost:8000`.
 
 ## Licencja
 
