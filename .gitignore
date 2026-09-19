@@ -7,6 +7,12 @@ CLAUDE.md
 .cache/
 *.log
 
+# Node / Vite build tooling
+node_modules/
+dist/
+.vite/
+*.local
+
 # OS metadata
 .DS_Store
 Thumbs.db
