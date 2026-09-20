@@ -1,6 +1,14 @@
 (function () {
   "use strict";
 
+  interface CheckResult {
+    correctParts: number;
+    totalParts: number;
+    allAnswered: boolean;
+    fullyCorrect: boolean;
+    correctSummary: string;
+  }
+
   var DRAW_COUNTS = [1, 5, 10];
   var CATEGORIES = [
     { id: "systemy", label: "Systemy liczbowe" },
@@ -13,12 +21,12 @@
     { id: "oprogramowanie", label: "Oprogramowanie i sprzęt" }
   ];
 
-  var questionBank = [];
-  var currentPicked = [];
+  var questionBank: Question[] = [];
+  var currentPicked: Question[] = [];
   var lastRequestedCount = 5;
   var selectedCount = 5;
   var activeCategory = "all";
-  var elements = {};
+  var elements: { [key: string]: any } = {};
 
   function init() {
     document.documentElement.setAttribute("data-theme", "dark");
@@ -49,7 +57,7 @@
     elements.backToTop = document.getElementById("back-to-top");
   }
 
-  function getCategoryLabel(categoryId) {
+  function getCategoryLabel(categoryId: string): string {
     if (!categoryId || categoryId === "all") return "";
     for (var i = 0; i < CATEGORIES.length; i++) {
       if (CATEGORIES[i].id === categoryId) return CATEGORIES[i].label;
@@ -64,7 +72,7 @@
     });
   }
 
-  function countByCategory(categoryId) {
+  function countByCategory(categoryId: string): number {
     if (categoryId === "all") return questionBank.length;
     var n = 0;
     for (var i = 0; i < questionBank.length; i++) {
@@ -89,7 +97,7 @@
     });
   }
 
-  function createCategoryChip(id, label, count) {
+  function createCategoryChip(id: string, label: string, count: number): HTMLButtonElement {
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className =
@@ -114,7 +122,7 @@
     return btn;
   }
 
-  function setActiveCategory(categoryId) {
+  function setActiveCategory(categoryId: string) {
     if (activeCategory === categoryId) return;
     activeCategory = categoryId;
 
@@ -130,7 +138,7 @@
     updateDrawAction();
   }
 
-  function setActionsBarVisible(visible) {
+  function setActionsBarVisible(visible: boolean) {
     if (elements.checkBar) elements.checkBar.hidden = !visible;
     if (elements.checkBtn) {
       elements.checkBtn.hidden = !visible;
@@ -142,7 +150,7 @@
     }
   }
 
-  function setCheckButtonLabel(label) {
+  function setCheckButtonLabel(label: string) {
     if (elements.checkBtn) {
       elements.checkBtn.textContent = label;
       elements.checkBtn.disabled = false;
@@ -209,7 +217,7 @@
     );
   }
 
-  function pluralizeQuestions(n) {
+  function pluralizeQuestions(n: number): string {
     if (n === 1) return "1 pytanie";
     var mod10 = n % 10;
     var mod100 = n % 100;
@@ -311,7 +319,7 @@
     elements.customCountInput = input;
   }
 
-  function setSelectedCount(count, clearCustom) {
+  function setSelectedCount(count: number, clearCustom: boolean) {
     if (selectedCount === count && !clearCustom) return;
     selectedCount = count;
 
@@ -355,7 +363,7 @@
     }
   }
 
-  function shuffleCopy(arr) {
+  function shuffleCopy<T>(arr: T[]): T[] {
     var copy = arr.slice();
     for (var i = copy.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -366,7 +374,7 @@
     return copy;
   }
 
-  function drawQuestions(requestedCount) {
+  function drawQuestions(requestedCount: number) {
     var pool = getFilteredBank();
     if (!pool.length) {
       showEmptyState();
@@ -379,7 +387,7 @@
     renderResults(currentPicked, requestedCount, pool.length);
   }
 
-  function normalizeFillAnswer(value) {
+  function normalizeFillAnswer(value: unknown): string {
     return String(value || "")
       .trim()
       .replace(/\s+/g, "")
@@ -387,14 +395,14 @@
       .replace(/[_\u2080-\u2089]/g, "");
   }
 
-  function normalizePf(value) {
+  function normalizePf(value: unknown): string {
     var v = String(value || "").trim().toUpperCase();
     if (v === "P" || v === "T" || v === "TRUE" || v === "1") return "P";
     if (v === "F" || v === "FALSE" || v === "0") return "F";
     return v;
   }
 
-  function escapeHtmlAttr(value) {
+  function escapeHtmlAttr(value: unknown): string {
     return String(value)
       .replace(/&/g, "&amp;")
       .replace(/"/g, "&quot;")
@@ -402,7 +410,7 @@
       .replace(/>/g, "&gt;");
   }
 
-  function injectFillBlanks(html, question) {
+  function injectFillBlanks(html: string, question: Question): string {
     var index = 0;
     var selectOptions = (question && question.selectOptions) || ["<", "=", ">"];
 
@@ -453,7 +461,7 @@
     });
   }
 
-  function buildChoiceList(question, cardIndex) {
+  function buildChoiceList(question: Question, cardIndex: number): HTMLElement {
     var wrap = document.createElement("div");
     wrap.className = "question-choice-list";
     wrap.setAttribute("role", "radiogroup");
@@ -491,7 +499,7 @@
     return wrap;
   }
 
-  function buildTrueFalseTable(question, cardIndex) {
+  function buildTrueFalseTable(question: Question, cardIndex: number): HTMLElement {
     var wrap = document.createElement("div");
     wrap.className = "question-tf-wrap";
 
@@ -545,7 +553,7 @@
     return wrap;
   }
 
-  function buildPfChoice(groupName, value, itemIndex) {
+  function buildPfChoice(groupName: string, value: string, itemIndex: number): HTMLLabelElement {
     var label = document.createElement("label");
     label.className = "pf-choice";
 
@@ -576,7 +584,7 @@
     }
   }
 
-  function renderResults(picked, requestedCount, poolSize) {
+  function renderResults(picked: Question[], requestedCount: number, poolSize: number) {
     if (!elements.results) return;
 
     var available = typeof poolSize === "number" ? poolSize : getFilteredBank().length;
@@ -673,16 +681,16 @@
     });
   }
 
-  function formatExpectedDisplay(value) {
+  function formatExpectedDisplay(value: unknown): string {
     return String(value == null ? "" : value).trim();
   }
 
-  function clearFillReveals(card) {
+  function clearFillReveals(card: Element) {
     card.querySelectorAll(".answer-reveal").forEach(function (el) {
       el.remove();
     });
 
-    card.querySelectorAll("[data-user-value]").forEach(function (input) {
+    card.querySelectorAll("[data-user-value]").forEach(function (input: HTMLInputElement) {
       input.value = input.getAttribute("data-user-value") || "";
       input.removeAttribute("data-user-value");
       input.removeAttribute("readonly");
@@ -698,7 +706,7 @@
     });
   }
 
-  function revealFillAnswer(input, expectedRaw) {
+  function revealFillAnswer(input: HTMLInputElement | HTMLSelectElement, expectedRaw: unknown) {
     var display = formatExpectedDisplay(expectedRaw);
     if (!display) return;
 
@@ -730,7 +738,7 @@
     input.insertAdjacentElement("afterend", reveal);
   }
 
-  function markCorrectPfChoice(row, expected) {
+  function markCorrectPfChoice(row: Element | null, expected: string) {
     if (!row || !expected) return;
     var correctInput = row.querySelector(
       'input.pf-radio[value="' + expected + '"]'
@@ -742,7 +750,7 @@
     }
   }
 
-  function markCorrectChoiceOption(card, expected) {
+  function markCorrectChoiceOption(card: Element, expected: string) {
     if (!expected) return;
     var correctInput = card.querySelector(
       'input.choice-radio[value="' + expected + '"]'
@@ -754,7 +762,7 @@
     }
   }
 
-  function clearCheckMarks(card) {
+  function clearCheckMarks(card: Element) {
     card.classList.remove("is-correct", "is-incorrect", "is-partial", "is-checked");
     card
       .querySelectorAll(
@@ -770,7 +778,7 @@
         );
       });
     clearFillReveals(card);
-    var feedback = card.querySelector(".question-feedback");
+    var feedback = card.querySelector(".question-feedback") as HTMLElement;
     if (feedback) {
       feedback.hidden = true;
       feedback.textContent = "";
@@ -778,7 +786,7 @@
     }
   }
 
-  function checkFillQuestion(card, question) {
+  function checkFillQuestion(card: Element, question: Question): CheckResult {
     var inputs = card.querySelectorAll(
       ".math-input, input.answer-input[type='text'], select.answer-select"
     );
@@ -786,9 +794,9 @@
     var correctParts = 0;
     var totalParts = expected.length || inputs.length;
     var allAnswered = true;
-    var revealedAnswers = [];
+    var revealedAnswers: string[] = [];
 
-    inputs.forEach(function (input) {
+    inputs.forEach(function (input: HTMLInputElement | HTMLSelectElement) {
       var idxAttr = input.getAttribute("data-answer-index");
       var idx = idxAttr ? parseInt(idxAttr, 10) : 0;
       var user = normalizeFillAnswer(input.value);
@@ -834,18 +842,18 @@
     };
   }
 
-  function checkTrueFalseQuestion(card, question) {
+  function checkTrueFalseQuestion(card: Element, question: Question): CheckResult {
     var items = question.items || [];
     var correctParts = 0;
     var totalParts = items.length;
     var allAnswered = true;
-    var revealedParts = [];
+    var revealedParts: string[] = [];
 
     items.forEach(function (item, itemIndex) {
       var row = card.querySelector('.tf-row[data-item-index="' + itemIndex + '"]');
       if (!row) return;
 
-      var selected = row.querySelector("input.pf-radio:checked");
+      var selected = row.querySelector("input.pf-radio:checked") as HTMLInputElement;
       var faces = row.querySelectorAll(".pf-choice");
       faces.forEach(function (face) {
         face.classList.remove(
@@ -890,9 +898,9 @@
     };
   }
 
-  function checkChoiceQuestion(card, question) {
+  function checkChoiceQuestion(card: Element, question: Question): CheckResult {
     var expected = String(question.answer || "").trim().toUpperCase();
-    var selected = card.querySelector("input.choice-radio:checked");
+    var selected = card.querySelector("input.choice-radio:checked") as HTMLInputElement;
     var options = card.querySelectorAll(".choice-option");
 
     options.forEach(function (opt) {
@@ -936,7 +944,7 @@
     };
   }
 
-  function setQuestionFeedback(card, result) {
+  function setQuestionFeedback(card: Element, result: CheckResult) {
     card.classList.add("is-checked");
     card.classList.remove("is-correct", "is-incorrect", "is-partial");
 
@@ -950,7 +958,7 @@
       card.classList.add("is-partial");
     }
 
-    var feedback = card.querySelector(".question-feedback");
+    var feedback = card.querySelector(".question-feedback") as HTMLElement;
     if (feedback) {
       feedback.hidden = true;
     }
@@ -971,7 +979,7 @@
       clearCheckMarks(card);
 
       var type = question.type || "fill";
-      var result;
+      var result: CheckResult;
       if (type === "truefalse") {
         result = checkTrueFalseQuestion(card, question);
       } else if (type === "choice") {
@@ -1038,7 +1046,7 @@
     }
 
     document.addEventListener("click", function (event) {
-      var target = event.target;
+      var target = event.target as Element | null;
       if (!target || typeof target.closest !== "function") return;
 
       var redrawEl = target.closest('[data-action="redraw"]');

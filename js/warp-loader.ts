@@ -3,7 +3,7 @@
  * Perspective Horizon Grid Loader & Thinking Component
  */
 
-(function (window, document) {
+(function (window: Window, document: Document) {
   "use strict";
 
   // Ray color stops across the spectrum (matching reference)
@@ -33,7 +33,7 @@
     "Generowanie testów jednostkowych..."
   ];
 
-  function interpolateColor(color1, color2, factor) {
+  function interpolateColor(color1: string, color2: string, factor: number): string {
     var c1 = parseInt(color1.slice(1), 16);
     var c2 = parseInt(color2.slice(1), 16);
 
@@ -47,7 +47,7 @@
     return "rgb(" + r + "," + g + "," + b + ")";
   }
 
-  function getPaletteColor(t) {
+  function getPaletteColor(t: number): string {
     var clamped = Math.max(0, Math.min(1, t));
     var numStops = RAY_PALETTE.length;
     var index = clamped * (numStops - 1);
@@ -58,7 +58,7 @@
     return interpolateColor(RAY_PALETTE[lowerIndex], RAY_PALETTE[upperIndex], fraction);
   }
 
-  function WarpInstance(container, options) {
+  function WarpInstance(this: any, container: HTMLElement, options?: WarpLoaderOptions) {
     this.container = container;
     this.options = options || {};
     this.phrases = this.options.phrases || DEFAULT_PHRASES;
@@ -131,7 +131,7 @@
     }, 280);
   };
 
-  WarpInstance.prototype.setText = function (text) {
+  WarpInstance.prototype.setText = function (text: string) {
     if (this.phraseTimer) {
       clearInterval(this.phraseTimer);
       this.phraseTimer = null;
@@ -252,10 +252,10 @@
   // ------------------------------------------------------------------------
   // Fullscreen / Modal Overlay
   // ------------------------------------------------------------------------
-  var overlayEl = null;
-  var overlayWarp = null;
+  var overlayEl: HTMLElement | null = null;
+  var overlayWarp: any = null;
 
-  function showOverlay(options) {
+  function showOverlay(options?: WarpLoaderOptions) {
     options = options || {};
     if (!overlayEl) {
       overlayEl = document.createElement("div");
@@ -320,13 +320,13 @@
   // ------------------------------------------------------------------------
   // Public API
   // ------------------------------------------------------------------------
-  var instances = new WeakMap();
+  var instances = new WeakMap<HTMLElement, any>();
 
-  var WarpLoader = {
+  var WarpLoader: WarpLoaderApi = {
     mount: function (container, options) {
       if (!container) return null;
       WarpLoader.unmount(container);
-      var instance = new WarpInstance(container, options);
+      var instance = new (WarpInstance as any)(container, options);
       instances.set(container, instance);
       return instance;
     },
