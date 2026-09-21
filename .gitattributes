@@ -1,7 +1,6 @@
 * text=auto
 
-arkusze/* linguist-generated=true
-dist/* linguist-generated=true
+arkusze/** linguist-generated=true
+pytania-teoretyczne/** linguist-generated=true
+dist/** linguist-generated=true
 package-lock.json linguist-generated=true
-
-
