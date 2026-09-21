@@ -65,6 +65,9 @@ declare global {
     solution: string;
     explanation?: string;
     inPlaceArg?: number;
+    hints?: string[];
+    tags?: string[];
+    relatedTopic?: string;
   }
 
   interface QuestionOption {

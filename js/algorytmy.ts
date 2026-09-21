@@ -284,7 +284,7 @@ declare const Prism: any;
       + breadcrumbs([{ label: 'Algorytmy', href: null }])
       + '<h1 id="algo-title" class="hero-title"><span class="aurora-word">Algorytmy.<span class="aurora-beam" aria-hidden="true"></span></span></h1>'
       + '<p class="hero-description">'
-      + 'Rozwiązuj zadania algorytmiczne z arkuszy CKE '
+      + 'Rozwiązuj zadania algorytmiczne z arkuszy maturalnych '
       + 'bezpośrednio w przeglądarce za pomocą języka Python. Testuj swój kod w czasie rzeczywistym.'
       + '</p>'
       + '<div class="hero-cta-group">'
@@ -297,7 +297,7 @@ declare const Prism: any;
       + '<div class="container">'
       + '<div class="algo-section-header">'
       + '<div>'
-      + '<h2 id="algo-cats-heading" class="algo-section-heading">Kategorie zadań CKE</h2>'
+      + '<h2 id="algo-cats-heading" class="algo-section-heading">Kategorie zadań</h2>'
       + '<span class="algo-section-summary">' + cats.length + ' ' + polishPlural(cats.length, 'kategoria', 'kategorie', 'kategorii') + ' · ' + allTasks.length + ' ' + polishPlural(allTasks.length, 'zadanie programistyczne', 'zadania programistyczne', 'zadań programistycznych') + '</span>'
       + '</div>'
       + '<div class="algo-actions-row">'
@@ -800,7 +800,13 @@ declare const Prism: any;
             + renderExamples(task.examples)
           + '</div>'
 
-          + (task.explanation ? '<div style="margin-top:20px"><button type="button" class="algo-btn-secondary" id="algo-toggle-solution-btn">Pokaż wzorcowe rozwiązanie CKE</button></div>' : '')
+          + renderTagsRow(task)
+          + renderHints(task)
+          + (task.relatedTopic ? '<div class="algo-related-topic"><strong>Powiązane zagadnienie:</strong> ' + escHtml(task.relatedTopic) + '</div>' : '')
+
+          + '<p class="algo-cke-disclaimer">Zadanie na podstawie zbioru zadań CKE. Materiał pomocniczy, nie stanowi oficjalnego arkusza maturalnego.</p>'
+
+          + (task.explanation ? '<div style="margin-top:20px"><button type="button" class="algo-btn-secondary" id="algo-toggle-solution-btn">Pokaż wzorcowe rozwiązanie</button></div>' : '')
           + '<div id="algo-solution-panel" style="display:none;margin-top:16px">'
             + '<div class="algo-solution-card">'
               + '<div class="algo-section-subhead" style="margin:0 0 8px">Wzorcowy kod (Python)</div>'
@@ -850,7 +856,7 @@ declare const Prism: any;
             + '<span id="algo-console-count">' + task.testCases.length + ' ' + polishPlural(task.testCases.length, 'przypadek', 'przypadki', 'przypadków') + '</span>'
           + '</div>'
           + '<div class="algo-console-body" id="algo-console-body">'
-            + '<p style="color:var(--text-muted);font-size:0.875rem;margin:0">Naciśnij „Uruchom i sprawdź testy”, aby przetestować swoją funkcję na ' + task.testCases.length + ' ' + polishPlural(task.testCases.length, 'przypadku testowym', 'przypadkach testowych', 'przypadkach testowych') + ' CKE.</p>'
+            + '<p style="color:var(--text-muted);font-size:0.875rem;margin:0">Naciśnij „Uruchom i sprawdź testy”, aby przetestować swoją funkcję na ' + task.testCases.length + ' ' + polishPlural(task.testCases.length, 'przypadku testowym', 'przypadkach testowych', 'przypadkach testowych') + '.</p>'
           + '</div>'
         + '</div>'
       + '</div>'
@@ -876,6 +882,27 @@ declare const Prism: any;
         + (ex.explanation ? '<div class="algo-example-exp">' + escHtml(ex.explanation) + '</div>' : '')
         + '</div>';
     });
+    return html;
+  }
+
+  function renderTagsRow(task: AlgoTask): string {
+    if (!task.tags || !task.tags.length) return '';
+    var html = '<div class="algo-tags-row">';
+    task.tags.forEach(function (tag) {
+      html += '<span class="pill-badge algo-tag">' + escHtml(tag) + '</span>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderHints(task: AlgoTask): string {
+    if (!task.hints || !task.hints.length) return '';
+    var hintsJson = escHtml(JSON.stringify(task.hints));
+    var html = '<div class="algo-hints-block" id="algo-hints-block">';
+    html += '<div class="algo-section-subhead">Podpowiedzi</div>';
+    html += '<div id="algo-hints-list"></div>';
+    html += '<button type="button" class="algo-btn-secondary" id="algo-hint-btn" data-hints="' + hintsJson + '" data-shown="0">Pokaż podpowiedź</button>';
+    html += '</div>';
     return html;
   }
 
@@ -913,7 +940,30 @@ declare const Prism: any;
       solBtn.addEventListener('click', function () {
         var isHidden = solPanel.style.display === 'none';
         solPanel.style.display = isHidden ? 'block' : 'none';
-        solBtn.textContent = isHidden ? 'Ukryj wzorcowe rozwiązanie CKE' : 'Pokaż wzorcowe rozwiązanie CKE';
+        solBtn.textContent = isHidden ? 'Ukryj wzorcowe rozwiązanie' : 'Pokaż wzorcowe rozwiązanie';
+      });
+    }
+
+    // Podpowiedzi (stopniowe odkrywanie)
+    var hintBtn = document.getElementById('algo-hint-btn') as HTMLButtonElement;
+    if (hintBtn) {
+      hintBtn.addEventListener('click', function () {
+        var hints: string[] = [];
+        try { hints = JSON.parse(hintBtn.getAttribute('data-hints') || '[]'); } catch (e) {}
+        var shown = parseInt(hintBtn.getAttribute('data-shown') || '0', 10);
+        if (shown >= hints.length) return;
+        var listEl = document.getElementById('algo-hints-list');
+        if (listEl) {
+          var item = document.createElement('div');
+          item.className = 'algo-hint-item';
+          item.textContent = (shown + 1) + '. ' + hints[shown];
+          listEl.appendChild(item);
+        }
+        shown++;
+        hintBtn.setAttribute('data-shown', String(shown));
+        if (shown >= hints.length) {
+          hintBtn.style.display = 'none';
+        }
       });
     }
 
@@ -1050,7 +1100,7 @@ declare const Prism: any;
           return;
         }
 
-        // 3. Backspace: usuń wcięcie do poprzedniego poziomu (także przy 1–3 spacjach).
+        // 3. Backspace: usuń wcięcie do poprzedniego poziomu (także przy 1-3 spacjach).
         if (e.key === 'Backspace') {
           if (start === end) {
             var lineStart = val.lastIndexOf('\n', start - 1) + 1;
@@ -1672,7 +1722,7 @@ declare const Prism: any;
       var solPanel = document.getElementById('algo-solution-panel');
       if (solPanel) solPanel.style.display = 'block';
       var solBtn = document.getElementById('algo-toggle-solution-btn');
-      if (solBtn) solBtn.textContent = 'Ukryj wzorcowe rozwiązanie CKE';
+      if (solBtn) solBtn.textContent = 'Ukryj wzorcowe rozwiązanie';
     }
 
     consoleBody.innerHTML = html;
