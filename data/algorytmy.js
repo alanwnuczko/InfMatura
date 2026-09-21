@@ -1141,5 +1141,92 @@ window.ALGO_TASKS = ALGO_DATA.filter(function (item) { return item.category; }).
     ],
     "relatedTopic": "Przetwarzanie znak\u00f3w"
   }
+,
+  {
+    "id": "tekst-04",
+    "title": "Szyfr Cezara",
+    "category": "tekstowe",
+    "difficulty": "easy",
+    "ckeSource": "Zadanie klasyczne \u00b7 Szyfrowanie",
+    "tags": ["napisy", "szyfrowanie", "ASCII"],
+    "description": "<p>Napisz funkcj\u0119 <code>szyfruj_cezar(napis, k)</code>, kt\u00f3ra szyfruje podany napis (sk\u0142adaj\u0105cy si\u0119 wy\u0142\u0105cznie z wielkich liter alfabetu A-Z) z u\u017cyciem Szyfru Cezara o przesuni\u0119cie (klucz) <code>k</code>. Je\u015bli litera po przesuni\u0119ciu wykracza poza 'Z', nale\u017cy \"zawin\u0105\u0107\" alfabet z powrotem do 'A'.</p><p><strong>Pseudokod:</strong></p><pre><code>wynik \u2190 \"\"\ndla ka\u017cdej litery c w napis wykonuj:\n    x \u2190 kod_ASCII(c) - kod_ASCII('A')\n    x \u2190 (x + k) mod 26\n    wynik \u2190 wynik + znak_ASCII(x + kod_ASCII('A'))\nzwr\u00f3\u0107 wynik</code></pre>",
+    "inputDesc": "Napis (sk\u0142adaj\u0105cy si\u0119 z liter A-Z) oraz ca\u0142kowity klucz przesuni\u0119cia k \u2265 0.",
+    "outputDesc": "Zaszyfrowany napis.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n) na budow\u0119 napisu",
+    "examples": [
+      {
+        "input": "napis = \"KOT\", k = 3",
+        "output": "\"NRW\"",
+        "explanation": "K + 3 = N, O + 3 = R, T + 3 = W."
+      },
+      {
+        "input": "napis = \"ZOO\", k = 1",
+        "output": "\"APP\"",
+        "explanation": "Z + 1 = A (zawini\u0119cie), O + 1 = P."
+      }
+    ],
+    "starterCode": "def szyfruj_cezar(napis, k):\n    wynik = \"\"\n    # Zastosuj operacje na znakach, przydatne funkcje: ord() i chr()\n    pass\n",
+    "functionName": "szyfruj_cezar",
+    "testCases": [
+      { "input": "(\"KOT\", 3)", "expected": "NRW" },
+      { "input": "(\"ZOO\", 1)", "expected": "APP" },
+      { "input": "(\"MATURA\", 10)", "expected": "WKDEBK" },
+      { "input": "(\"ALFA\", 26)", "expected": "ALFA" },
+      { "input": "(\"ABC\", 27)", "expected": "BCD" },
+      { "input": "(\"XYZ\", 5)", "expected": "CDE" }
+    ],
+    "solution": "def szyfruj_cezar(napis, k):\n    wynik = \"\"\n    for c in napis:\n        x = ord(c) - ord('A')\n        x = (x + k) % 26\n        wynik += chr(x + ord('A'))\n    return wynik",
+    "explanation": "<p>Fundamentem zadania s\u0105 funkcje wbudowane w Pythonie: <code>ord()</code> (zamienia znak na jego kod ASCII) oraz <code>chr()</code> (odwrotnie). Odj\u0119cie <code>ord('A')</code> normalizuje warto\u015bci do zakresu 0\u201325, co pozwala \u0142atwo \"zawin\u0105\u0107\" warto\u015bci u\u017cywaj\u0105c operacji modulo 26 (<code>% 26</code>). Szyfry przesuwne z zawijaniem to absolutny standard CKE.</p>",
+    "hints": [
+      "W Pythonie ord('A') to 65. Zamiast r\u0119cznie operowa\u0107 na kodach powy\u017cej 65, sprowad\u017a liter\u0119 do przedzia\u0142u 0\u201325 (x = ord(c) - 65).",
+      "Dodaj klucz i zabezpiecz przed wyj\u015bciem poza alfabet korzystaj\u0105c z modulo: (x + k) % 26.",
+      "Powr\u00f3\u0107 do ASCII dodaj\u0105c 65 i konwertuj\u0105c na znak: chr(x + 65)."
+    ],
+    "relatedTopic": "Algorytmy na tekstach i ASCII"
+  },
+  {
+    "id": "sort-04",
+    "title": "Sortowanie b\u0105belkowe (z optymalizacj\u0105)",
+    "category": "sortowanie",
+    "difficulty": "easy",
+    "ckeSource": "Zadanie klasyczne \u00b7 Sortowanie",
+    "tags": ["sortowanie", "b\u0105belkowe", "tablice"],
+    "description": "<p>Napisz funkcj\u0119 <code>sortuj_babelkowo(tab)</code>, kt\u00f3ra sortuje rosn\u0105co przekazan\u0105 tablic\u0119 liczb w miejscu. Algorytm powinien by\u0107 <strong>zoptymalizowany</strong> \u2013 je\u015bli w danym przej\u015bciu (p\u0119tli) nie wykonano ani jednej zamiany element\u00f3w, oznacza to \u017ce tablica jest ju\u017c ca\u0142kowicie posortowana i algorytm powinien si\u0119 natychmiast zako\u0144czy\u0107.</p><p><strong>Pseudokod:</strong></p><pre><code>n \u2190 d\u0142ugo\u015b\u0107(tab)\ndla i = 0, 1, ..., n-1 wykonuj:\n    zamiana \u2190 Fa\u0142sz\n    dla j = 0, 1, ..., n-2-i wykonuj:\n        je\u015bli tab[j] > tab[j+1] to:\n            zamie\u0144(tab[j], tab[j+1])\n            zamiana \u2190 Prawda\n    je\u015bli zamiana = Fa\u0142sz to\n        przerwij p\u0119tl\u0119\nzwr\u00f3\u0107 tab</code></pre>",
+    "inputDesc": "Tablica (lista) liczb ca\u0142kowitych.",
+    "outputDesc": "Posortowana tablica wej\u015bciowa.",
+    "timeComplexity": "O(n\u00b2) najgorszy przypadek, O(n) dla tablicy posortowanej",
+    "spaceComplexity": "O(1)",
+    "examples": [
+      {
+        "input": "tab = [5, 2, 8, 3]",
+        "output": "[2, 3, 5, 8]",
+        "explanation": "Po sortowaniu tablica staje si\u0119 [2, 3, 5, 8]."
+      },
+      {
+        "input": "tab = [1, 2, 3]",
+        "output": "[1, 2, 3]",
+        "explanation": "Tablica jest ju\u017c posortowana, wewn\u0119trzna p\u0119tla nie dokona \u017cadnej zamiany i program natychmiast zako\u0144czy dzia\u0142anie w czasie liniowym."
+      }
+    ],
+    "starterCode": "def sortuj_babelkowo(tab):\n    n = len(tab)\n    # Zastosuj podw\u00f3jn\u0105 p\u0119tl\u0119 i flag\u0119 'zamiana'\n    pass\n",
+    "functionName": "sortuj_babelkowo",
+    "testCases": [
+      { "input": "([5, 2, 8, 3, 1],)", "expected": [1, 2, 3, 5, 8] },
+      { "input": "([1, 2, 3, 4],)", "expected": [1, 2, 3, 4] },
+      { "input": "([9, 7, 5, 3, 1],)", "expected": [1, 3, 5, 7, 9] },
+      { "input": "([],)", "expected": [] },
+      { "input": "([42],)", "expected": [42] },
+      { "input": "([3, 1, 4, 1, 5, 9, 2],)", "expected": [1, 1, 2, 3, 4, 5, 9] }
+    ],
+    "solution": "def sortuj_babelkowo(tab):\n    n = len(tab)\n    for i in range(n):\n        zamiana = False\n        for j in range(n - 1 - i):\n            if tab[j] > tab[j+1]:\n                tab[j], tab[j+1] = tab[j+1], tab[j]\n                zamiana = True\n        if not zamiana:\n            break\n    return tab",
+    "explanation": "<p>Algorytm por\u00f3wnuje pary s\u0105siednich element\u00f3w i przesuwa (b\u0105belkuje) najwi\u0119kszy z nich na sam koniec. Optymalizacja z u\u017cyciem flagi <code>zamiana</code> (boolean) powoduje przerwanie dzia\u0142ania (<code>break</code>), je\u015bli nie wykonano ju\u017c \u017cadnego przestawienia - dzi\u0119ki temu dla cz\u0119\u015bciowo posortowanych danych dzia\u0142a o wiele szybciej. Wymaga on zrozumienia mechaniki wewn\u0119trznego porz\u0105dkowania tablicy, bardzo cz\u0119sto bada si\u0119 go na maturze CKE pod k\u0105tem w\u0142asno\u015bci iteracji.</p>",
+    "hints": [
+      "W ka\u017cdym obrocie p\u0119tli zewn\u0119trznej zadeklaruj zamiana = False.",
+      "Wewn\u0119trzna p\u0119tla j powina dzia\u0142a\u0107 do range(n - 1 - i), bo ostatnie i element\u00f3w ju\u017c jest na swoim miejscu.",
+      "W Pythonie \u0142atwo zamienia\u0107 elementy bez zmiennej pomocniczej: tab[j], tab[j+1] = tab[j+1], tab[j]."
+    ],
+    "relatedTopic": "Metody sortowania i optymalizacje"
+  }
 
 ]);
