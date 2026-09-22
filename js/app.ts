@@ -542,6 +542,15 @@ interface AppElements {
     updateBackToTop();
   }
 
+  function escHtml(str: string): string {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function buildCard(exam: Exam): HTMLElement {
     var card = document.createElement("article");
     card.className = "exam-card";
@@ -569,10 +578,10 @@ interface AppElements {
     var headerHTML =
       '<div class="card-info">' +
         '<div class="card-meta">' +
-          '<span class="pill-badge ' + typeClass + '">' + typeLabel + '</span>' +
-          '<span class="pill-badge ' + formulaClass + '">' + formulaLabel + '</span>' +
+          '<span class="pill-badge ' + escHtml(typeClass) + '">' + escHtml(typeLabel) + '</span>' +
+          '<span class="pill-badge ' + escHtml(formulaClass) + '">' + escHtml(formulaLabel) + '</span>' +
         '</div>' +
-        '<h3 class="card-title"><a href="/arkusze/' + exam.id + '/" class="card-title-link" title="Przejdź do strony arkusza ' + displayTitle + '">' + displayTitle + '</a></h3>' +
+        '<h3 class="card-title"><a href="/arkusze/' + escHtml(exam.id) + '/" class="card-title-link" title="Przejdź do strony arkusza ' + escHtml(displayTitle) + '">' + escHtml(displayTitle) + '</a></h3>' +
       '</div>';
 
     var linksHTML = '<div class="card-links">';
@@ -580,21 +589,21 @@ interface AppElements {
     getArkuszLinks(exam).forEach(function (link) {
       var pdfTitle = link.label === "Arkusz" ? "Arkusz PDF" : link.label;
       linksHTML +=
-        '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
-          '<span>' + pdfTitle + '</span>' + arrowUpSVG +
+        '<a href="' + escHtml(link.url) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
+          '<span>' + escHtml(pdfTitle) + '</span>' + arrowUpSVG +
         '</a>';
     });
 
     if (exam.hasData) {
       linksHTML +=
-        '<a href="' + getDaneLink(exam) + '" download class="card-link">' +
+        '<a href="' + escHtml(getDaneLink(exam)) + '" download class="card-link">' +
           '<span>Dane ZIP</span>' + arrowDownSVG +
         '</a>';
     }
 
     if (exam.hasZasady) {
       linksHTML +=
-        '<a href="' + getZasadyLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
+        '<a href="' + escHtml(getZasadyLink(exam)) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
           '<span>Zasady oceniania</span>' + arrowUpSVG +
         '</a>';
     }
@@ -602,11 +611,11 @@ interface AppElements {
     if (exam.hasSolution) {
       linksHTML +=
         '<div class="card-link-split">' +
-          '<a href="' + getSolutionLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__main">' +
+          '<a href="' + escHtml(getSolutionLink(exam)) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__main">' +
             '<span>Rozwiązanie Python</span>' + arrowUpSVG +
           '</a>' +
           '<div class="card-link-split__divider" aria-hidden="true"></div>' +
-          '<a href="' + getSolutionZipLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__zip" title="Pobierz rozwiązanie jako ZIP">' +
+          '<a href="' + escHtml(getSolutionZipLink(exam)) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__zip" title="Pobierz rozwiązanie jako ZIP">' +
             '<span>ZIP</span>' + arrowDownSVG +
           '</a>' +
         '</div>';
