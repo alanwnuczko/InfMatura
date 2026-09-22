@@ -272,9 +272,16 @@
   // ------------------------------------------------------------------------
   var overlayEl: HTMLElement | null = null;
   var overlayWarp: WarpInstance | null = null;
+  var hideTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   function showOverlay(options?: WarpLoaderOptions) {
     options = options || {};
+    
+    if (hideTimeoutId) {
+      clearTimeout(hideTimeoutId);
+      hideTimeoutId = null;
+    }
+    
     if (!overlayEl) {
       overlayEl = document.createElement("div");
       overlayEl.className = "warp-overlay";
@@ -323,7 +330,7 @@
   function hideOverlay() {
     if (!overlayEl) return;
     overlayEl.classList.remove("is-open");
-    setTimeout(function () {
+    hideTimeoutId = setTimeout(function () {
       if (overlayWarp) {
         overlayWarp.destroy();
         overlayWarp = null;
@@ -332,6 +339,7 @@
         overlayEl.parentNode.removeChild(overlayEl);
         overlayEl = null;
       }
+      hideTimeoutId = null;
     }, 320);
   }
 

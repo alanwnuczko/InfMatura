@@ -354,7 +354,7 @@ interface AppElements {
       link.addEventListener("click", function (e) {
         var targetId = link.getAttribute("href");
         if (!targetId || targetId === "#") return;
-        var target = document.querySelector(targetId);
+        var target = document.getElementById(targetId.substring(1));
         if (!target) return;
         e.preventDefault();
         var headerHeight = elements.header ? elements.header.offsetHeight : 0;
@@ -423,20 +423,28 @@ interface AppElements {
     }
   }
 
+  var syncUrlTimeout: ReturnType<typeof setTimeout> | null = null;
   function syncUrl() {
-    var params = new URLSearchParams();
-    if (state.searchQuery) params.set("q", state.searchQuery);
-    if (state.formulaFilter !== "all") params.set("formula", state.formulaFilter);
-    if (state.levelFilter !== "all") params.set("level", state.levelFilter);
-    if (state.yearFilter !== "all") params.set("year", state.yearFilter);
+    if (syncUrlTimeout) clearTimeout(syncUrlTimeout);
+    syncUrlTimeout = setTimeout(function () {
+      var params = new URLSearchParams();
+      if (state.searchQuery) params.set("q", state.searchQuery);
+      if (state.formulaFilter !== "all") params.set("formula", state.formulaFilter);
+      if (state.levelFilter !== "all") params.set("level", state.levelFilter);
+      if (state.yearFilter !== "all") params.set("year", state.yearFilter);
 
-    var qs = params.toString();
-    var hash = window.location.hash || "";
-    var next = window.location.pathname + (qs ? "?" + qs : "") + hash;
-    var current = window.location.pathname + window.location.search + window.location.hash;
-    if (next !== current) {
-      history.replaceState(null, "", next);
-    }
+      var qs = params.toString();
+      var hash = window.location.hash || "";
+      var next = window.location.pathname + (qs ? "?" + qs : "") + hash;
+      var current = window.location.pathname + window.location.search + window.location.hash;
+      if (next !== current) {
+        try {
+          history.replaceState(null, "", next);
+        } catch (e) {
+          console.warn("Failed to update URL state", e);
+        }
+      }
+    }, 300);
   }
 
   function setCurrentYear() {
@@ -477,7 +485,11 @@ interface AppElements {
           var formula = getFormulaLabel(exam).toLowerCase();
           var type = getTypeLabel(exam).toLowerCase();
           var combined = title + " " + formula + " " + type + " " + exam.year;
-          if (combined.indexOf(query) === -1) return false;
+          
+          var tokens = query.split(/\s+/);
+          for (var i = 0; i < tokens.length; i++) {
+            if (combined.indexOf(tokens[i]) === -1) return false;
+          }
         }
       }
 
@@ -701,8 +713,13 @@ interface AppElements {
 
     setView(currentView === "list" ? "list" : "grid");
 
-    elements.viewSwitcher.addEventListener("click", function () {
-      setView(currentView === "grid" ? "list" : "grid");
+    elements.viewSwitcher.addEventListener("click", function (e) {
+      var target = e.target as Element;
+      var btn = target.closest("[data-view]");
+      if (btn) {
+        var view = btn.getAttribute("data-view");
+        if (view === "grid" || view === "list") setView(view);
+      }
     });
   }
 

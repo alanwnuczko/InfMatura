@@ -71,6 +71,7 @@ $today = (Get-Date).ToString("yyyy-MM-dd")
 
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>1.0</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/arkusze/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>0.95</priority>`n  </url>")
+$sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/algorytmy/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>0.95</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/pytania-teoretyczne/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>weekly</changefreq>`n    <priority>0.9</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/polityka-prywatnosci/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>monthly</changefreq>`n    <priority>0.3</priority>`n  </url>")
 
@@ -360,7 +361,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="/css/fonts.css?v=1.3">
-  <link rel="stylesheet" href="/css/style.css?v=2.9">
+  <link rel="stylesheet" href="/css/style.css?v=3.1">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <script type="application/ld+json">

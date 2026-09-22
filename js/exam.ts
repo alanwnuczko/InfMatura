@@ -506,11 +506,11 @@ declare const marked: any;
       if (e.key === "ArrowUp") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap!.style.height = clampHeight(h + step) + "px";
+        wrap!.style.height = clampHeight(h - step) + "px";
       } else if (e.key === "ArrowDown") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap!.style.height = clampHeight(h - step) + "px";
+        wrap!.style.height = clampHeight(h + step) + "px";
       } else if (e.key === "Home") {
         e.preventDefault();
         setPdfExpanded(section, false);
