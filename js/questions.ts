@@ -642,7 +642,7 @@
       if (question.source || question.level) {
         var source = document.createElement("span");
         source.className = "question-source";
-        var textParts = [];
+        var textParts: string[] = [];
         if (question.source) textParts.push(question.source);
         if (question.level) textParts.push(question.level);
         source.textContent = textParts.join(" · ");

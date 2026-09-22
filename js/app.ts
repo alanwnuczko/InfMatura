@@ -388,7 +388,7 @@ interface AppElements {
       opt.setAttribute("aria-selected", "false");
       opt.id = "year-opt-" + year;
       opt.textContent = String(year);
-      dropdown.appendChild(opt);
+      if (dropdown) dropdown.appendChild(opt);
     });
   }
 
@@ -615,7 +615,7 @@ interface AppElements {
       window.scrollTo({ top: top, behavior: "smooth" });
       el.classList.add("is-highlighted");
       window.setTimeout(function () {
-        el.classList.remove("is-highlighted");
+        if (el) el.classList.remove("is-highlighted");
       }, 2200);
     });
   }

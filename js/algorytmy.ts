@@ -1,4 +1,4 @@
-// js/algorytmy.js - Logika platformy zadań algorytmicznych dla matury rozszerzonej z informatyki
+// js/algorytmy.ts - Logika platformy zadań algorytmicznych dla matury rozszerzonej z informatyki
 // Pełne środowisko programistyczne w przeglądarce (Pyodide), testy jednostkowe, postęp w localStorage
 
 declare const Prism: any;
@@ -451,9 +451,10 @@ declare const Prism: any;
       catResetBtn.addEventListener('click', function () {
         if (window.confirm('Czy na pewno chcesz usunąć postęp dla zadań z kategorii ' + cat.label + '? Spowoduje to także przywrócenie kodu początkowego dla zadań z tej kategorii.')) {
           var p = loadProgress();
-          if (p.done) {
+          var done = p.done;
+          if (done) {
             tasks.forEach(function (t) {
-              delete p.done[t.id];
+              delete done![t.id];
             });
             try {
               localStorage.setItem(STORAGE_PROGRESS_KEY, JSON.stringify(p));
@@ -476,7 +477,7 @@ declare const Prism: any;
         });
         btn.classList.add('is-active');
         btn.setAttribute('aria-checked', 'true');
-        var filter = btn.getAttribute('data-filter');
+        var filter = btn.getAttribute('data-filter') || 'all';
         var container = document.getElementById('algo-task-items-container');
         if (container) {
           container.innerHTML = renderTaskRows(tasks, filter);
@@ -594,8 +595,8 @@ declare const Prism: any;
   // ASYSTENT KODU (INTERAKTYWNY COMPANION)
   // ==========================================================================
   var companionState = 'idle'; // 'idle' | 'typing' | 'paused' | 'error' | 'success'
-  var companionTypingTimer = null;
-  var companionPauseTimer = null;
+  var companionTypingTimer: ReturnType<typeof setTimeout> | null = null;
+  var companionPauseTimer: ReturnType<typeof setTimeout> | null = null;
 
   function renderCompanion() {
     return '<div class="algo-companion-orb is-idle" id="algo-companion" aria-hidden="true">'
@@ -938,9 +939,9 @@ declare const Prism: any;
     var solPanel = document.getElementById('algo-solution-panel');
     if (solBtn && solPanel) {
       solBtn.addEventListener('click', function () {
-        var isHidden = solPanel.style.display === 'none';
-        solPanel.style.display = isHidden ? 'block' : 'none';
-        solBtn.textContent = isHidden ? 'Ukryj wzorcowe rozwiązanie' : 'Pokaż wzorcowe rozwiązanie';
+        var isHidden = solPanel!.style.display === 'none';
+        solPanel!.style.display = isHidden ? 'block' : 'none';
+        solBtn!.textContent = isHidden ? 'Ukryj wzorcowe rozwiązanie' : 'Pokaż wzorcowe rozwiązanie';
       });
     }
 
@@ -972,12 +973,12 @@ declare const Prism: any;
       copySolBtn.addEventListener('click', function () {
         if (!navigator.clipboard || !navigator.clipboard.writeText) return;
         navigator.clipboard.writeText(task.solution).then(function () {
-          var txt = copySolBtn.querySelector('.copy-btn-text');
+          var txt = copySolBtn!.querySelector('.copy-btn-text');
           if (txt) txt.textContent = 'Skopiowano';
-          copySolBtn.classList.add('is-copied');
+          copySolBtn!.classList.add('is-copied');
           setTimeout(function () {
             if (txt) txt.textContent = 'Kopiuj';
-            copySolBtn.classList.remove('is-copied');
+            copySolBtn!.classList.remove('is-copied');
           }, 2000);
         });
       });
@@ -1021,7 +1022,7 @@ declare const Prism: any;
             if (lineEnd === -1) lineEnd = val.length;
 
             var lines = val.substring(lineStart, lineEnd).split('\n');
-            var unindented = [];
+            var unindented: string[] = [];
             var removedBeforeStart = 0;
             var removedBeforeEnd = 0;
             var offset = lineStart;
@@ -1372,8 +1373,8 @@ declare const Prism: any;
   }
 
   function loadPyodide(): Promise<Worker> {
-    if (state.pyodideState === 'ready') return Promise.resolve(state.pyodideWorker);
-    if (state.pyodideState === 'loading') return state.pyodidePromise;
+    if (state.pyodideState === 'ready') return Promise.resolve(state.pyodideWorker!);
+    if (state.pyodideState === 'loading') return state.pyodidePromise!;
 
     state.pyodideState = 'loading';
     updatePyodideStatusDisplay();
@@ -1382,28 +1383,28 @@ declare const Prism: any;
     state.pyodideWorker = created.worker;
     state.pyodideWorkerUrl = created.url;
     state.pyodidePromise = new Promise(function (resolve, reject) {
-      function onMessage(event) {
+      function onMessage(event: any) {
         var data = event.data || {};
         if (data.type === 'ready') {
           state.pyodideState = 'ready';
-          state.pyodideWorker.removeEventListener('message', onMessage);
-          state.pyodideWorker.removeEventListener('error', onError);
+          state.pyodideWorker!.removeEventListener('message', onMessage);
+          state.pyodideWorker!.removeEventListener('error', onError);
           updatePyodideStatusDisplay();
-          resolve(state.pyodideWorker);
+          resolve(state.pyodideWorker!);
         } else if (data.type === 'error') {
           onError(new Error(data.message || 'Nie udało się uruchomić środowiska Python.'));
         }
       }
-      function onError(err) {
+      function onError(err: any) {
         state.pyodideState = 'error';
-        state.pyodideWorker.removeEventListener('message', onMessage);
-        state.pyodideWorker.removeEventListener('error', onError);
+        state.pyodideWorker!.removeEventListener('message', onMessage);
+        state.pyodideWorker!.removeEventListener('error', onError);
         terminatePyodideWorker('error');
         reject(err instanceof Error ? err : new Error('Nie udało się uruchomić środowiska Python.'));
       }
-      state.pyodideWorker.addEventListener('message', onMessage);
-      state.pyodideWorker.addEventListener('error', onError);
-      state.pyodideWorker.postMessage({ type: 'load' });
+      state.pyodideWorker!.addEventListener('message', onMessage);
+      state.pyodideWorker!.addEventListener('error', onError);
+      state.pyodideWorker!.postMessage({ type: 'load' });
     });
 
     return state.pyodidePromise;
@@ -1584,20 +1585,22 @@ declare const Prism: any;
           badge.textContent = 'Ukończono';
           meta.appendChild(badge);
         }
-      } else {
+    } else {
         setCompanionState('error');
       }
     }).catch(function (err) {
       setCompanionState('error');
       var cleanedErr = cleanPythonTraceback(err, userCode);
-      consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
-        + '<span>' + (err && err.code === 'PYODIDE_TIMEOUT'
-          ? 'Przekroczono limit czasu wykonania testów'
-          : 'Błąd w kodzie lub brak definicji funkcji') + '</span>'
-        + '</div>'
-        + '<pre class="algo-error-pre">'
-        + escHtml(cleanedErr)
-        + '</pre>';
+      if (consoleBody) {
+        consoleBody.innerHTML = '<div class="algo-console-banner is-failure">'
+          + '<span>' + (err && err.code === 'PYODIDE_TIMEOUT'
+            ? 'Przekroczono limit czasu wykonania testów'
+            : 'Błąd w kodzie lub brak definicji funkcji') + '</span>'
+          + '</div>'
+          + '<pre class="algo-error-pre">'
+          + escHtml(cleanedErr)
+          + '</pre>';
+      }
     }).finally(function () {
       runBtn.disabled = false;
       if (runLabel) runLabel.textContent = 'Uruchom i sprawdź testy';
@@ -1614,7 +1617,7 @@ declare const Prism: any;
     var userLinesCount = userCode ? userCode.split('\n').length : 9999;
 
     var lines = str.split('\n');
-    var cleaned = [];
+    var cleaned: string[] = [];
     var skipInternal = false;
 
     for (var i = 0; i < lines.length; i++) {
