@@ -51,14 +51,19 @@ const NOOP_ENTRY_ID = "virtual:infmatura-noop-entry";
 const RESOLVED_NOOP_ENTRY_ID = "\0" + NOOP_ENTRY_ID;
 const NOOP_ENTRY_FILENAME = "_noop-entry.js";
 
+import { build } from "esbuild";
+
 async function transformTsFile(tsPath: string): Promise<string> {
-  const source = fs.readFileSync(tsPath, "utf-8");
-  const result = await transformWithEsbuild(source, tsPath, {
-    loader: "ts",
+  const isAlgo = tsPath.endsWith('algorytmy.ts');
+  const result = await build({
+    entryPoints: [tsPath],
+    bundle: isAlgo,
+    write: false,
     target: "es2020",
+    format: isAlgo ? "iife" : undefined,
     charset: "utf8"
   });
-  return result.code;
+  return result.outputFiles[0].text;
 }
 
 function copyStaticAssets(outDir: string) {
