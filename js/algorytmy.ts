@@ -474,13 +474,31 @@ declare const Prism: any;
         filterBtns.forEach(function (b) {
           b.classList.remove('is-active');
           b.setAttribute('aria-checked', 'false');
+          (b as HTMLElement).tabIndex = -1;
         });
         btn.classList.add('is-active');
         btn.setAttribute('aria-checked', 'true');
+        (btn as HTMLElement).tabIndex = 0;
+        (btn as HTMLElement).focus();
         var filter = btn.getAttribute('data-filter') || 'all';
         var container = document.getElementById('algo-task-items-container');
         if (container) {
           container.innerHTML = renderTaskRows(tasks, filter);
+        }
+      });
+      
+      btn.addEventListener("keydown", function (e: any) {
+        var eKey = e.key;
+        if (eKey === "ArrowRight" || eKey === "ArrowDown" || eKey === "ArrowLeft" || eKey === "ArrowUp") {
+          e.preventDefault();
+          var btnsArr = Array.from(filterBtns) as HTMLElement[];
+          var current = e.target as HTMLElement;
+          var idx = btnsArr.indexOf(current);
+          if (idx === -1) return;
+          var step = (eKey === "ArrowRight" || eKey === "ArrowDown") ? 1 : -1;
+          var nextIdx = (idx + step + btnsArr.length) % btnsArr.length;
+          var next = btnsArr[nextIdx];
+          next.click();
         }
       });
     });
@@ -856,7 +874,7 @@ declare const Prism: any;
             + '<span>Wyniki testów jednostkowych</span>'
             + '<span id="algo-console-count">' + task.testCases.length + ' ' + polishPlural(task.testCases.length, 'przypadek', 'przypadki', 'przypadków') + '</span>'
           + '</div>'
-          + '<div class="algo-console-body" id="algo-console-body">'
+          + '<div class="algo-console-body" id="algo-console-body" aria-live="polite">'
             + '<p style="color:var(--text-muted);font-size:0.875rem;margin:0">Naciśnij „Uruchom i sprawdź testy”, aby przetestować swoją funkcję na ' + task.testCases.length + ' ' + polishPlural(task.testCases.length, 'przypadku testowym', 'przypadkach testowych', 'przypadkach testowych') + '.</p>'
           + '</div>'
         + '</div>'
@@ -901,7 +919,7 @@ declare const Prism: any;
     var hintsJson = escHtml(JSON.stringify(task.hints));
     var html = '<div class="algo-hints-block" id="algo-hints-block">';
     html += '<div class="algo-section-subhead">Podpowiedzi</div>';
-    html += '<div id="algo-hints-list"></div>';
+    html += '<div id="algo-hints-list" aria-live="polite"></div>';
     html += '<button type="button" class="algo-btn-secondary" id="algo-hint-btn" data-hints="' + hintsJson + '" data-shown="0">Pokaż podpowiedź</button>';
     html += '</div>';
     return html;
@@ -1010,6 +1028,13 @@ declare const Prism: any;
         var start = editor.selectionStart;
         var end   = editor.selectionEnd;
         var val   = editor.value;
+
+        // 1a. Escape: release focus to escape the keyboard trap
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          editor.blur();
+          return;
+        }
 
         // 1. Tab oraz Shift+Tab
         if (e.key === 'Tab') {

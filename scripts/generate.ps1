@@ -385,6 +385,35 @@ $jsonLd
   </header>
 
   <main id="main-content" class="site-main">
+    <noscript>
+      <style>
+        .exam-detail-page {
+          display: none !important;
+        }
+        .site-main > noscript {
+          flex: 1 0 auto;
+          display: flex;
+          flex-direction: column;
+        }
+      </style>
+      <section class="hero error-hero" aria-labelledby="noscript-title">
+        <div class="container">
+          <div class="hero-content error-content">
+            <p class="error-code" aria-hidden="true">JS</p>
+            <h1 id="noscript-title" class="hero-title">JavaScript jest&nbsp;wyłączony.</h1>
+            <p class="hero-description">
+              Podgląd arkusza i rozwiązań działa w&nbsp;przeglądarce i&nbsp;wymaga JavaScriptu.
+              Włącz JavaScript albo otwórz materiały bezpośrednio w&nbsp;repozytorium na GitHubie.
+            </p>
+            <div class="hero-cta-group error-cta-group">
+              <a href="/" class="btn-cta">Wróć do strony głównej</a>
+              <a href="https://github.com/alanwnuczko/matura-informatyka-rozszerzona" target="_blank" rel="noopener noreferrer" class="error-secondary-link">Otwórz repozytorium na GitHubie</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </noscript>
+
     <div class="exam-detail-page">
       <div class="container">
         <!-- Breadcrumbs -->

@@ -250,8 +250,27 @@
       btn.textContent = String(count);
       btn.addEventListener("click", function () {
         setSelectedCount(count, true);
+        btn.focus();
       });
       elements.drawCountSeg.appendChild(btn);
+    });
+
+    // Keyboard navigation for role="radio"
+    elements.drawCountSeg.addEventListener("keydown", function (e: KeyboardEvent) {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        var radios = Array.from(elements.drawCountSeg.querySelectorAll('[role="radio"]')) as HTMLElement[];
+        var current = e.target as HTMLElement;
+        var idx = radios.indexOf(current);
+        if (idx === -1) return;
+        
+        var step = (e.key === "ArrowRight" || e.key === "ArrowDown") ? 1 : -1;
+        var nextIdx = (idx + step + radios.length) % radios.length;
+        var next = radios[nextIdx];
+        
+        next.click();
+        next.focus();
+      }
     });
 
     // Custom number input - rendered as sibling after the pill group
@@ -446,7 +465,7 @@
         kind === "d"
           ? "math-input math-input--digit answer-input"
           : "math-input answer-input";
-      var maxLen = kind === "d" ? ' maxlength="1"' : "";
+      var maxLen = kind === "d" ? ' maxlength="1" inputmode="numeric" pattern="[0-9]*"' : "";
       return (
         '<input type="text" class="' +
         cls +
