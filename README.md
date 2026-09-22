@@ -13,6 +13,7 @@ Wyszukiwarka arkuszy maturalnych z informatyki rozszerzonej z podgladem rozwiąz
 - Dedykowane podstrony arkuszy z podgladem kodu rozwiązan (Python, SQL, Markdown), kolorowaniem składni i przyciskiem kopiowania
 - Testy z pytań teoretycznych z losowym wyborem i natychmiastową weryfikacją odpowiedzi
 - Bezpośredni dostęp do arkuszy PDF, plików z danymi (ZIP) i zasad oceniania CKE
+- Interaktywna platforma algorytmiczna do pisania kodu w Pythonie bezpośrednio w przeglądarce, z automatyczną weryfikacją zadań i zapisem postępów
 
 ## Zrzuty ekranu
 
