@@ -212,25 +212,52 @@ declare const marked: any;
 
 
   function initCodeTabs() {
-    document.querySelectorAll(".code-tab").forEach(function (tab) {
+    document.querySelectorAll(".code-tab").forEach(function (tab, index, tabsNodeList) {
+      var tabs = Array.from(tab.closest(".code-tabs")?.querySelectorAll(".code-tab") || []) as HTMLElement[];
+      
       tab.addEventListener("click", function () {
         var viewer = tab.closest(".code-viewer");
         if (!viewer) return;
         viewer.querySelectorAll(".code-tab").forEach(function (t) {
           t.classList.remove("is-active");
           t.setAttribute("aria-selected", "false");
+          (t as HTMLElement).tabIndex = -1;
         });
         viewer.querySelectorAll(".code-panel").forEach(function (p) {
           p.classList.remove("is-active");
         });
         tab.classList.add("is-active");
         tab.setAttribute("aria-selected", "true");
+        (tab as HTMLElement).tabIndex = 0;
         var targetId = tab.getAttribute("aria-controls");
         var targetPanel = targetId ? document.getElementById(targetId) : null;
         if (targetPanel) {
           targetPanel.classList.add("is-active");
           renderMarkdown();
         }
+      });
+
+      tab.addEventListener("keydown", function (e: KeyboardEvent) {
+        if (!tabs.length) return;
+        var idx = tabs.indexOf(tab as HTMLElement);
+        var newIdx = idx;
+        
+        if (e.key === "ArrowLeft") {
+          newIdx = (idx - 1 + tabs.length) % tabs.length;
+        } else if (e.key === "ArrowRight") {
+          newIdx = (idx + 1) % tabs.length;
+        } else if (e.key === "Home") {
+          newIdx = 0;
+        } else if (e.key === "End") {
+          newIdx = tabs.length - 1;
+        } else {
+          return;
+        }
+        
+        e.preventDefault();
+        var nextTab = tabs[newIdx];
+        nextTab.click();
+        nextTab.focus();
       });
     });
   }
@@ -399,6 +426,9 @@ declare const marked: any;
     resizeHandle.setAttribute("role", "separator");
     resizeHandle.setAttribute("aria-orientation", "horizontal");
     resizeHandle.setAttribute("aria-label", "Zmień wysokość podglądu - przeciągnij");
+    resizeHandle.setAttribute("aria-valuemin", "360");
+    resizeHandle.setAttribute("aria-valuemax", "1200");
+    resizeHandle.setAttribute("aria-valuenow", "500");
     resizeHandle.tabIndex = 0;
     resizeHandle.innerHTML =
       '<span class="pdf-resize-handle-label">Przeciągnij, aby powiększyć</span>';
@@ -489,7 +519,9 @@ declare const marked: any;
 
     handle.addEventListener("pointermove", function (e: PointerEvent) {
       if (!dragging) return;
-      wrap!.style.height = clampHeight(startH + (e.clientY - startY)) + "px";
+      var newH = clampHeight(startH + (e.clientY - startY));
+      wrap!.style.height = newH + "px";
+      handle!.setAttribute("aria-valuenow", String(newH));
     });
 
     function stopDrag() {
@@ -506,11 +538,15 @@ declare const marked: any;
       if (e.key === "ArrowUp") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap!.style.height = clampHeight(h - step) + "px";
+        var newH = clampHeight(h - step);
+        wrap!.style.height = newH + "px";
+        handle!.setAttribute("aria-valuenow", String(newH));
       } else if (e.key === "ArrowDown") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap!.style.height = clampHeight(h + step) + "px";
+        var newH = clampHeight(h + step);
+        wrap!.style.height = newH + "px";
+        handle!.setAttribute("aria-valuenow", String(newH));
       } else if (e.key === "Home") {
         e.preventDefault();
         setPdfExpanded(section, false);

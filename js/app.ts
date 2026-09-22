@@ -542,7 +542,8 @@ interface AppElements {
     updateBackToTop();
   }
 
-  function escHtml(str: string): string {
+  function escHtml(str: string | null | undefined): string {
+    if (str == null) return "";
     return String(str)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
