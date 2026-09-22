@@ -93,7 +93,7 @@ declare const Prism: any;
   }
 
   function cacheElements() {
-    elements.main      = document.getElementById('algo-main');
+    elements.main      = document.getElementById('main-content');
     elements.header    = document.getElementById('site-header');
     elements.yearSpan  = document.getElementById('current-year');
     elements.backToTop = document.getElementById('back-to-top');
