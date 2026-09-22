@@ -3,4 +3,5 @@
 arkusze/** linguist-generated=true
 pytania-teoretyczne/** linguist-generated=true
 dist/** linguist-generated=true
-package-lock.json linguist-generated=truedata/*.js linguist-vendored=true
+package-lock.json linguist-generated=true
+data/*.js linguist-vendored=true
