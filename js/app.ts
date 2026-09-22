@@ -354,7 +354,7 @@ interface AppElements {
       link.addEventListener("click", function (e) {
         var targetId = link.getAttribute("href");
         if (!targetId || targetId === "#") return;
-        var target = document.querySelector(targetId);
+        var target = document.getElementById(targetId.substring(1));
         if (!target) return;
         e.preventDefault();
         var headerHeight = elements.header ? elements.header.offsetHeight : 0;
@@ -388,7 +388,7 @@ interface AppElements {
       opt.setAttribute("aria-selected", "false");
       opt.id = "year-opt-" + year;
       opt.textContent = String(year);
-      dropdown.appendChild(opt);
+      if (dropdown) dropdown.appendChild(opt);
     });
   }
 
@@ -423,20 +423,28 @@ interface AppElements {
     }
   }
 
+  var syncUrlTimeout: ReturnType<typeof setTimeout> | null = null;
   function syncUrl() {
-    var params = new URLSearchParams();
-    if (state.searchQuery) params.set("q", state.searchQuery);
-    if (state.formulaFilter !== "all") params.set("formula", state.formulaFilter);
-    if (state.levelFilter !== "all") params.set("level", state.levelFilter);
-    if (state.yearFilter !== "all") params.set("year", state.yearFilter);
+    if (syncUrlTimeout) clearTimeout(syncUrlTimeout);
+    syncUrlTimeout = setTimeout(function () {
+      var params = new URLSearchParams();
+      if (state.searchQuery) params.set("q", state.searchQuery);
+      if (state.formulaFilter !== "all") params.set("formula", state.formulaFilter);
+      if (state.levelFilter !== "all") params.set("level", state.levelFilter);
+      if (state.yearFilter !== "all") params.set("year", state.yearFilter);
 
-    var qs = params.toString();
-    var hash = window.location.hash || "";
-    var next = window.location.pathname + (qs ? "?" + qs : "") + hash;
-    var current = window.location.pathname + window.location.search + window.location.hash;
-    if (next !== current) {
-      history.replaceState(null, "", next);
-    }
+      var qs = params.toString();
+      var hash = window.location.hash || "";
+      var next = window.location.pathname + (qs ? "?" + qs : "") + hash;
+      var current = window.location.pathname + window.location.search + window.location.hash;
+      if (next !== current) {
+        try {
+          history.replaceState(null, "", next);
+        } catch (e) {
+          console.warn("Failed to update URL state", e);
+        }
+      }
+    }, 300);
   }
 
   function setCurrentYear() {
@@ -477,7 +485,11 @@ interface AppElements {
           var formula = getFormulaLabel(exam).toLowerCase();
           var type = getTypeLabel(exam).toLowerCase();
           var combined = title + " " + formula + " " + type + " " + exam.year;
-          if (combined.indexOf(query) === -1) return false;
+          
+          var tokens = query.split(/\s+/);
+          for (var i = 0; i < tokens.length; i++) {
+            if (combined.indexOf(tokens[i]) === -1) return false;
+          }
         }
       }
 
@@ -530,6 +542,15 @@ interface AppElements {
     updateBackToTop();
   }
 
+  function escHtml(str: string): string {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function buildCard(exam: Exam): HTMLElement {
     var card = document.createElement("article");
     card.className = "exam-card";
@@ -557,10 +578,10 @@ interface AppElements {
     var headerHTML =
       '<div class="card-info">' +
         '<div class="card-meta">' +
-          '<span class="pill-badge ' + typeClass + '">' + typeLabel + '</span>' +
-          '<span class="pill-badge ' + formulaClass + '">' + formulaLabel + '</span>' +
+          '<span class="pill-badge ' + escHtml(typeClass) + '">' + escHtml(typeLabel) + '</span>' +
+          '<span class="pill-badge ' + escHtml(formulaClass) + '">' + escHtml(formulaLabel) + '</span>' +
         '</div>' +
-        '<h3 class="card-title"><a href="/arkusze/' + exam.id + '/" class="card-title-link" title="Przejdź do strony arkusza ' + displayTitle + '">' + displayTitle + '</a></h3>' +
+        '<h3 class="card-title"><a href="/arkusze/' + escHtml(exam.id) + '/" class="card-title-link" title="Przejdź do strony arkusza ' + escHtml(displayTitle) + '">' + escHtml(displayTitle) + '</a></h3>' +
       '</div>';
 
     var linksHTML = '<div class="card-links">';
@@ -568,21 +589,21 @@ interface AppElements {
     getArkuszLinks(exam).forEach(function (link) {
       var pdfTitle = link.label === "Arkusz" ? "Arkusz PDF" : link.label;
       linksHTML +=
-        '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
-          '<span>' + pdfTitle + '</span>' + arrowUpSVG +
+        '<a href="' + escHtml(link.url) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
+          '<span>' + escHtml(pdfTitle) + '</span>' + arrowUpSVG +
         '</a>';
     });
 
     if (exam.hasData) {
       linksHTML +=
-        '<a href="' + getDaneLink(exam) + '" download class="card-link">' +
+        '<a href="' + escHtml(getDaneLink(exam)) + '" download class="card-link">' +
           '<span>Dane ZIP</span>' + arrowDownSVG +
         '</a>';
     }
 
     if (exam.hasZasady) {
       linksHTML +=
-        '<a href="' + getZasadyLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
+        '<a href="' + escHtml(getZasadyLink(exam)) + '" target="_blank" rel="noopener noreferrer" class="card-link">' +
           '<span>Zasady oceniania</span>' + arrowUpSVG +
         '</a>';
     }
@@ -590,11 +611,11 @@ interface AppElements {
     if (exam.hasSolution) {
       linksHTML +=
         '<div class="card-link-split">' +
-          '<a href="' + getSolutionLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__main">' +
+          '<a href="' + escHtml(getSolutionLink(exam)) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__main">' +
             '<span>Rozwiązanie Python</span>' + arrowUpSVG +
           '</a>' +
           '<div class="card-link-split__divider" aria-hidden="true"></div>' +
-          '<a href="' + getSolutionZipLink(exam) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__zip" title="Pobierz rozwiązanie jako ZIP">' +
+          '<a href="' + escHtml(getSolutionZipLink(exam)) + '" target="_blank" rel="noopener noreferrer" class="card-link-split__zip" title="Pobierz rozwiązanie jako ZIP">' +
             '<span>ZIP</span>' + arrowDownSVG +
           '</a>' +
         '</div>';
@@ -615,7 +636,7 @@ interface AppElements {
       window.scrollTo({ top: top, behavior: "smooth" });
       el.classList.add("is-highlighted");
       window.setTimeout(function () {
-        el.classList.remove("is-highlighted");
+        if (el) el.classList.remove("is-highlighted");
       }, 2200);
     });
   }
@@ -701,8 +722,13 @@ interface AppElements {
 
     setView(currentView === "list" ? "list" : "grid");
 
-    elements.viewSwitcher.addEventListener("click", function () {
-      setView(currentView === "grid" ? "list" : "grid");
+    elements.viewSwitcher.addEventListener("click", function (e) {
+      var target = e.target as Element;
+      var btn = target.closest("[data-view]");
+      if (btn) {
+        var view = btn.getAttribute("data-view");
+        if (view === "grid" || view === "list") setView(view);
+      }
     });
   }
 

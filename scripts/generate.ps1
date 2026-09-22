@@ -71,6 +71,7 @@ $today = (Get-Date).ToString("yyyy-MM-dd")
 
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>1.0</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/arkusze/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>0.95</priority>`n  </url>")
+$sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/algorytmy/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>daily</changefreq>`n    <priority>0.95</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/pytania-teoretyczne/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>weekly</changefreq>`n    <priority>0.9</priority>`n  </url>")
 $sitemapUrls.Add("  <url>`n    <loc>https://infmatura.dev/polityka-prywatnosci/</loc>`n    <lastmod>$today</lastmod>`n    <changefreq>monthly</changefreq>`n    <priority>0.3</priority>`n  </url>")
 
@@ -360,7 +361,7 @@ for ($i = 0; $i -lt $exams.Count; $i++) {
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="/css/fonts.css?v=1.3">
-  <link rel="stylesheet" href="/css/style.css?v=2.9">
+  <link rel="stylesheet" href="/css/style.css?v=3.1">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <script type="application/ld+json">
@@ -457,10 +458,10 @@ $codeViewerHTML
     ↑ Na górę
   </button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js" integrity="sha384-/MKWdycCDliku23mP5sYXbZNuXrzgmQO/jsVxwPFn99dVOaXRyKsqDjarqpueGAp" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha512-AKaNmg8COK0zEbjTdMHJAPJ0z6VeNqvRvH4/d5M4sHJbQQUToMBtodq4HaV4fa+WV2UTfoperElm66c9/8cKmQ==" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js" integrity="sha512-sijCOJblSCXYYmXdwvqV0tak8QJW5iy2yLB1wAbbLc3OOIueqymizRFWUS/mwKctnzPKpNdPJV3aK1zlDMJmXQ==" crossorigin="anonymous" defer></script>
   <script src="/js/exam.js?v=1.4" defer></script>
 </body>
 </html>

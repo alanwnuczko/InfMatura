@@ -446,8 +446,8 @@ declare const marked: any;
             t.classList.toggle("is-active", active);
             t.setAttribute("aria-selected", active ? "true" : "false");
           });
-          iframe.src = pdfFrameSrc(url);
-          iframe.title = tab.textContent || "Arkusz";
+          iframe!.src = pdfFrameSrc(url);
+          iframe!.title = tab.textContent || "Arkusz";
           if (fallbackLink) fallbackLink.href = url;
         });
       });
@@ -474,22 +474,22 @@ declare const marked: any;
     handle.addEventListener("pointerdown", function (e: PointerEvent) {
       dragging = true;
       startY = e.clientY;
-      startH = wrap.getBoundingClientRect().height;
+      startH = wrap!.getBoundingClientRect().height;
       section.classList.add("is-resizing");
       section.classList.remove("is-expanded");
-      wrap.style.height = startH + "px";
+      wrap!.style.height = startH + "px";
       if (expandBtn) {
         expandBtn.setAttribute("aria-expanded", "false");
         var expandLabel = expandBtn.querySelector("span") || expandBtn;
         expandLabel.textContent = "Rozwiń";
       }
-      if (handle.setPointerCapture) handle.setPointerCapture(e.pointerId);
+      if (typeof handle!.setPointerCapture === 'function') handle!.setPointerCapture(e.pointerId);
       e.preventDefault();
     });
 
     handle.addEventListener("pointermove", function (e: PointerEvent) {
       if (!dragging) return;
-      wrap.style.height = clampHeight(startH + (e.clientY - startY)) + "px";
+      wrap!.style.height = clampHeight(startH + (e.clientY - startY)) + "px";
     });
 
     function stopDrag() {
@@ -502,19 +502,19 @@ declare const marked: any;
 
     handle.addEventListener("keydown", function (e: KeyboardEvent) {
       var step = e.shiftKey ? 48 : 24;
-      var h = wrap.getBoundingClientRect().height;
+      var h = wrap!.getBoundingClientRect().height;
       if (e.key === "ArrowUp") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap.style.height = clampHeight(h + step) + "px";
+        wrap!.style.height = clampHeight(h - step) + "px";
       } else if (e.key === "ArrowDown") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap.style.height = clampHeight(h - step) + "px";
+        wrap!.style.height = clampHeight(h + step) + "px";
       } else if (e.key === "Home") {
         e.preventDefault();
         setPdfExpanded(section, false);
-        wrap.style.height = "";
+        wrap!.style.height = "";
       } else if (e.key === "End") {
         e.preventDefault();
         setPdfExpanded(section, true);
