@@ -17,7 +17,13 @@ Wyszukiwarka arkuszy maturalnych z informatyki rozszerzonej z podgladem rozwiąz
 
 ## Zrzuty ekranu
 
-<img src="https://raw.githubusercontent.com/alanwnuczko/matura-informatyka-rozszerzona/de4fd08559f82002c7e4dfd73f07edc1a11f71d6/.github/images/screenshot-1.jpg" alt="Strona główna z bazą arkuszy" width="49%"> <img src="https://raw.githubusercontent.com/alanwnuczko/matura-informatyka-rozszerzona/de4fd08559f82002c7e4dfd73f07edc1a11f71d6/.github/images/screenshot-2.jpg" alt="Podstrona arkusza z podglądem kodu" width="49%">
+<div align="center">
+  <img src=".github/images/1.png" width="49%">
+  <img src=".github/images/2.png" width="49%">
+  <br>
+  <img src=".github/images/3.png" width="49%">
+  <img src=".github/images/4.png" width="49%">
+</div>
 
 ## Technologie
 
