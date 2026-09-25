@@ -92,6 +92,19 @@ var EXAMS_LIST = [
     "hasZasady": true
   },
   {
+    "id": "2023-06_PR_F2023",
+    "year": 2023,
+    "month": "06",
+    "type": "PR",
+    "formula": "F2023",
+    "parts": [
+      "Arkusz"
+    ],
+    "hasData": true,
+    "hasSolution": false,
+    "hasZasady": true
+  },
+  {
     "id": "2023-05_PR_F2023",
     "year": 2023,
     "month": "05",
