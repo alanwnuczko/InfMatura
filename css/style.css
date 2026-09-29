@@ -167,6 +167,15 @@ button, input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .brand {
@@ -1273,6 +1282,50 @@ button, input {
   padding: 0.1em 0.4em;
 }
 
+.note-page .legal-content h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin: 28px 0 12px;
+}
+
+.note-code {
+  margin: 0 0 20px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: rgba(14, 14, 18, 0.78);
+  border: 1px solid var(--border-line);
+  border-radius: 12px;
+  white-space: pre;
+}
+
+.note-code code {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  white-space: pre;
+}
+
+.note-callout {
+  margin: 8px 0 28px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0 10px 10px 0;
+}
+
+.note-callout p {
+  margin-bottom: 0;
+}
+
 /* Card title link on main page */
 .card-title-link {
   color: var(--text-primary);
@@ -2052,6 +2105,15 @@ button, input {
 }
 
 @media (max-width: 640px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .header-link {
+    padding: 6px 6px;
+    font-size: 0.8125rem;
+  }
+
   .exam-grid:not(.view-list) {
     grid-template-columns: 1fr;
   }
@@ -2198,4 +2260,8 @@ button, input {
     transition: none;
   }
 }
+
+
+
+
 
