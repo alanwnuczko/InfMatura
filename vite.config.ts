@@ -44,7 +44,8 @@ const STATIC_COPY_ITEMS = [
   "algorytmy",
   "arkusze",
   "polityka-prywatnosci",
-  "pytania-teoretyczne"
+  "pytania-teoretyczne",
+  "systemy-liczbowe"
 ];
 
 const NOOP_ENTRY_ID = "virtual:infmatura-noop-entry";
