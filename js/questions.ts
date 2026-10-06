@@ -128,7 +128,7 @@
 
     if (elements.categoryFilters) {
       var chips = elements.categoryFilters.querySelectorAll(".category-chip");
-      chips.forEach(function (chip) {
+      chips.forEach(function (chip: Element) {
         var isActive = chip.getAttribute("data-category") === activeCategory;
         chip.classList.toggle("is-active", isActive);
         chip.setAttribute("aria-pressed", isActive ? "true" : "false");
@@ -300,7 +300,7 @@
 
     input.addEventListener("focus", function () {
       var opts = elements.drawCountSeg.querySelectorAll(".draw-count-opt");
-      opts.forEach(function (opt) {
+      opts.forEach(function (opt: Element) {
         opt.classList.remove("is-active");
         opt.setAttribute("aria-checked", "false");
       });
@@ -345,7 +345,7 @@
     if (elements.drawCountSeg) {
       var opts = elements.drawCountSeg.querySelectorAll(".draw-count-opt");
       var isPreset = DRAW_COUNTS.includes(count);
-      opts.forEach(function (opt) {
+      opts.forEach(function (opt: Element) {
         var isActive = isPreset && Number(opt.getAttribute("data-count")) === selectedCount;
         opt.classList.toggle("is-active", isActive);
         opt.setAttribute("aria-checked", isActive ? "true" : "false");
@@ -709,7 +709,7 @@
       el.remove();
     });
 
-    card.querySelectorAll("[data-user-value]").forEach(function (input: HTMLInputElement) {
+    card.querySelectorAll<HTMLInputElement>("[data-user-value]").forEach(function (input) {
       input.value = input.getAttribute("data-user-value") || "";
       input.removeAttribute("data-user-value");
       input.removeAttribute("readonly");
@@ -806,7 +806,7 @@
   }
 
   function checkFillQuestion(card: Element, question: Question): CheckResult {
-    var inputs = card.querySelectorAll(
+    var inputs = card.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
       ".math-input, input.answer-input[type='text'], select.answer-select"
     );
     var expected = question.answers || [];
@@ -815,7 +815,7 @@
     var allAnswered = true;
     var revealedAnswers: string[] = [];
 
-    inputs.forEach(function (input: HTMLInputElement | HTMLSelectElement) {
+    inputs.forEach(function (input) {
       var idxAttr = input.getAttribute("data-answer-index");
       var idx = idxAttr ? parseInt(idxAttr, 10) : 0;
       var user = normalizeFillAnswer(input.value);
@@ -991,7 +991,7 @@
     var correctParts = 0;
     var fullyCorrectQuestions = 0;
 
-    cards.forEach(function (card, index) {
+    cards.forEach(function (card: Element, index: number) {
       var question = currentPicked[index];
       if (!question) return;
 

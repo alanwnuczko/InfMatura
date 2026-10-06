@@ -252,7 +252,6 @@ interface AppElements {
   function selectOption(selectEl: Element, optionEl: Element) {
     var valueDisplay = selectEl.querySelector(".custom-select-value");
     var allOptions = selectEl.querySelectorAll(".custom-select-option");
-    var trigger = selectEl.querySelector(".custom-select-trigger");
 
     allOptions.forEach(function (o) {
       o.classList.remove("selected");
