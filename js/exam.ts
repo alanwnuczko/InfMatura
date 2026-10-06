@@ -212,23 +212,23 @@ declare const marked: any;
 
 
   function initCodeTabs() {
-    document.querySelectorAll(".code-tab").forEach(function (tab, index, tabsNodeList) {
-      var tabs = Array.from(tab.closest(".code-tabs")?.querySelectorAll(".code-tab") || []) as HTMLElement[];
+    document.querySelectorAll<HTMLElement>(".code-tab").forEach(function (tab) {
+      var tabs = Array.from(tab.closest(".code-tabs")?.querySelectorAll<HTMLElement>(".code-tab") || []);
       
       tab.addEventListener("click", function () {
         var viewer = tab.closest(".code-viewer");
         if (!viewer) return;
-        viewer.querySelectorAll(".code-tab").forEach(function (t) {
+        viewer.querySelectorAll<HTMLElement>(".code-tab").forEach(function (t) {
           t.classList.remove("is-active");
           t.setAttribute("aria-selected", "false");
-          (t as HTMLElement).tabIndex = -1;
+          t.tabIndex = -1;
         });
         viewer.querySelectorAll(".code-panel").forEach(function (p) {
           p.classList.remove("is-active");
         });
         tab.classList.add("is-active");
         tab.setAttribute("aria-selected", "true");
-        (tab as HTMLElement).tabIndex = 0;
+        tab.tabIndex = 0;
         var targetId = tab.getAttribute("aria-controls");
         var targetPanel = targetId ? document.getElementById(targetId) : null;
         if (targetPanel) {
@@ -237,7 +237,7 @@ declare const marked: any;
         }
       });
 
-      tab.addEventListener("keydown", function (e: KeyboardEvent) {
+      tab.addEventListener("keydown", function (e) {
         if (!tabs.length) return;
         var idx = tabs.indexOf(tab as HTMLElement);
         var newIdx = idx;

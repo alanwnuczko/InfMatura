@@ -230,13 +230,13 @@ export function runTaskTests(task: AlgoTask) {
     var requestId = ++state.runRequestId;
     loadPyodide().then(function (worker) {
       return new Promise<any[]>(function (resolve, reject) {
-        var timeoutId;
+        var timeoutId: ReturnType<typeof setTimeout> | undefined;
         function cleanup() {
-          clearTimeout(timeoutId);
+          if (timeoutId) clearTimeout(timeoutId);
           worker.removeEventListener('message', onMessage);
           worker.removeEventListener('error', onError);
         }
-        function onMessage(event) {
+        function onMessage(event: MessageEvent) {
           var data = event.data || {};
           if (data.requestId !== requestId) return;
           cleanup();
@@ -246,7 +246,7 @@ export function runTaskTests(task: AlgoTask) {
             reject(new Error(data.message || 'Nie udało się wykonać testów.'));
           }
         }
-        function onError(err) {
+        function onError(err: unknown) {
           cleanup();
           terminatePyodideWorker('error');
           reject(err instanceof Error ? err : new Error('Nie udało się wykonać testów.'));

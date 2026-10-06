@@ -218,7 +218,7 @@ export function bindListEvents(tasks: AlgoTask[], cat: AlgoCategory | null) {
           container.innerHTML = renderTaskRows(tasks, filter);
         }
       });
-      
+
       btn.addEventListener("keydown", function (e: any) {
         var eKey = e.key;
         if (eKey === "ArrowRight" || eKey === "ArrowDown" || eKey === "ArrowLeft" || eKey === "ArrowUp") {
@@ -499,7 +499,7 @@ export function bindTaskEvents(task: AlgoTask) {
         }
 
         // 4. Parowanie nawiasow: () [] {}
-        var PAIRS = { '(': ')', '[': ']', '{': '}' };
+        var PAIRS: Record<string, string> = { '(': ')', '[': ']', '{': '}' };
         if (PAIRS[e.key]) {
           var open = e.key;
           var close = PAIRS[open];
@@ -546,18 +546,18 @@ export function bindTaskEvents(task: AlgoTask) {
       editor.addEventListener('click', updateCompanionGaze);
       editor.addEventListener('keyup', updateCompanionGaze);
       editor.addEventListener('select', updateCompanionGaze);
-      
+
       // Fix memory leak: store resize handler and attach once per task
       var resizeHandler = function() { updateCompanionGaze(); };
       window.addEventListener('resize', resizeHandler);
-      
+
       // Optional cleanup on task leave, since this is bound to current view
       var unbindResize = function() {
         window.removeEventListener('resize', resizeHandler);
       };
-      
+
       var oldHashChange = window.onhashchange;
-      window.onhashchange = function(e) {
+      window.onhashchange = function() {
         unbindResize();
         if (oldHashChange && typeof oldHashChange === 'function') {
            return (oldHashChange as any).apply(this, arguments);
@@ -622,7 +622,7 @@ export function breadcrumbs(items: { label: string; href: string | null }[]): st
     return html;
   }
 
-export function difficultyBadge(diff: string): string {
+export function difficultyBadge(diff: AlgoTask["difficulty"]): string {
     var label = DIFFICULTY_LABELS[diff] || diff;
     return '<span class="pill-badge pill-badge--' + escAttr(diff) + '">' + escHtml(label) + '</span>';
   }
